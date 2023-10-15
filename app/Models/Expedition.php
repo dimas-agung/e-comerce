@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Expedition extends Model
 {
     use HasFactory;
+    protected $table = 'expeditions';
     // protected $table = 'product_categories';
     protected $fillable = [
         'name',

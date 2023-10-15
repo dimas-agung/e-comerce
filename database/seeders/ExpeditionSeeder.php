@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expedition;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,5 +14,15 @@ class ExpeditionSeeder extends Seeder
     public function run(): void
     {
         //
+        $data = [
+            [
+                'name' => 'JNT',
+            ],
+            [
+                'name' => 'JNE',
+            ],
+        ];
+
+       Expedition::insert($data);
     }
 }

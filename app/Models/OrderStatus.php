@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class OrderStatus extends Model
 {
     use HasFactory;
-    // protected $table = 'product_categories';
+    protected $table = 'order_status';
     protected $fillable = [
         'name',
     ];

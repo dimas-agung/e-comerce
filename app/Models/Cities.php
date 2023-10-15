@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Cities extends Model
 {
     use HasFactory;
     // protected $table = 'product_categories';
-    protected $fillable = [
-        'name',
-    ];
+    protected $guard = [];
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'cities_id', 'id');
+    }
+    
 }

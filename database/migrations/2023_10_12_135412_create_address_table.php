@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('phone_number');
             $table->unsignedBigInteger('provinces_id');
             $table->unsignedBigInteger('districts_id');
+            $table->unsignedBigInteger('cities_id');
             $table->unsignedBigInteger('villages_id');
             $table->string('postal_code');
             $table->text('address');
-            $table->string('label');
-            $table->integer('is_active'); 
+            $table->string('label')->nullable();
+            $table->integer('is_active')->default(1); 
             $table->timestamps();
         });
     }
