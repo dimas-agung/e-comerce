@@ -17,7 +17,7 @@ class ProductCategoryController extends Controller
     {
         //
         $productCategory = ProductCategory::latest()->paginate(10);
-
+        // return $productCategory;
         // return response()->view('admin.productCategory.index', [
         //     'productCategory' => $productCategory
         // ]);

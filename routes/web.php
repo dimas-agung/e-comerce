@@ -46,4 +46,6 @@ Route::controller(App\Http\Controllers\AddressController::class)->group(function
     Route::get('/address/{address}/edit', 'edit')->name('address.edit');
     Route::put('/address/{address}', 'update')->name('address.update');
     Route::delete('/address/{address}', 'destroy')->name('address.destroy');
+    Route::post('/address/{address}/activated', 'activated')->name('address.activated');
+    Route::post('/address/{address}/nonactive', 'nonactive')->name('address.nonactive');
 });

@@ -53,7 +53,7 @@ class ExpeditionControllerTest extends TestCase
     //         ->assertSeeText('Expedition Edit');
     //     // ->assertSeeText($Expedition[0]->name);
     // }
-    public function testStoreProduct()
+    public function testStoreExpedition()
     {
         $user = User::find(1);
         $this->actingAs($user)->post('/expedition', [
@@ -61,7 +61,7 @@ class ExpeditionControllerTest extends TestCase
         ])->assertRedirect("/expedition")
             ->assertSessionHas("success", "Data Expedition has been created!");
     }
-    public function testUpdateProduct()
+    public function testUpdateExpedition()
     {
         $user = User::find(1);
         $Expedition = Expedition::factory()->create();
@@ -75,7 +75,7 @@ class ExpeditionControllerTest extends TestCase
         )->assertRedirect("/expedition")
             ->assertSessionHas("success", "Data Expedition has been updated!");
     }
-    public function testDeleteProduct()
+    public function testDeleteExpedition()
     {
         $user = User::find(1);
         $Expedition = Expedition::factory()->create();
