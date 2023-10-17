@@ -29,6 +29,15 @@ Route::controller(App\Http\Controllers\ProductCategoryController::class)->group(
     Route::put('/product_category/{product_category}', 'update')->name('product_category.update');
     Route::delete('/product_category/{product_category}', 'destroy')->name('product_category.destroy');
 });
+Route::controller(App\Http\Controllers\ProductController::class)->group(function () {
+    Route::get('/product', 'index')->name('product.index');
+    Route::get('/product/create', 'create')->name('product.create');
+    Route::post('/product', 'store')->name('product.store');
+    Route::get('/product/{product}', 'show')->name('product.show');
+    Route::get('/product/{product}/edit', 'edit')->name('product.edit');
+    Route::put('/product/{product}', 'update')->name('product.update');
+    Route::delete('/product/{product}', 'destroy')->name('product.destroy');
+});
 Route::controller(App\Http\Controllers\ExpeditionController::class)->group(function () {
     Route::get('/expedition', 'index')->name('expedition.index');
     Route::get('/expedition/create', 'create')->name('expedition.create');

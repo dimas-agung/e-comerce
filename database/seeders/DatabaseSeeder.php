@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    protected $toTruncate = ['users','roles','product_categories','expeditions','order_status','provinces','cities','districts','villages','address'];
+    protected $toTruncate = ['users','roles','product_categories','expeditions','order_status','provinces','cities','districts','villages','address','products'];
         public function run(): void
         {
             // \App\Models\User::factory(10)->create();
@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
             $this->call(DistrictsSeeder::class);
             $this->call(VillagesSeeder::class);
             $this->call(AdressSeeder::class);
+            $this->call(ProductSeeder::class);
     
     
     

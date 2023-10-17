@@ -14,18 +14,20 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_categories_id');
+            $table->string('product_code');
             $table->string('order_type');
             $table->string('name');
             $table->integer('length');
-            $table->integer('with');
+            $table->integer('width');
             $table->integer('height');
             $table->integer('weight');
-            $table->string('picture_default');
-            $table->string('picture_1');
-            $table->string('picture_2');
-            $table->string('picture_3');
-            $table->string('picture_4');
-            $table->integer('is_active');
+            $table->string('picture_default')->nullable();
+            $table->string('picture_1')->nullable();
+            $table->string('picture_2')->nullable();
+            $table->string('picture_3')->nullable();
+            $table->string('picture_4')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }
