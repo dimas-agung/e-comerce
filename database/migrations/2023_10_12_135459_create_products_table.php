@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('picture_2')->nullable();
             $table->string('picture_3')->nullable();
             $table->string('picture_4')->nullable();
+            $table->string('picture_5')->nullable();
+            $table->string('picture_6')->nullable();
             $table->text('description')->nullable();
             $table->integer('is_active')->default(1);
             $table->timestamps();

@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('varian_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('varians_id');
+            $table->string('varians_name');
             $table->string('name');
-            $table->integer('stock');
-            $table->string('picture');
             $table->timestamps();
         });
     }

@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductVarian;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     //
+    private ProductService $productService;
+    public function __construct() {
+        $this->productService =  new ProductService();
+    }
     public function index()
     {
         //
@@ -39,52 +45,41 @@ class ProductController extends Controller
             'height' => ['required'],
             'weight' => ['required'],
             'order_type' => ['sometimes', 'nullable'],
-            'description' => ['sometimes', 'nullable'],
-            // 'img_ktp' => ['required'],
-            // 'img_c1' => ['required'],
+            'description'  => ['sometimes', 'nullable'],
+            'varian_name.*'  => ['required','min:1'],
+            'varian_detail_1_name.*'  => ['required','min:1'],
+            'varian_detail_2_name.*'  => ['sometimes', 'nullable'],
+            'picture_default'  => ['required'],
         ]);
-        $product = Product::create($validated);
-        //    return $request->file('img_ktp');
-        $path = 'products';
-        $url_pic_default = null;
-        $url_pic_1 = null;
-        $url_pic_2 = null;
-        $url_pic_3 = null;
-        $url_pic_4 = null;
-        $picture_default = $request->file('picture_default');
-        $picture_default->storePubliclyAs($path, $request->product_code . '_default.png', "public");
-        $url_pic_default = $path.'/'. $request->product_code . '_default.png';
-       if ($request->file('picture_1')) {
-            # code...
-            $picture_1 = $request->file('picture_1');
-            $url_pic_1 = $path.'/'. $request->product_code . '_1.png';
-            $picture_default->storePubliclyAs($path, $request->product_code . '_1.png', "public");
+        $dataProduct = [
+            'product_categories_id' => $request->input('product_categories_id'),
+            'product_code' => $request->input('product_code'),
+            'name' => $request->input('name'),
+            'length' => $request->input('length'),
+            'width' => $request->input('width'),
+            'height' => $request->input('height'),
+            'weight' => $request->input('weight'),
+            'order_type' => $request->input('weight'),
+            'description' => $request->input('description'),
+            'picture_default' => $request->input('picture_default'),
+            'pictures' => $request->input('pictures'),
+        ];
+        $varians = [];
+        foreach($request->input('varian_name') as $key=>$value){
+            $varians[]['name'] = $value;
         }
-       if ($request->file('picture_2')) {
-            # code...
-            $picture_2 = $request->file('picture_2');
-            $url_pic_2 = $path.'/'. $request->product_code . '_2.png';
-            $picture_default->storePubliclyAs($path, $request->product_code . '_2.png', "public");
+        $varian_details =[];
+        foreach($request->input('varian_detail_1_name') as $key=>$value){
+            $varian_details[0][] = $value;
         }
-       if ($request->file('picture_3')) {
-            # code...
-            $picture_3 = $request->file('picture_3');
-            $url_pic_3 = $path.'/'. $request->product_code . '_3.png';
-            $picture_default->storePubliclyAs($path, $request->product_code . '_3.png', "public");
+        if(count($varians) >1){
+            if (!empty($request->input('varian_detail_2_name'))) {
+                foreach($request->input('varian_detail_2_name') as $key=>$value){
+                    $varian_details[1][] = $value;
+                }
+            }
         }
-       if ($request->file('picture_4')) {
-            # code...
-            $picture_4 = $request->file('picture_4');
-            $url_pic_4 = $path.'/'. $request->product_code . '_4.png';
-            $picture_default->storePubliclyAs($path, $request->product_code . '_4.png', "public");
-        }
-        $product->update([
-            'picture_default' => $url_pic_default, 
-            'picture_1' => $url_pic_1,
-            'picture_2' => $url_pic_2,
-            'picture_3' => $url_pic_3,
-            'picture_4' => $url_pic_4,
-        ]);
+        $this->productService->create($dataProduct,$varians,$varian_details);
         
         // return response()
         //     ->json($anggota);
