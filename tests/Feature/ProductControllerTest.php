@@ -54,47 +54,73 @@ class ProductControllerTest extends TestCase
     //         ->assertSeeText('Product Edit');
     //     // ->assertSeeText($product[0]->name);
     // }
-    public function testStoreProduct()
+    // public function testStoreProduct()
+    // {
+    //     $user = User::find(1);
+    //     $varian_names = ['Ukuran','Warna'];
+    //     $varian_detail_1_names = ['S','M','L'];
+    //     $varian_detail_2_names = ['Merah','Biru'];
+        
+    //     $this->actingAs($user)->post('/product', [
+    //         'product_categories_id' => 1,
+    //         'product_code' => 'spt121123112312312123123223',
+    //         'name' => 'Sepatu Adidas',
+    //         'length' => 1,
+    //         'width' => 1,
+    //         'height' => 1,
+    //         'weight' => 1,
+    //         'description' => 'Sepatu Elite no 12',
+    //         'order_type' => 'PRE ORDER',
+    //         'is_active' => 1,
+    //         'picture_default' => UploadedFile::fake()->create('file.jpg'),
+    //         'picture_1' => UploadedFile::fake()->create('file.jpg'),
+    //         'picture_2' => UploadedFile::fake()->create('file.jpg'),
+    //         'picture_3' => UploadedFile::fake()->create('file.jpg'),
+    //         'picture_4' => UploadedFile::fake()->create('file.jpg'),
+    //         'picture_5' => UploadedFile::fake()->create('file.jpg'),
+    //         // 'pictures' => $pictures,
+    //         'varian_name' => $varian_names,
+    //         'varian_detail_1_name' => $varian_detail_1_names,
+    //         'varian_detail_2_name' => $varian_detail_2_names,
+    //     ])->assertRedirect("/product")
+    //         ->assertSessionHas("success", "Data Product has been created!");
+    // }
+    public function testUpdateProduct()
     {
         $user = User::find(1);
+        $product = Product::with(['category','varians.detail'])->latest()->first();
         $pictures = [UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg')];
         $varian_names = ['Ukuran'];
         $varian_detail_1_names = ['S','M','L'];
         $varian_detail_2_names = ['Merah','Biru'];
-        
-        $this->actingAs($user)->post('/product', [
-            'product_categories_id' => 1,
-            'product_code' => 'spt123',
-            'name' => 'Sepatu Adidas',
-            'length' => 1,
-            'width' => 1,
-            'height' => 1,
-            'weight' => 1,
-            'description' => 'Sepatu Elite no 12',
-            'order_type' => 'PRE ORDER',
-            'is_active' => 1,
-            'picture_default' => UploadedFile::fake()->create('file.jpg'),
-            'pictures' => $pictures,
-            'varian_name' => $varian_names,
-            'varian_detail_1_name' => $varian_detail_1_names,
-            'varian_detail_2_name' => $varian_detail_2_names,
-        ])->assertRedirect("/product")
-            ->assertSessionHas("success", "Data Product has been created!");
+        // masukkan session user untuk login
+        $this->actingAs($user);
+        $this->put(
+            route('product.update', $product->id),
+            [
+                "product_code" => $product->product_code    ,
+                'product_categories_id' => $product->product_categories_id,
+                'name' => 'Sepatu Adidas',
+                'length' => 1,
+                'width' => 1,
+                'height' => 1,
+                'weight' => 1,
+                'description' => 'Sepatu Elite no 12',
+                'order_type' => 'PRE ORDER',
+                'is_active' => 1,
+                'picture_default' => UploadedFile::fake()->create('file.jpg'),
+                'picture_1' => UploadedFile::fake()->create('file.jpg'),
+                'picture_2' => UploadedFile::fake()->create('file.jpg'),
+                'picture_3' => UploadedFile::fake()->create('file.jpg'),
+                'picture_4' => UploadedFile::fake()->create('file.jpg'),
+                'picture_5' => UploadedFile::fake()->create('file.jpg'),
+                'varian_name' => $varian_names,
+                'varian_detail_1_name' => $varian_detail_1_names,
+                'varian_detail_2_name' => $varian_detail_2_names,
+            ],
+        )->assertRedirect("/product")
+            ->assertSessionHas("success", "Data Product has been updated!");
     }
-    // public function testUpdateProduct()
-    // {
-    //     $user = User::find(1);
-    //     $product = Product::factory()->create();
-    //     // masukkan session user untuk login
-    //     $this->actingAs($user);
-    //     $this->put(
-    //         route('product.update', $product->id),
-    //         [
-    //             "name" => "kaos_edit",
-    //         ],
-    //     )->assertRedirect("/product")
-    //         ->assertSessionHas("success", "Data Product has been updated!");
-    // }
     // public function testDeleteProduct()
     // {
     //     $user = User::find(1);
