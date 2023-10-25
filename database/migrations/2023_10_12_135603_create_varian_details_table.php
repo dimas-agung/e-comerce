@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('varians_id');
             $table->string('varians_name');
             $table->string('name');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

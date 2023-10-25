@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('varian_detail_id_2');
             $table->integer('price');
             $table->integer('stock');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }
