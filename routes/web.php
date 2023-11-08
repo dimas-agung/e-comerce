@@ -37,6 +37,19 @@ Route::controller(App\Http\Controllers\ProductController::class)->group(function
     Route::get('/product/{product}/edit', 'edit')->name('product.edit');
     Route::put('/product/{product}', 'update')->name('product.update');
     Route::delete('/product/{product}', 'destroy')->name('product.destroy');
+    Route::post('/product/{address}/activated', 'activated')->name('product.activated');
+    Route::post('/product/{address}/nonactive', 'nonactive')->name('product.nonactive');
+});
+Route::controller(App\Http\Controllers\ProductVarianController::class)->group(function () {
+    Route::get('/product_varian', 'index')->name('product_varian.index');
+    Route::get('/product_varian/create', 'create')->name('product_varian.create');
+    Route::post('/product_varian', 'store')->name('product_varian.store');
+    Route::get('/product_varian/{product_varian}', 'show')->name('product_varian.show');
+    Route::get('/product_varian/{product_varian}/edit', 'edit')->name('product_varian.edit');
+    Route::put('/product_varian/{product_varian}', 'update')->name('product_varian.update');
+    Route::delete('/product_varian/{product_varian}', 'destroy')->name('product_varian.destroy');
+    Route::post('/product_varian/{product_varian}/activated', 'activated')->name('product_varian.activated');
+    Route::post('/product_varian/{product_varian}/nonactive', 'nonactive')->name('product_varian.nonactive');
 });
 Route::controller(App\Http\Controllers\ExpeditionController::class)->group(function () {
     Route::get('/expedition', 'index')->name('expedition.index');
@@ -57,4 +70,15 @@ Route::controller(App\Http\Controllers\AddressController::class)->group(function
     Route::delete('/address/{address}', 'destroy')->name('address.destroy');
     Route::post('/address/{address}/activated', 'activated')->name('address.activated');
     Route::post('/address/{address}/nonactive', 'nonactive')->name('address.nonactive');
+});
+Route::controller(App\Http\Controllers\OrderController::class)->group(function () {
+    Route::get('/order', 'index')->name('order.index');
+    Route::get('/order/create', 'create')->name('order.create');
+    Route::post('/order', 'store')->name('order.store');
+    Route::get('/order/{order}', 'show')->name('order.show');
+    Route::get('/order/{address}/edit', 'edit')->name('order.edit');
+    Route::put('/order/{order}', 'update')->name('order.update');
+    Route::post('/order/{order}/cancel', 'cancel')->name('order.cancel');
+    Route::post('/order/{order}/activated', 'activated')->name('order.activated');
+    Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
 });

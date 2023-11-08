@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('picture_5')->nullable();
             $table->string('picture_6')->nullable();
             $table->text('description')->nullable();
+            $table->integer('order_period')->default(0);
             $table->integer('is_active')->default(1);
             $table->timestamps();
         });

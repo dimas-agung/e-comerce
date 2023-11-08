@@ -55,6 +55,7 @@ class ProductController extends Controller
             'width' => ['required'],
             'height' => ['required'],
             'weight' => ['required'],
+            'order_period' => ['required'],
             'order_type' => ['sometimes', 'nullable'],
             'description'  => ['sometimes', 'nullable'],
             'varian_name.*'  => ['required','min:1'],
@@ -71,7 +72,8 @@ class ProductController extends Controller
             'width' => $request->input('width'),
             'height' => $request->input('height'),
             'weight' => $request->input('weight'),
-            'order_type' => $request->input('weight'),
+            'order_period' => $request->input('order_period'),
+            'order_type' => $request->input('order_type'),
             'description' => $request->input('description'),
             'picture_default' => $request->file('picture_default'),
             'picture_1' => $request->file('picture_1'),
@@ -111,6 +113,7 @@ class ProductController extends Controller
             'width' => ['required'],
             'height' => ['required'],
             'weight' => ['required'],
+            'order_period' => ['required'],
             'order_type' => ['sometimes', 'nullable'],
             'description'  => ['sometimes', 'nullable'],
             'varian_name.*'  => ['required','min:1'],
@@ -126,7 +129,8 @@ class ProductController extends Controller
             'width' => $request->input('width'),
             'height' => $request->input('height'),
             'weight' => $request->input('weight'),
-            'order_type' => $request->input('weight'),
+            'order_type' => $request->input('order_type'),
+            'order_period' => $request->input('order_period'),
             'description' => $request->input('description'),
             'picture_default' => $request->file('picture_default'),
             'picture_1' => $request->file('picture_1'),
@@ -157,6 +161,21 @@ class ProductController extends Controller
         // return response()
         //     ->json($anggota);
         return redirect('product')->with('success', 'Data Product has been created!');
+    }
+
+    public function activated(Product $product)
+    {
+        //
+        $product->activated();
+        
+        return redirect('product')->with('success', 'Data Product has been Activated!');
+    }
+    public function nonactive(Product $product)
+    {
+        //
+        $product->nonactive();
+        // return $address;
+        return redirect('product')->with('success', 'Data Product has been nonactive!');
     }
     function upploadFile($files,$path,$file_name){
         $files->storePubliclyAs($path, $file_name, "public");

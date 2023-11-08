@@ -1,5 +1,7 @@
 <?php
 namespace App\Services;
+
+use App\Models\Discount;
 use App\Models\Product;
 use App\Models\ProductVarian;
 use App\Models\Varian;
@@ -21,7 +23,8 @@ class ProductService
             'width' => $dataProduct['width'],
             'height' => $dataProduct['height'],
             'weight' => $dataProduct['weight'],
-            'order_type' => $dataProduct['weight'],
+            'order_type' => $dataProduct['order_type'],
+            'order_period' => $dataProduct['order_period'],
             'description' => $dataProduct['description'],
         ]);
         $path = 'products';
@@ -93,7 +96,8 @@ class ProductService
             'width' => $dataProduct['width'],
             'height' => $dataProduct['height'],
             'weight' => $dataProduct['weight'],
-            'order_type' => $dataProduct['weight'],
+            'order_type' => $dataProduct['order_type'],
+            'order_period' => $dataProduct['order_period'],
             'description' => $dataProduct['description'],
         ]);
         $path = 'products';
@@ -245,6 +249,14 @@ class ProductService
             $varian_detail_ids[] = $varian_detail->id; 
         }
         return $varian_detail_ids;
+    }
+    function checkProductDiscount($products_id,$qty) {
+        $date = date('Y-m-d');
+        $discount = Discount::where('products_id',$products_id)->where('qty','<=', $qty)->where('end_at','<=',$date)->first();
+        if ($discount) {
+           return $discount->persen;
+        }
+        return 0;
     }
     function upploadFile($files,$path,$file_name){
         $files->storePubliclyAs($path, $file_name, "public");

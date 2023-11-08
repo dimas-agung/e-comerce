@@ -11,11 +11,17 @@ class Product extends Model
     protected $guarded = [];
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'id', 'product_category_id');
     }
     public function varians()
     {
         return $this->hasMany(Varian::class, 'products_id', 'id');
+    }
+    function activated() {
+        $this->update(['is_active'=>1]);
+    }
+    function nonactive() {
+        $this->update(['is_active'=>0]);
     }
     
 }

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('orders_id');
             $table->unsignedBigInteger('products_id');
-            $table->unsignedBigInteger('product_varians_id');
+            // $table->unsignedBigInteger('product_varians_id');
+            $table->string('product_varian_name');
             $table->integer('qty');
             $table->integer('price');
             $table->integer('discount');

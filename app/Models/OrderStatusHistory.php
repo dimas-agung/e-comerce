@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VarianDetail extends Model
+class OrderStatusHistory extends Model
 {
     use HasFactory;
-    protected $table = 'varian_details';
+    protected $table = 'order_status_historys';
     protected $guarded = [];
 }

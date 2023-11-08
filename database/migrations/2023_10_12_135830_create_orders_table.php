@@ -14,16 +14,19 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('adress_id');
+            // $table->unsignedBigInteger('adress_id');
+            $table->string('order_no');
+            $table->text('address');
             $table->string('no_resi');
             $table->integer('price');
             $table->integer('shipping_price');
             $table->integer('price_total');
-            $table->integer('total_dp');
+            $table->integer('total_payment')->nullable();
             $table->unsignedBigInteger('order_status_id');
-            $table->string('order_type');
-            $table->text('note');
-            $table->text('reason_cancel');
+            $table->unsignedBigInteger('expedition_id');
+            $table->string('order_type')->comment('Pre Order,Order');
+            $table->text('note')->nullable();
+            $table->text('reason_cancel')->nullable();
             
             $table->timestamps();
         });

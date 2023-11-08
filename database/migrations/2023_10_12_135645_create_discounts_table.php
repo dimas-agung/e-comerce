@@ -19,7 +19,6 @@ return new class extends Migration
             $table->text('description');
             $table->date('start_at');
             $table->date('end_at');
-            
             $table->timestamps();
         });
     }

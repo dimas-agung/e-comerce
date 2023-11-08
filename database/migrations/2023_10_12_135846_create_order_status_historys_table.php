@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('order_status_historys', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('order_id');
+            $table->integer('order_status_id');
             $table->timestamps();
         });
     }
