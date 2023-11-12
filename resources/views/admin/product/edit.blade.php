@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col mt-4">
-                <h3>Tambah Produk</h3>
+                <h3>Edit Produk</h3>
             </div>
             <div class="col text-end mt-4">
                 <a href="master-produk.html" type="button" class="btn bg-success text-light"><i class="fas fa-reply me-1"></i>Kembali</a>
