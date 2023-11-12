@@ -15,7 +15,7 @@
                 <li class="breadcrumb-item"><a href="master-produk.html">Master Produk</a></li>
                 <li class="breadcrumb-item active">Edit Produk</li>
             </ol>
-        <form method="POST" action="{{ route('product.store',$product->id)}}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('product.update',$product->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')
             <div class="card mb-4">
