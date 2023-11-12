@@ -85,7 +85,7 @@
         </div>
         <!-- Modal Body-->
         <div class="modal-body">
-            <form method="POST" method="#">
+            <form method="POST" action="{{ route('user.store')}}">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="card mb-2">
@@ -100,18 +100,18 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="inputName">Nama Lengkap</label>
-                                <input type="text" id="inputName" class="form-control" placeholder="Nama Lengkap">
+                                <input type="text" id="inputName" class="form-control" placeholder="Nama Lengkap" id="fullname" name="fullname">
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputEmail">Email</label>
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="xxnx@xxx.xx">
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="xxnx@xxx.xx">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputBday">Tanggal Lahir</label>
-                                    <input type="date" id="inputBday" class="form-control">
+                                    <input type="date" id="inputBday" class="form-control" name="birth_date">
                                 </div>
                             </div>
                         </div>
@@ -119,13 +119,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputUsr">Username</label>
-                                    <input type="username" id="inputUsr" class="form-control" placeholder="Username">
+                                    <input type="username" id="inputUsr" class="form-control" placeholder="Username" name="username">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputPassword">Password</label>
-                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password">
                                 </div>
                             </div>
                         </div>
@@ -133,16 +133,16 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputphone">No. Telepon</label>
-                                    <input type="text" class="form-control" id="inputphone" placeholder="Telepon">
+                                    <input type="text" class="form-control" id="inputphone" placeholder="Telepon" name="phone_number">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputRole">Role User</label>
-                                    <select id="inputRole" class="form-select">
+                                    <select id="inputRole" name="roles_id" class="form-select">
                                         <option selected>--Pilih Role--</option>
-                                        <option>User</option>
-                                        <option>Admin</option>
+                                        <option value="2">User</option>
+                                        <option value="1">Admin</option>
                                     </select>
                               </div>
                             </div>
@@ -153,56 +153,53 @@
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
                             <label for="inputAddress">Address</label>
-                            <textarea class="form-control" id="inputAddress" rows="7" placeholder="Alamat RT/RW"></textarea>
+                            <textarea class="form-control" id="inputAddress" rows="7" placeholder="Alamat RT/RW" name="address"></textarea>
                         </div>
                     </div>                                                    
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
                             <label for="inputState">Provinsi</label>
-                            <select id="inputState" class="form-select">
+                            <select id="inputState" class="form-select" name="provinces_id">
                                 <option selected>--Pilih Provinsi--</option>
-                                <option>Jawa Timur</option>
-                                <option>Jawa Tengah</option>
-                                <option>Jawa Barat</option>
-                                <option>Kalimantan Timur</option>
+                                @foreach ($provinces as $province)
+                                    <option value="`{{$province->id}}">{{$province->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputCity">Kota / Kabupaten</label>
-                            <select id="inputCity" class="form-select">
+                            <select id="inputCity" name="cities_id" class="form-select" required>
                                 <option selected>--Pilih Kota--</option>
-                                <option>Kabupaten Kepulauan Seribu</option>
-                                <option>Kabupaten Sidoarjo</option>
-                                <option>Kepulauan Siau Tagulandang Biaro</option>
-                                <option>Kabupaten Niagara Selatan</option>
+                                @foreach ($cities as $city)
+                                    <option value="`{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
-                            <label for="inputDestrict">Kecamatan</label>
-                            <select id="inputDestrict" class="form-select">
+                            <label for="inputDestrict" name="districts_id">Kecamatan</label>
+                            <select id="inputDestrict" class="form-select" required>
                                 <option selected>--Pilih Kecamatan--</option>
-                                <option>Kecamatan Waru</option>
-                                <option>Kecamatan Krian</option>
-                                <option>Kecamatan Mojosari</option>
-                                <option>Kecamatan </option>
+                                <option value="1">Kecamatan Waru</option>
+                                <option value="2">Kecamatan Krian</option>
+                                <option value="3">Kecamatan Mojosari</option>
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <select id="inputVill" class="form-select">
+                            <select id="inputVill" name="villages_id" class="form-select" required>
                                 <option selected>--Pilih Kelurahan--</option>
-                                <option>Tropodo</option>
-                                <option>Sedati</option>
-                                <option>Damarsi</option>
-                                <option>Tunggal Pager</option>
+                                <option value="1">Tropodo</option>
+                                <option value="2">Sedati</option>
+                                <option value="3">Damarsi</option>
+                                <option value="4">Tunggal Pager</option>
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="inputPos" placeholder="65332" disabled>
+                                <input type="text" class="form-control" id="inputPos" placeholder="" required>
                             </div>
                         </div>
                     </div>                                                                                                                
@@ -216,7 +213,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 <!--End Modal add User-->
 
 <script>
