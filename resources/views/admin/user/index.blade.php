@@ -60,8 +60,10 @@
                                     <a data-bs-toggle="dropdown" href="#" class="btn">
                                     <i class="fa fa-bars" aria-hidden="true"></i></a>
                                     <div class="dropdown-menu dropdown-menu-start">
-                                        <a href="detail-user.html" class="dropdown-item">Detail</a>
-                                        <a href="#!" class="dropdown-item">Hapus</a>
+                                        <a href="{{url('user/'.$user->id.'/edit')}}" class="dropdown-item">Detail</a>
+                                        <form action="{{url('/user/'.$user->id)}}">
+                                            <button class="dropdown-item" type="submit" onclick="confirm('Apakah Anda Yakin ingin menghapus data ini?')">Hapus</button>
+                                        </form>
                                     </div>
                                 </div>                                                
                             </td>

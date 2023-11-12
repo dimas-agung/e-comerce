@@ -60,6 +60,38 @@ class UserController extends Controller
         ]);
         return redirect('user')->with('success', 'Data User has been created!');
     }
+    public function show(User $user)
+    {
+        $provinces = Provinces::orderBy('name')->get();
+        $cities = Cities::orderBy('name')->get();
+        $district = District::orderBy('name')->get();
+        // $users = User::orderBy('name')->get();
+        // return $product;
+        // return $product[0]->varians;
+        return response()->view('admin.user.edit', [
+            'user' => $user,
+            'provinces' => $provinces,
+            'cities' => $cities,
+            'district' => $district,
+        ]);
+    }
+    public function edit(User $user)
+    {
+        $provinces = Provinces::orderBy('name')->get();
+        $cities = Cities::orderBy('name')->get();
+        $district = District::orderBy('name')->get();
+        $address = Address::where('users_id',$user->id)->get();
+        // $users = User::orderBy('name')->get();
+        // return $product;
+        // return $product[0]->varians;
+        return response()->view('admin.user.edit', [
+            'user' => $user,
+            'provinces' => $provinces,
+            'cities' => $cities,
+            'district' => $district,
+            'address' => $address,
+        ]);
+    }
     public function update(Request $request, User $user)
     {
         //
@@ -68,5 +100,11 @@ class UserController extends Controller
         ]);
         $user->update($validated);
         return redirect('product_category')->with('success', 'Data Product Category has been updated!');
+    }
+    public function destroy(User $user)
+    {
+        //
+        $user->delete();
+        return redirect('user')->with('success', 'Data User has been deleted!');
     }
 }
