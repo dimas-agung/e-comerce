@@ -30,6 +30,27 @@ class ProductVarianController extends Controller
         ]);
         $product_varian->update($validated);
     }
+    function update_batch(Request $request) {
+        $validated = $request->validate([
+            'id.*' => ['required'],
+            'stock.*' => ['required'],
+            'price.*' => ['required'],
+            'is_active.*' => ['required'],
+        ]);
+        $ids = $request->input('id');
+        $stocks = $request->input('stock');
+        $price = $request->input('price');
+        $is_actives = $request->input('is_active');
+        foreach ($ids as $key => $id) {
+            $product_varian = ProductVarian::where('id',$id)->update([
+                'stock' => $stocks[$key],
+                'price' => $price[$key],
+                'is_active' => $is_actives[$key],
+            ]);
+        }
+        return redirect('product')->with('success', 'Data Varian has been updated!');
+
+    }
     public function activated(ProductVarian $product_varian)
     {
         $product_varian->activated();
@@ -39,5 +60,13 @@ class ProductVarianController extends Controller
     {
         $product_varian->nonactive();
         return $product_varian;
+    }
+    function getData(Request $request) {
+        if ($request->input('products_id')) {
+            $data = ProductVarian::with(['product','varian_detail1','varian_detail1'])->where('products_id',$request->input('products_id'))->get();
+        }else{
+
+        }
+        
     }
 }

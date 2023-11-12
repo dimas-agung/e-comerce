@@ -19,7 +19,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::controller(App\Http\Controllers\UserController::class)->group(function () {
+    Route::get('/user', 'index')->name('user.index');
+    Route::get('/user/create', 'create')->name('user.create');
+    Route::post('/user', 'store')->name('user.store');
+    Route::get('/user/{user}', 'show')->name('user.show');
+    Route::get('/user/{user}/edit', 'edit')->name('user.edit');
+    Route::put('/user/{user}', 'update')->name('user.update');
+    Route::delete('/user/{user}', 'destroy')->name('user.destroy');
+    Route::post('/user/{user}/activated', 'activated')->name('user.activated');
+    Route::post('/user/{user}/nonactive', 'nonactive')->name('user.nonactive');
+});
 Route::controller(App\Http\Controllers\ProductCategoryController::class)->group(function () {
     Route::get('/product_category', 'index')->name('product_category.index');
     Route::get('/product_category/create', 'create')->name('product_category.create');
@@ -47,9 +59,11 @@ Route::controller(App\Http\Controllers\ProductVarianController::class)->group(fu
     Route::get('/product_varian/{product_varian}', 'show')->name('product_varian.show');
     Route::get('/product_varian/{product_varian}/edit', 'edit')->name('product_varian.edit');
     Route::put('/product_varian/{product_varian}', 'update')->name('product_varian.update');
+    Route::post('/product_varian/update_batch', 'update_batch')->name('product_varian.update_batch');
     Route::delete('/product_varian/{product_varian}', 'destroy')->name('product_varian.destroy');
     Route::post('/product_varian/{product_varian}/activated', 'activated')->name('product_varian.activated');
     Route::post('/product_varian/{product_varian}/nonactive', 'nonactive')->name('product_varian.nonactive');
+    // Route::get('/product_varian/getData', 'getData')->name('product_varian.getData');
 });
 Route::controller(App\Http\Controllers\ExpeditionController::class)->group(function () {
     Route::get('/expedition', 'index')->name('expedition.index');
@@ -59,6 +73,15 @@ Route::controller(App\Http\Controllers\ExpeditionController::class)->group(funct
     Route::get('/expedition/{expedition}/edit', 'edit')->name('expedition.edit');
     Route::put('/expedition/{expedition}', 'update')->name('expedition.update');
     Route::delete('/expedition/{expedition}', 'destroy')->name('expedition.destroy');
+});
+Route::controller(App\Http\Controllers\DiscountController::class)->group(function () {
+    Route::get('/discount', 'index')->name('discount.index');
+    Route::get('/discount/create', 'create')->name('discount.create');
+    Route::post('/discount', 'store')->name('discount.store');
+    Route::get('/discount/{discount}', 'show')->name('discount.show');
+    Route::get('/discount/{discount}/edit', 'edit')->name('discount.edit');
+    Route::put('/discount/{discount}', 'update')->name('discount.update');
+    Route::delete('/discount/{discount}', 'destroy')->name('discount.destroy');
 });
 Route::controller(App\Http\Controllers\AddressController::class)->group(function () {
     Route::get('/address', 'index')->name('address.index');
