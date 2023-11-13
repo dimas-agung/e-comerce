@@ -91,8 +91,9 @@
                                             <label class="form-check-label" for="radioOrderStatus">Pre Order</label>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <select id="inputDayOrder" class="form-select">
-                                                <option value="7" selected><span class="text-secondary">7 Hari</span></option>
+                                            <select id="inputDayOrder" class="form-select" name="order_period">
+                                                <option value="0" selected><span class="text-secondary">0 Hari</span></option>
+                                                <option value="7" ><span class="text-secondary">7 Hari</span></option>
                                                 <option value="14"><span class="text-secondary">14 Hari</span></option></option>
                                                 <option value="30"><span class="text-secondary">30 Hari</span></option></option>
                                                 <option value="60"><span class="text-secondary">60 Hari</span></option></option>
