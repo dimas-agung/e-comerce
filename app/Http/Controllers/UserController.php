@@ -36,12 +36,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        // return $request->input('cities_id');
         $validated = $request->validate([
             'fullname' => ['required'],
             'username' => ['required'],
             'email' => ['required'],
             'phone_number' => ['required'],
             'roles_id' => ['required'],
+            'password' => ['required'],
             'birth_date' => ['sometimes', 'nullable'],
 
         ]);
@@ -54,6 +56,7 @@ class UserController extends Controller
             'phone_number' => $user->phone_number,
             'provinces_id' => $request->input('provinces_id'),
             'districts_id' => $request->input('districts_id'),
+            'cities_id' => $request->input('cities_id'),
             'villages_id' => $request->input('villages_id'),
             'address' => $request->input('address'),
             'postal_code' => $request->input('postal_code'),

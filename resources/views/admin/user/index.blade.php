@@ -86,8 +86,8 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
         <!-- Modal Body-->
+        <form method="POST" action="{{ route('user.store')}}">
         <div class="modal-body">
-            <form method="POST" action="{{ route('user.store')}}">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="card mb-2">
@@ -164,7 +164,7 @@
                             <select id="inputState" class="form-select" name="provinces_id">
                                 <option selected>--Pilih Provinsi--</option>
                                 @foreach ($provinces as $province)
-                                    <option value="`{{$province->id}}">{{$province->name}}</option>
+                                    <option value="{{$province->id}}">{{$province->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -173,7 +173,7 @@
                             <select id="inputCity" name="cities_id" class="form-select" required>
                                 <option selected>--Pilih Kota--</option>
                                 @foreach ($cities as $city)
-                                    <option value="`{{$city->id}}">{{$city->name}}</option>
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -206,15 +206,15 @@
                         </div>
                     </div>                                                                                                                
                 </div>                                                                                                        
-            </form>
         </div>
-        <!--Modal Footer-->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-            <button type="button" class="btn btn-danger">Simpan</button>
+            <!--Modal Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                <button type="submit"  class="btn btn-danger">Simpan</button>
+            </div>
         </div>
-      </div>
-    </div>
+        </form>
+</div>
 </div>
 <!--End Modal add User-->
 
