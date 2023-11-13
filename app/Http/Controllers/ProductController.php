@@ -87,7 +87,7 @@ class ProductController extends Controller
             'picture_4' => $request->file('picture_4'),
             'picture_5' => $request->file('picture_5'),
         ];
-        return $dataProduct;
+        // return $dataProduct;
         $varians = [];
         foreach($request->input('varian_name') as $key=>$value){
             if($value !=null){
