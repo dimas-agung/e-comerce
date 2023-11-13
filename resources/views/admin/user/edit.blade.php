@@ -17,6 +17,11 @@
         </ol>
         <div class="card mb-4">
             <div class="card-header">
+                @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
                 <div class="row">
                     <div class="col">
                         <i class="fas fa-table me-1 mt-2"></i><span>Detail User</span>                                            
@@ -67,7 +72,7 @@
                                         <div class="col">
                                             <div class="form-group mt-1">
                                                 <label for="inputBday">Tanggal Lahir</label>
-                                                <input type="date" id="inputBday" class="form-control" value="{{$user->birth_date}}" readonly>
+                                                <input type="date" name="birth_date" id="inputBday" class="form-control" value="{{$user->birth_date}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -147,8 +152,10 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
         <!-- Modal Body-->
+        <form method="POST" action="{{route('user.update',$user->id)}}">
+            {{ csrf_field() }}
+            @method('PUT')
         <div class="modal-body">
-            <form method="POST" method="#">
                 <div class="row">
                     <div class="col">
                         <div class="row">
@@ -206,13 +213,14 @@
                         </div>
                     </div>
                 </div>                                                                                                      
-            </form>
+           
         </div>
         <!--Modal Footer-->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-            <button type="button" class="btn btn-danger">Simpan</button>
+            <button type="submit" class="btn btn-danger">Simpan</button>
         </div>
+    </form>
       </div>
     </div>
   </div>
@@ -268,9 +276,9 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
         <!-- Modal Body-->
+        <form method="POST" action="{{route('address.store')}}" >
         <div class="modal-body">
-            <form method="POST" method="#">
-                <input type="hidden" id="inputRecName" class="form-control" name="users_id">
+                <input type="hidden" id="inputRecName" class="form-control" name="users_id" value="{{$user->id}}">
                 <div class="row">
                     <div class="col-lg">
                         <div class="form-group mt-1">
@@ -356,13 +364,14 @@
                         </div>
                     </div>                                                                                                                
                 </div>                                                                                                        
-            </form>
+            
         </div>
         <!--Modal Footer-->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-            <button type="button" class="btn btn-danger">Simpan</button>
+            <button type="submit" class="btn btn-danger">Simpan</button>
         </div>
+    </form>
       </div>
     </div>
 </div>

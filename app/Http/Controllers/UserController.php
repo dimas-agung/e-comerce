@@ -98,11 +98,19 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        // return $user;
         $validated = $request->validate([
-            'name' => ['required'],
+            'fullname' => ['required'],
+            'username' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'roles_id' => ['required'],
+            // 'password' => ['required'],
+            'birth_date' => ['sometimes', 'nullable']
         ]);
         $user->update($validated);
-        return redirect('product_category')->with('success', 'Data Product Category has been updated!');
+        // return $user;
+        return redirect('user/'.$user->id.'/edit')->with('success', 'Data User been updated!');
     }
     public function destroy(User $user)
     {
