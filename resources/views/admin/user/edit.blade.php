@@ -270,17 +270,18 @@
         <!-- Modal Body-->
         <div class="modal-body">
             <form method="POST" method="#">
+                <input type="hidden" id="inputRecName" class="form-control" name="users_id">
                 <div class="row">
                     <div class="col-lg">
                         <div class="form-group mt-1">
                             <label for="inputLabel">Label Alamat</label>
-                            <input type="text" id="inputLabel" class="form-control" placeholder="Rumah / Kantor / Toko">
+                            <input type="text" id="inputLabel" class="form-control" placeholder="Rumah / Kantor / Toko" name="label" required>
                         </div>
                     </div>
                     <div class="col-lg p-4">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="cekboxDefaultAdd">Gunakan Sebagai Alamat Utama</label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultAdd">
+                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultAdd" name="is_primary">
                         </div>
                     </div>      
                 </div>
@@ -288,13 +289,13 @@
                     <div class="col-lg">
                         <div class="form-group">
                             <label for="inputRecName">Nama Penerima</label>
-                            <input type="text" id="inputRecName" class="form-control" placeholder="Nama Penerima">
+                            <input type="text" id="inputRecName" class="form-control" placeholder="Nama Penerima" name="fullname">
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="form-group">
                             <label for="inputRecNoTlp">No Telepon</label>
-                            <input type="text" id="inputRecNoTlp" class="form-control" placeholder="08xxxxxxxxxx">
+                            <input type="text" id="inputRecNoTlp" class="form-control" placeholder="08xxxxxxxxxx" name="phone_number">
                         </div>
                     </div>                                                                                                             
                 </div>
@@ -302,7 +303,7 @@
                     <div class="col">
                         <div class="form-group mt-1">
                             <label for="inputAddress">Address</label>
-                            <textarea class="form-control" id="inputAddress" rows="7" placeholder="Alamat RT/RW"></textarea>
+                            <textarea class="form-control" id="inputAddress" rows="7" placeholder="Alamat RT/RW" name="address"></textarea>
                         </div>
                     </div>      
                 </div>
@@ -310,50 +311,47 @@
                     <div class="col-lg">
                         <div class="form-group mt-1">
                             <label for="inputState">Provinsi</label>
-                            <select id="inputState" class="form-select">
+                            <select id="inputState" class="form-select" name="provinces_id" required>
                                 <option selected>--Pilih Provinsi--</option>
-                                <option>Jawa Timur</option>
-                                <option>Jawa Tengah</option>
-                                <option>Jawa Barat</option>
-                                <option>Kalimantan Timur</option>
+                                @foreach ($provinces as $province)
+                                <option value="{{$province->id}}">{{$province->name}}</option>
+                            @endforeach
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputCity">Kota / Kabupaten</label>
-                            <select id="inputCity" class="form-select">
+                            <select id="inputCity" class="form-select" name="cities_id" required>
                                 <option selected>--Pilih Kota--</option>
-                                <option>Kabupaten Kepulauan Seribu</option>
-                                <option>Kabupaten Sidoarjo</option>
-                                <option>Kepulauan Siau Tagulandang Biaro</option>
-                                <option>Kabupaten Niagara Selatan</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="form-group mt-1">
                             <label for="inputDestrict">Kecamatan</label>
-                            <select id="inputDestrict" class="form-select">
+                            <select id="inputDestrict" class="form-select" name="districts_id" required>
                                 <option selected>--Pilih Kecamatan--</option>
-                                <option>Kecamatan Waru</option>
-                                <option>Kecamatan Krian</option>
-                                <option>Kecamatan Mojosari</option>
-                                <option>Kecamatan </option>
+                                <option value="1">Kecamatan Waru</option>
+                                <option value="2">Kecamatan Krian</option>
+                                <option value="3">Kecamatan Mojosari</option>
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <select id="inputVill" class="form-select">
+                            <select id="inputVill" name="villages_id" class="form-select" required>
                                 <option selected>--Pilih Kelurahan--</option>
-                                <option>Tropodo</option>
-                                <option>Sedati</option>
-                                <option>Damarsi</option>
-                                <option>Tunggal Pager</option>
+                                <option value="1">Tropodo</option>
+                                <option value="2">Sedati</option>
+                                <option value="3">Damarsi</option>
+                                <option value="4">Tunggal Pager</option>
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="inputPos" placeholder="65332" disabled>
+                                <input type="text" class="form-control" id="inputPos" placeholder="65332" required name="postal_code">
                             </div>
                         </div>
                     </div>                                                                                                                
@@ -367,7 +365,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 <!--End Modal Tambah Alamat-->
 
 
@@ -380,8 +378,8 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
         <!-- Modal Body-->
-        <div class="modal-body">
-            <form method="POST" method="#">
+        <form method="POST" action="{{url('/address')}}">
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-lg">
                         <div class="form-group mt-1">
@@ -466,13 +464,13 @@
                         </div>
                     </div>                                                                                                                
                 </div>                                                                                                        
-            </form>
-        </div>
-        <!--Modal Footer-->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-            <button type="button" class="btn btn-danger">Simpan</button>
-        </div>
+            </div>
+            <!--Modal Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                <button type="button" class="btn btn-danger">Simpan</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>

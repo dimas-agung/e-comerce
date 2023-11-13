@@ -57,7 +57,7 @@ class AddressController extends Controller
         ]);
         
         $address = Address::create($validated);
-        return redirect('address')->with('success', 'Data Address has been created!');
+        return redirect('user/'.$request->input('users_id').'/edit')->with('success', 'Data Address has been created!');
     }
 
     /**

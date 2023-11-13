@@ -61,7 +61,9 @@
                                     <i class="fa fa-bars" aria-hidden="true"></i></a>
                                     <div class="dropdown-menu dropdown-menu-start">
                                         <a href="{{url('user/'.$user->id.'/edit')}}" class="dropdown-item">Detail</a>
-                                        <form action="{{url('/user/'.$user->id)}}">
+                                        <form method="POST" action="{{route('user.destroy',$user->id)}}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
                                             <button class="dropdown-item" type="submit" onclick="confirm('Apakah Anda Yakin ingin menghapus data ini?')">Hapus</button>
                                         </form>
                                     </div>
