@@ -82,7 +82,7 @@
                             </div>
                             <div class="col m-2 px-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="order_type" id="Order" value="Order" {{ $product->order_type == 'Order' ? 'checked' :''}} >
+                                    <input class="form-check-input inputvarian" type="radio" name="order_type" id="CheckOrder" value="Order" {{ $product->order_type == 'Order' ? 'checked' :''}} >
                                     <label class="form-check-label" for="radioOrderStatus">
                                       Order
                                     </label>
@@ -90,11 +90,12 @@
                                 <div class="form-check">
                                     <div class="row">
                                         <div class="col col-sm-auto mt-2">
-                                            <input class="form-check-input" type="radio" name="order_type" id="PreOrder" value="Pre Order"  {{ $product->order_type == 'Pre Order' ? 'checked' :''}}>
+                                            <input class="form-check-input inputvarian" type="radio" name="order_type" id="PreOrder" value="Pre Order"  {{ $product->order_type == 'Pre Order' ? 'checked' :''}} >
                                             <label class="form-check-label" for="radioOrderStatus">Pre Order</label>
                                         </div>
                                         <div class="col col-sm-auto">
-                                            <select id="inputDayOrder" class="form-select">
+                                            <select id="inputDayOrder" class="form-select inputvarian" name="order_period">
+                                                <option value="0" {{ $product->order_period == '0' ? 'selected' :''}}><span class="text-secondary">0 Hari</span></option>
                                                 <option value="7" {{ $product->order_period == '7' ? 'selected' :''}}><span class="text-secondary">7 Hari</span></option>
                                                 <option value="14" {{ $product->order_period == '14' ? 'selected' :''}}><span class="text-secondary">14 Hari</span></option></option>
                                                 <option value="30" {{ $product->order_period == '30' ? 'selected' :''}}><span class="text-secondary">30 Hari</span></option></option>
@@ -102,10 +103,19 @@
                                                 <option value="90" {{ $product->order_period == '90' ? 'selected' :''}}><span class="text-secondary">90 Hari</span></option></option>
                                             </select>
                                             <script>
-                                                if ({{ $product->order_type}} == 'Order') {
-                                                    
-                                                    $('#inputDayOrder').hide();
-                                                }
+                                                $(document).ready(() => {  
+                                                   
+                                                    var $CheckOrder = $('#CheckOrder');
+                                                    if ($CheckOrder.prop('checked')) {
+                                                        $('#inputDayOrder').hide();
+                                                    }else{
+                                                        $('#inputDayOrder').show();
+                                                    }
+                                                    console.log({{ $product->order_type}});
+                                                    if ({{ $product->order_type}} == 'Order') {
+                                                        
+                                                    }
+                                                });
 
                                                 $('#Order').click(function() {
                                                 $('#inputDayOrder').hide();
@@ -115,10 +125,43 @@
                                                 $('#inputDayOrder').show();
                                                 $('#inputDayOrder').removeAttr('disabled');
                                             });
+                                            $('#PreOrder').click(function() {
+                                                
+                                                $('#inputDayOrder').show();
+                                                $('#inputDayOrder').removeAttr('disabled');
+                                            });
                                             </script>
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="form-check">
+                                    <div class="row">
+                                        <div class="col col-sm-auto mt-2">
+                                            <input class="form-check-input inputvarian" type="radio" name="order_type" id="PreOrder" value="Pre Order"  {{ $product->order_type == 'Pre Order' ? 'checked' :''}} readonly>
+                                            <label class="form-check-label" for="radioOrderStatus">Pre Order</label>
+                                        </div>
+                                        <script>
+                                            if ({{ $product->order_type}} == 'Order') {
+                                                
+                                                $('#inputDayOrder').hide();
+                                            }
+
+                                            $('#Order').click(function() {
+                                             $('#inputDayOrder').hide();
+                                            });
+
+                                            $('#PreOrder').click(function() {
+                                                $('#inputDayOrder').show();
+                                                $('#inputDayOrder').removeAttr('disabled');
+                                            });
+                                            $('#PreOrder').click(function() {
+
+                                                $('#inputDayOrder').show();
+                                                $('#inputDayOrder').removeAttr('disabled');
+                                            });
+                                        </script>
+                                    </div>
+                                </div> --}}
                             </div>                                        
                         </div>
                     </div>
@@ -170,8 +213,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload1" style="display: none;" />
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_1) }}" id="picture_1" name="picture_1" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload1" style="display: none;" name="picture_1"/>
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_1) }}" id="picture_1"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -196,8 +239,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload2" style="display: none;" />
-                                                <img class="img" for="imgUpload2" src="{{ asset('storage/'.$product->picture_2) }}" id="picture_2" name="picture_2" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload2" style="display: none;" name="picture_2" />
+                                                <img class="img" for="imgUpload2" src="{{ asset('storage/'.$product->picture_2) }}" id="picture_2"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -222,8 +265,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload3" style="display: none;" />
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_3) }}" id="picture_3" name="picture_3" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload3" style="display: none;" name="picture_3"/>
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_3) }}" id="picture_3"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -248,8 +291,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload4" style="display: none;" />
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_4) }}" id="picture_4" name="picture_4" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload4" style="display: none;" name="picture_4"/>
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_4) }}" id="picture_4"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {

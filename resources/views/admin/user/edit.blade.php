@@ -129,11 +129,16 @@
                             </div>
                         </div>
                         <div class="row ms-md-1">
+                            <form method="POST" action="{{route('address.destroy',$value->id)}}">
                             <div class="col">
                                 <a href="#" class="link-success link-underline-opacity-0" data-toggle="modal" data-target="#editAddress"><span class="text fw-bold">Ubah</span></a>
                                 <span class="text text-success m-2 fw-bold">|</span>
-                                <a href="#" class="link-success link-underline-opacity-0" data-toggle="modal" data-target="#delAddress"><span class="text fw-bold">Hapus</span></a>
-                            </div>
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button style="padding: 0;border: none;background: none;" class="link-success link-underline-opacity-0" type="submit" onclick="confirm('Apakah Anda Yakin ingin menghapus data ini?')"><span class="text fw-bold">Hapus</span></button>
+                                    {{-- <a href="#" class="link-success link-underline-opacity-0" data-toggle="modal" data-target="#delAddress"><span class="text fw-bold">Hapus</span></a> --}}
+                                </div>
+                            </form>
                         </div>
                     </div>
                 @endforeach                                      

@@ -87,7 +87,7 @@ class ProductController extends Controller
             'picture_4' => $request->file('picture_4'),
             'picture_5' => $request->file('picture_5'),
         ];
-        // return $dataProduct;
+        return $dataProduct;
         $varians = [];
         foreach($request->input('varian_name') as $key=>$value){
             if($value !=null){
@@ -141,7 +141,7 @@ class ProductController extends Controller
             'varian_name.*'  => ['required','min:1'],
             'varian_detail_1_name'  => ['required','min:1'],
             'varian_detail_2_name'  => ['sometimes', 'nullable'],
-            'picture_default'  => ['required'],
+            // 'picture_default'  => ['required'],
         ]);
         $dataProduct = [
             'product_categories_id' => $request->input('product_categories_id'),

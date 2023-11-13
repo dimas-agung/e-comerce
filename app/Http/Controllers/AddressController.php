@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AddressController extends Controller
 {
@@ -57,7 +58,7 @@ class AddressController extends Controller
         ]);
         
         $address = Address::create($validated);
-        return redirect('user/'.$request->input('users_id').'/edit')->with('success', 'Data Address has been created!');
+        return Redirect::back()->with('success', 'Data Address has been created!');
     }
 
     /**
@@ -121,7 +122,7 @@ class AddressController extends Controller
     {
         //
         $address->delete();
-        return redirect('address')->with('success', 'Data Address has been deleted!');
+        return Redirect::back()->with('success', 'Data Address has been deleted!');
     }
     public function activated(Address $address)
     {

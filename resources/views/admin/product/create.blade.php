@@ -165,8 +165,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload1" style="display: none;" />
-                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_1" name="picture_1" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload1"  name="picture_1" style="display: none;" />
+                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_1" style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -191,8 +191,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload2" style="display: none;" />
-                                                <img class="img" for="imgUpload2" src="assets/img/img_logo.jpg" id="picture_2" name="picture_2" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload2" style="display: none;" name="picture_2"/>
+                                                <img class="img" for="imgUpload2" src="assets/img/img_logo.jpg" id="picture_2"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -217,8 +217,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload3" style="display: none;" />
-                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_3" name="picture_3" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload3" style="display: none;" name="picture_3"/>
+                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_3"  style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
@@ -243,8 +243,8 @@
                                     <div class="col px-2 ps-2 mt-2">
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
-                                                <input type="file" id="imgUpload4" style="display: none;" />
-                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_4" name="picture_4" style="width: 120px; height: 120px;">
+                                                <input type="file" id="imgUpload4" style="display: none;"  name="picture_4"/>
+                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_4" style="width: 120px; height: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
