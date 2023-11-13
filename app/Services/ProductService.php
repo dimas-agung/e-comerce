@@ -30,18 +30,20 @@ class ProductService
         $path = 'products';
         $picture_default = $dataProduct['picture_default'];
 
-        $file_name = $dataProduct['product_code'].'_default.png';
+        // $file_name = $dataProduct['product_code'].'_default.png';
+        $file_name = 'Product_'.$product->id.'_default.png';
         $url = self::upploadFile($picture_default,$path,$file_name);
         $product->update([ 
                     'picture_default' => $url,
         ]);
-        for ($i=1; $i == 5 ; $i++) { 
+        for ($i=1; $i == 4 ; $i++) { 
             # code...
             $keyPicture = 'picture_'.$i;
             $picture = $dataProduct[$keyPicture];
             if(!empty($picture)){  
                   
-                $file_name = $dataProduct['product_code'].'_'.$i.'.png';
+                // $file_name = $dataProduct['product_code'].'_'.$i.'.png';
+                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,
@@ -102,18 +104,23 @@ class ProductService
         ]);
         $path = 'products';
         $picture_default = $dataProduct['picture_default'];
-        $file_name = $dataProduct['product_code'].'_default.png';
-        $url = self::upploadFile($picture_default,$path,$file_name);
-        $product->update([ 
-                    'picture_default' => $url,
-        ]);
-        for ($i=1; $i == 5 ; $i++) { 
+        if (!empty($picture_default)) {
+            # code...
+            // $file_name = $dataProduct['product_code'].'_default.png';
+            $file_name = 'Product_'.$product->id.'_default.png';
+            $url = self::upploadFile($picture_default,$path,$file_name);
+            $product->update([ 
+                        'picture_default' => $url,
+            ]);
+        }
+        for ($i=1; $i == 4 ; $i++) { 
             # code...
             $keyPicture = 'picture_'.$i;
             $picture = $dataProduct[$keyPicture];
             if(!empty($picture)){  
                   
-                $file_name = $dataProduct['product_code'].'_'.$i.'.png';
+                // $file_name = $dataProduct['product_code'].'_'.$i.'.png';
+                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,

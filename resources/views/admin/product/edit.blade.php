@@ -18,6 +18,7 @@
         <form method="POST" action="{{ route('product.update',$product->id)}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             @method('PUT')
+            <input type="hidden" id="inputNameProduk" name="product_code" class="form-control" placeholder="Nama Produk" value="{{ $product->product_code }}" required>
             <div class="card mb-4">
                 @if (count($errors) > 0)
                             <div class="alert alert-danger">
