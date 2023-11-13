@@ -36,7 +36,7 @@ class ProductService
         $product->update([ 
                     'picture_default' => $url,
         ]);
-        for ($i=1; $i == 4 ; $i++) { 
+          for ($i=1; $i <= 4; $i++) { 
             # code...
             $keyPicture = 'picture_'.$i;
             $picture = $dataProduct[$keyPicture];
@@ -113,7 +113,7 @@ class ProductService
                         'picture_default' => $url,
             ]);
         }
-        for ($i=1; $i == 4 ; $i++) { 
+          for ($i=1; $i <= 4; $i++) { 
             # code...
             $keyPicture = 'picture_'.$i;
             $picture = $dataProduct[$keyPicture];
