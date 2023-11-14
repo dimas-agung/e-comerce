@@ -164,8 +164,10 @@ class ProductService
                     $varianDetail2[]=$value;
                     $varian_detail_ids[] = self::addVarianDetailsUpdate($arrVarian,$value);
                     // $lastVarianDetails = VarianDetail::all();
+                }else{
+
+                    $varian_detail_ids[] = $lastVarianDetails->id;
                 }
-                $varian_detail_ids[] = $lastVarianDetails->id;
                 // return $lastVarianDetails;
             }
 
