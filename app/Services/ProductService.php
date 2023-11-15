@@ -152,7 +152,7 @@ class ProductService
         // foreach($lastVarian as $key=>$value){
         // }
         Varian::where('products_id',$product->id)->whereNotIn('id',$varianids)->delete();
-        // return $arrVarians;
+        // return $varian_details[0][2];
         $varian_detail_ids = [];
         $lastVarianDetails = VarianDetail::whereIn('varians_id',$varianids)->get();
         foreach ($varian_details as $key1 => $varianD) {
@@ -162,10 +162,14 @@ class ProductService
                 # code...
                 // return $value;
                 $lastVarianDetails = VarianDetail::where('varians_id',$varianid)->where('name',$value)->first();
+                
                 if (empty($lastVarianDetails)) {
+                    // return 123;
+                // if (count($lastVarianDetails) === 0) {
                     $varianDetail2 = [];
                     $varianDetail2[]=$value;
                     $varian_detail_ids[] = self::addVarianDetailsUpdate($arrVarian,$value);
+                    // return $varian_detail_ids;
                     // $lastVarianDetails = VarianDetail::all();
                 }else{
 
@@ -199,7 +203,7 @@ class ProductService
                         $checkProductVarian = ProductVarian::where('varian_detail_id_1',$value1->id)->where('varian_detail_id_2',$value2->id)->where('products_id',$product->id)->first();
                         if (empty($checkProductVarian)) {
                             # code...
-                            ProductVarian::where('varian_detail_id_1',$value1->id)->where('varian_detail_id_2',$value2->id)->where('products_id',$product->id)->delete();
+                            // ProductVarian::where('varian_detail_id_1',$value1->id)->where('varian_detail_id_2',$value2->id)->where('products_id',$product->id)->delete();
                             $productVarians = ProductVarian::create([
                                 'products_id' => $product->id,
                                 'varian_detail_id_1' => $value1->id,
@@ -235,7 +239,7 @@ class ProductService
         }
         // return $product_varian_ids;
         // // VarianDetail::where('products_id',$product->id)->delete();
-        ProductVarian::where('products_id'.$product->id)->whereNotIn('id',$product_varian_ids)->delete();
+        ProductVarian::where('products_id',$product->id)->whereNotIn('id',$product_varian_ids)->delete();
         // $datavarian = [];
         // $varian_detail_ids = [];
         // foreach ($varians as $key => $value) {
@@ -301,7 +305,7 @@ class ProductService
                 'varians_name' =>$varian->name,
                 'name' => $details,
             ]);
-            return $varian_detail; 
+            return $varian_detail->id; 
         // }
         // return $varian_detail_ids;
     }
