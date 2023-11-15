@@ -7,12 +7,12 @@
                 <h3>Tambah Produk</h3>
             </div>
             <div class="col text-end mt-4">
-                <a href="master-produk.html" type="button" class="btn bg-success text-light"><i class="fas fa-reply me-1"></i>Kembali</a>
+                <a href="{{ route('product.index')}}" class="btn bg-success text-light"><i class="fas fa-reply me-1"></i>Kembali</a>
             </div>
         </div>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="master-produk.html">Master Produk</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('product.index')}}">Master Produk</a></li>
                 <li class="breadcrumb-item active">Tambah Produk</li>
             </ol>
         <form method="POST" action="{{ route('product.store')}}" enctype="multipart/form-data">
@@ -436,7 +436,7 @@
                 <div class="card-header">
                     <div class="row text-end">
                         <div class="col mb-2">
-                            <button class="btn btn-secondary" href="master-produk.html" style="width: 100px;">Batal</button>
+                            <a class="btn btn-secondary" href="{{ route('product.index')}}" style="width: 100px;">Batal</a>
                             <button class="btn btn-primary" type="submit" style="width: 100px;">Simpan</button>
                         </div>   
                     </div>
