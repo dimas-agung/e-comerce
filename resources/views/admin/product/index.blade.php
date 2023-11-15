@@ -366,11 +366,14 @@
             // qty: qty
         },                              
         success: function( data ) {
-            console.log(data);
+            // console.log(data);
             $('#tableProductVarian tbody').html('')
             data.forEach(value => {
-                let nama_varian = value.varian_detail1.name
-                if (value.varian_detail_2_id) {
+                console.log(value.varian_detail2.name);
+                let nama_varian = '';
+                nama_varian += value.varian_detail1.name
+                if (value.varian_detail_id_2) {
+                    console.log(123);
                     nama_varian +=  ', '+ value.varian_detail2.name
                 }
                 

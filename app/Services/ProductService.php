@@ -133,28 +133,31 @@ class ProductService
         $arrVarians =[];
         $lastVarian = Varian::where('products_id',$product->id)->get();
         foreach ($varians as $key => $varian) {
-            foreach($lastVarian as $key=>$value){
-                if ($varian['name'] != $value->name) {
-                    Varian::where('id',$value->id)->delete();
-                    $varianNew = Varian::create([
-                        'products_id' => $product->id,
-                        'name' => $value['name'],
-                    ]);
-                    $varianids[] = $varianNew->id;
-                    $arrVarians[] = $varianNew;
-                }else{
-                    
-                    $arrVarians[] = $value;
-                    $varianids[] = $value->id;
-                }
+            $lastVarian = Varian::where('products_id',$product->id)->where('name',$varian['name'])->first();
+            if (empty($lastVarian)) {
+                // var_dump($varian);return $value;
+                // Varian::where('id',$value->id)->delete();
+                $varianNew = Varian::create([
+                    'products_id' => $product->id,
+                    'name' => $varian['name'],
+                ]);
+                $varianids[] = $varianNew->id;
+                $arrVarians[] = $varianNew;
+            }else{
+                
+                $arrVarians[] = $lastVarian;
+                $varianids[] = $lastVarian->id;
             }
         }
-        // return $arrVarians[0];
+        // foreach($lastVarian as $key=>$value){
+        // }
+        Varian::where('products_id',$product->id)->whereNotIn('id',$varianids)->delete();
+        // return $arrVarians;
         $varian_detail_ids = [];
         $lastVarianDetails = VarianDetail::whereIn('varians_id',$varianids)->get();
         foreach ($varian_details as $key1 => $varianD) {
-            $varianid = $varianids[$key];
-            $arrVarian = $arrVarians[$key];
+            $varianid = $varianids[$key1];
+            $arrVarian = $arrVarians[$key1];
             foreach ($varianD as $key => $value) {
                 # code...
                 // return $value;
@@ -170,38 +173,27 @@ class ProductService
                 }
                 // return $lastVarianDetails;
             }
-
-            // var_dump($varianid);
-            // foreach($lastVarianDetails as $key=>$value){
-            //     if ($varianD != $value->name) {
-            //         // echo 123;
-            //         var_dump($varianD);
-            //         // echo $varianD;
-            //         VarianDetail::where('id',$value->id)->delete();
-            //         $varian_detail_ids[] = self::addVarianDetails($arrVarian,$varianD);
-            //     }
-            //     $varian_detail_ids[] = $value->id;
-            // }
-            VarianDetail::where('varians_id',$varianid)->whereNotIn('varians_id',$varian_detail_ids)->delete();
+            VarianDetail::where('varians_id',$varianid)->whereNotIn('id',$varian_detail_ids)->delete();
+            // echo $varianid;return $varianids;
         }
         // return $varian_detail_ids;
         // return $lastVarianDetails;
         $lastVarian = Varian::where('products_id',$product->id)->get();
         // return $lastVarian;
         $varian_details = [];
-        foreach($lastVarian as $ke=>$val){
+        foreach($lastVarian as $key=>$val){
             $varian_details[] =VarianDetail::where('varians_id',$val->id)->get();
         }
-        // return $varian_details;
+        // return $lastVarian;
         $product_varian_ids = [];
         // $lastVarianDetails = VarianDetail::whereIn('varians_id',$varianids)->get();
         if (count($lastVarian) > 1) {
             # code...
             foreach ($varian_details[0] as $key => $value1) {
                 // $lastVarianDetails = VarianDetail::whereIn('varians_id',$varianids)->get();
-                $lastProductVarians = ProductVarian::where('products_id',$product->id)->where('varian_detail_id_1',$value1->id)->get();
-                // return $lastVarian;
-                if (empty($lastProductVarians)) {
+                // $lastProductVarians = ProductVarian::where('products_id',$product->id)->where('varian_detail_id_1',$value1->id)->first();
+                // return $lastProductVarians;
+                // if (count($lastProductVarians) ==0) {
                     // ProductVarian::where('products_id',$product->id)->where('varian_detail_id_1',$value1->id)->delete();
                     foreach ($varian_details[1] as $key => $value2) {
                         $checkProductVarian = ProductVarian::where('varian_detail_id_1',$value1->id)->where('varian_detail_id_2',$value2->id)->where('products_id',$product->id)->first();
@@ -215,12 +207,13 @@ class ProductService
                             ]);
                             $product_varian_ids[] = $productVarians->id;
                         }else{
-                            $product_varian_ids[] = $value2->id;
+                            $product_varian_ids[] = $checkProductVarian->id;
                         }
                     }
-                }else{
-                    $product_varian_ids[] = $lastProductVarians->id;
-                }
+                // }else{
+                //     // return $lastProductVarians;
+                //     $product_varian_ids[] = $lastProductVarians->id;
+                // }
             }
         }else{
             foreach ($varian_details[0] as $key => $value1) {
@@ -235,13 +228,14 @@ class ProductService
                     ]);
                     $product_varian_ids[] = $productVarians->id;
                 }else{
+                    // return $checkProductVarian;
                     $product_varian_ids[] = $checkProductVarian->id;
                 }
             }
         }
         // return $product_varian_ids;
         // // VarianDetail::where('products_id',$product->id)->delete();
-        // ProductVariran::where('products_id'.$product->id)->delete();
+        ProductVarian::where('products_id'.$product->id)->whereNotIn('id',$product_varian_ids)->delete();
         // $datavarian = [];
         // $varian_detail_ids = [];
         // foreach ($varians as $key => $value) {
