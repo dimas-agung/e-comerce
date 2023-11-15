@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -21,6 +22,12 @@ class Product extends Model
     {
         return $this->hasMany(ProductVarian::class, 'products_id', 'id');
     }
+    public function getUrlPictureDefaultAttribute()
+    {
+        // return  env('APP_URL') . 
+        Storage::url($this->picture_default);
+    }
+
     function activated() {
         $this->update(['is_active'=>1]);
     }
