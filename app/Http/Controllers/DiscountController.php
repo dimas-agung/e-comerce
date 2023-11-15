@@ -43,6 +43,7 @@ class DiscountController extends Controller
     {
         //
         $validated = $request->validate([
+            'discount_code' => ['required'],
             'products_id' => ['required'],
             'minimum_order' => ['required'],
             'persen' => ['required'],
@@ -92,6 +93,7 @@ class DiscountController extends Controller
         //
         $validated = $request->validate([
             'products_id' => ['required'],
+            'discount_code' => ['required'],
             'minimum_order' => ['required'],
             'persen' => ['required'],
             'description' => ['sometimes','nullable'],

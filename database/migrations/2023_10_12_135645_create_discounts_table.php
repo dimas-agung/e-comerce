@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('products_id');
+            $table->string('discount_code');
             $table->integer('minimum_order');
             $table->integer('persen');
             $table->text('description');
