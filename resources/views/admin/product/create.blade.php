@@ -11,7 +11,7 @@
             </div>
         </div>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('product.index')}}">Master Produk</a></li>
                 <li class="breadcrumb-item active">Tambah Produk</li>
             </ol>

@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
         <h3 class="mt-4">Data Produk</h3>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active">Master Produk</li>
         </ol>
         <div class="card mb-4">
@@ -54,17 +54,17 @@
                                     
                                 <tr>
                                     <td class="col col-8" style="min-width: 400px;">
-                                        <div class="content">
-                                            <div class="card me-2" style="width: 80px;float: left;">
-                                                <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2">
-
-                                                {{-- <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" > --}}
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                            <div class="content">
+                                                <div class="card me-2" style="width: 80px;float: left;">
+                                                    <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2" style="width: 80px; height:80px;">
+                                                </div>
+                                                <div class="content ms-4 mb-4">
+                                                    <span class="text text-secondary fw-bold">{{$product->name}}</span>
+                                                    <p><span class="text">Lihat varian</span></p>
+                                                </div>
                                             </div>
-                                            <div class="content ms-4 mb-4">
-                                                <span class="text text-secondary fw-bold">{{$product->name}}</span>
-                                                <p><a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-target="#Variant1" role="button" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')"><span class="text">Lihat varian</span></a></p>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </td>
                                     <td class="col col-1">
                                         <div class="justify-content-center">
@@ -74,7 +74,7 @@
                                     </td>
                                     <td class="col col-4 text-center">
                                         <div class="justify-content-center">
-                                            <a href="editPrice" data-toggle="modal" data-target="#editPrice" style="text-decoration: none;">
+                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
                                                 <span class="text text-primary">{{ $product->product_varian->min('price') }} - {{$product->product_varian->max('price')}}</span>
                                             </a>
                                         </div>
@@ -82,14 +82,14 @@
                                     </td>
                                     <td class="col col-sm-1 text-center">
                                         <div class="justify-content-center">
-                                            <a href="editStok" data-toggle="modal" data-target="#editStok" style="text-decoration: none;">
+                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
                                                 <span class="text text-primary">{{$product->product_varian->sum('stock')}}</span>
                                             </a>
                                         </div>
                                     </td>
                                     <td class="col col-sm-auto text-center">
                                         <div class="justify-content-center">
-                                            <a href="editStatus" data-toggle="modal" data-target="#editStatus">
+                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
                                                 <span class="text"><i class="fas fa-sliders"></i></span>
                                             </a> 
                                         </div>                                                           
@@ -129,189 +129,13 @@
                     </div>
             </div>
 
-            <!--Modal Edit Stok-->
-            <div class="modal fade" id="editStok" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-light">
-                        <h5 class="modal-title" id="modalUser">Update Stok</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-                        </div>
-                        <!-- Modal Body-->
-                        <div class="modal-body">
-                            <form method="POST" method="#">
-                                <div class="col">
-                                    <div class="card card-header">
-                                        <div class="fw-bold" style="color: rgb(104, 100, 100);">
-                                            <span class="title">TAS RAJUT ANYAMAN BAMBU ANAK MUDA POPULER 2023 SAAT INI</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="">
-                                        <div class="card card-body">
-                                            <table class="table">
-                                                <thead class="text-center">
-                                                    <th><span>Varian</span></th>
-                                                    <th class="col-4"><span>Stok</span></th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><span>Merah , Corak Batik</span></td>
-                                                        <td><input class="form-group text-center form-control" type="number" id="inputStok" min="0" value="22"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span>Merah , Casual</span></td>
-                                                        <td><input class="form-group text-center form-control" type="number" id="inputStok" min="0" value="8"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>                                                                                                      
-                            </form>
-                        </div>
-                        <!--Modal Footer-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                            <button type="button" class="btn btn-danger">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End Modal Edit Stok-->
-
-            <!--Modal Edit Harga-->
-            <div class="modal fade" id="editPrice" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-light">
-                        <h5 class="modal-title" id="modalUser">Update Harga</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-                        </div>
-                        <!-- Modal Body-->
-                        <div class="modal-body">
-                            <form method="POST" method="#">
-                                <div class="col">
-                                    <div class="card card-header">
-                                        <div class="fw-bold" style="color: rgb(104, 100, 100);">
-                                            <span class="title">TAS RAJUT ANYAMAN BAMBU ANAK MUDA POPULER 2023 SAAT INI</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="">
-                                        <div class="card card-body">
-                                            <table class="table">
-                                                <thead class="text-center">
-                                                    <th><span>Varian</span></th>
-                                                    <th class="col-6"><span>Harga</span></th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><span>Merah , Corak Batik</span></td>
-                                                        <td>
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">Rp.</span>
-                                                                <input type="number" class="form-control" min="0" aria-label="Amount" value="190.000">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span>Merah , Casual</span></td>
-                                                        <td>
-                                                            <div class="input-group">
-                                                                <span class="input-group-text">Rp.</span>
-                                                                <input type="number" class="form-control" min="0" aria-label="Amount" value="190.000">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>                                                                                                     
-                            </form>
-                        </div>
-                        <!--Modal Footer-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                            <button type="button" class="btn btn-danger">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End Modal Edit Harga-->
-
-
-            <!--Modal Edit Status Aktif-->
-            <div class="modal fade" id="editStatus" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary text-light">
-                        <h5 class="modal-title" id="modalUser">Update Status Aktif</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-                        </div>
-                        <!-- Modal Body-->
-                        <div class="modal-body">
-                            <form method="POST" method="#">
-                                <div class="col">
-                                    <div class="card card-header">
-                                        <div class="fw-bold" style="color: rgb(104, 100, 100);">
-                                            <span class="title">TAS RAJUT ANYAMAN BAMBU ANAK MUDA POPULER 2023 SAAT INI</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="">
-                                        <div class="card card-body">
-                                            <table class="table">
-                                                <thead class="text-center">
-                                                    <th class="col-sm-4 text-start"><span>Varian</span></th>
-                                                    <th class="col-sm-1 text-start"><span>Aktif</span></th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><span>Merah , Corak Batik</span></td>
-                                                        <td class="fixed">
-                                                            <div class="center">
-                                                                <div class="form-check form-switch align-items-center">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><span>Merah , Casual</span></td>
-                                                        <td class="fixed">
-                                                            <div class="center">
-                                                                <div class="form-check form-switch align-items-center">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>                                                                                                     
-                            </form>
-                        </div>
-                        <!--Modal Footer-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                            <button type="button" class="btn btn-danger">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End Modal Edit Status Aktif-->
-
             <!--Modal Lihat Variant All-->
-            <div class="modal fade" id="modalVarian" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
+            <div class="modal fade" id="modalVarian" tabindex="-1" role="dialog" aria-labelledby="modalVarian" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary text-light">
                     <h5 class="modal-title" id="modalUser">Detail Variant</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                     </div>
                     <!-- Modal Body-->
                     <form method="POST" action="{{route('product_varian.update_batch')}}">
@@ -342,7 +166,7 @@
                         </div>
                         <!--Modal Footer-->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
                             <button type="submit" class="btn btn-danger">Simpan</button>
                         </div>
                     </form>
