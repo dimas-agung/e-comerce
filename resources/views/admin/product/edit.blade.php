@@ -363,10 +363,11 @@
                                     # code...
                                     $varian2= $product->varians[1]->name;
                                     foreach ($product->varians[1]->detail as $key => $value) {
-                                        $varian_detail_2 += $value->name;
-                                        $varian_detail_2 += ',';
+                                        $varian_detail_2 .= $value->name;
+                                        $varian_detail_2 .= ',';
                                     }
                                 }
+                                // echo $varian_detail_2;
                             @endphp
                             <div class="col">
                                 <div class="row">
@@ -401,7 +402,7 @@
                                         </div>
                                         <div class="col col-sm m-2">
                                             <div class="form-group">
-                                                <input type="text" class="form-control tagInput" name="varian_detail_2_name" {{$varian_detail_2}}/>
+                                                <input type="text" class="form-control tagInput" name="varian_detail_2_name" value='{{$varian_detail_2}}'/>
                                             </div>
                                         </div>
                                     </div>
