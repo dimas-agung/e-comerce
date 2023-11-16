@@ -59,7 +59,13 @@
                         <li><a class="dropdown-item" href="#!">Notifikasi</a></li>
                         <li><a class="dropdown-item" href="detail-user.html">Akun</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li>
+                            <form method="POST" action="{{route('logout')}}">
+                                {{ csrf_field() }}
+                                {{-- {{ method_field('DELETE') }} --}}
+                                <button class="dropdown-item" type="submit" onclick="confirm('Apakah Anda Yakin ingin logout?')">Logout</button>
+                            </form>
+                            {{-- <a class="dropdown-item" href="">Logout</a></li> --}}
                     </ul>
                 </li>
             </ul>
