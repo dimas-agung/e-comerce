@@ -193,7 +193,7 @@
             // console.log(data);
             $('#tableProductVarian tbody').html('')
             data.forEach(value => {
-                console.log(value.varian_detail2.name);
+                // console.log(value.varian_detail2.name);
                 let nama_varian = '';
                 nama_varian += value.varian_detail1.name
                 if (value.varian_detail_id_2) {
