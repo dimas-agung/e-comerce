@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class ProductVarianController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     function index(Request $request){
 
         $products_id = $request->input('products_id');

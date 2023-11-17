@@ -16,6 +16,7 @@ class ProductController extends Controller
     private ProductService $productService;
     public function __construct() {
         $this->productService =  new ProductService();
+        $this->middleware('auth');
     }
     public function index()
     {
