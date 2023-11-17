@@ -96,7 +96,7 @@
                                     </td>
                                     <td class="col col-sm-2 text-center">
                                         <div class="justify-content-center">
-                                            <a href="{{'/product/'.$product->id.'/edit'}}">
+                                            <a href="{{route('product.edit',$product->id)}}">
                                                 <span class="text text-danger"><i class="fas fa-pencil"></i></span>
                                             </a> 
                                         </div>  
