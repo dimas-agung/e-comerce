@@ -182,8 +182,8 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
-                            <label for="inputDestrict" name="districts_id">Kecamatan</label>
-                            <select id="inputDestrict" class="form-select" required>
+                            <label for="inputDestrict" >Kecamatan</label>
+                            <select id="inputDestrict" class="form-select" name="districts_id" required>
                                 <option selected>--Pilih Kecamatan--</option>
                                 <option value="1">Kecamatan Waru</option>
                                 <option value="2">Kecamatan Krian</option>
