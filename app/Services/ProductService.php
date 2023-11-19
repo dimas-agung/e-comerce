@@ -8,6 +8,7 @@ use App\Models\Varian;
 use App\Models\VarianDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
+use Intervention\Image\Facades\Image;
 class ProductService
 {
     public function __construct() {
@@ -30,8 +31,8 @@ class ProductService
         $path = 'products';
         $picture_default = $dataProduct['picture_default'];
 
-        // $file_name = $dataProduct['product_code'].'_default.png';
-        $file_name = 'Product_'.$product->id.'_default.png';
+        // $file_name = $dataProduct['product_code'].'_default';
+        $file_name = 'Product_'.$product->id.'_default';
         $url = self::upploadFile($picture_default,$path,$file_name);
         $product->update([ 
                     'picture_default' => $url,
@@ -42,8 +43,8 @@ class ProductService
             $picture = $dataProduct[$keyPicture];
             if(!empty($picture)){  
                   
-                // $file_name = $dataProduct['product_code'].'_'.$i.'.png';
-                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
+                // $file_name = $dataProduct['product_code'].'_'.$i.'';
+                $file_name = 'Product_'.$product->id.'_'.$i.'';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,
@@ -106,8 +107,8 @@ class ProductService
         $picture_default = $dataProduct['picture_default'];
         if (!empty($picture_default)) {
             # code...
-            // $file_name = $dataProduct['product_code'].'_default.png';
-            $file_name = 'Product_'.$product->id.'_default.png';
+            // $file_name = $dataProduct['product_code'].'_default';
+            $file_name = 'Product_'.$product->id.'_default';
             $url = self::upploadFile($picture_default,$path,$file_name);
             $product->update([ 
                         'picture_default' => $url,
@@ -119,8 +120,8 @@ class ProductService
             $picture = $dataProduct[$keyPicture];
             if(!empty($picture)){  
                   
-                // $file_name = $dataProduct['product_code'].'_'.$i.'.png';
-                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
+                // $file_name = $dataProduct['product_code'].'_'.$i.'';
+                $file_name = 'Product_'.$product->id.'_'.$i.'';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,
@@ -318,8 +319,17 @@ class ProductService
         return 0;
     }
     function upploadFile($files,$path,$file_name){
-        $files->storePubliclyAs($path, $file_name, "public");
-        $url = $path.'/'. $file_name;
+        // $files->storePubliclyAs($path, $file_name, "public");
+        $url = $path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
+        $name = 'storage/'.$path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
+        // $img = Image::make('storage/'.$url);
+        $img = Image::make($files);
+        if($files->getClientOriginalExtension() != 'png'){
+            $img->rotate(90)->save($name,40);
+        }else{
+            
+            $img->save($name,40);
+        }
         return $url;
     }
 }
