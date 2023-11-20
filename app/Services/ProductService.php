@@ -32,7 +32,7 @@ class ProductService
         $picture_default = $dataProduct['picture_default'];
 
         // $file_name = $dataProduct['product_code'].'_default';
-        $file_name = 'Product_'.$product->id.'_default';
+        $file_name = 'Product_'.$product->id.'_default.png';
         $url = self::upploadFile($picture_default,$path,$file_name);
         $product->update([ 
                     'picture_default' => $url,
@@ -44,7 +44,7 @@ class ProductService
             if(!empty($picture)){  
                   
                 // $file_name = $dataProduct['product_code'].'_'.$i.'';
-                $file_name = 'Product_'.$product->id.'_'.$i.'';
+                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,
@@ -108,7 +108,7 @@ class ProductService
         if (!empty($picture_default)) {
             # code...
             // $file_name = $dataProduct['product_code'].'_default';
-            $file_name = 'Product_'.$product->id.'_default';
+            $file_name = 'Product_'.$product->id.'_default.png';
             $url = self::upploadFile($picture_default,$path,$file_name);
             $product->update([ 
                         'picture_default' => $url,
@@ -121,7 +121,7 @@ class ProductService
             if(!empty($picture)){  
                   
                 // $file_name = $dataProduct['product_code'].'_'.$i.'';
-                $file_name = 'Product_'.$product->id.'_'.$i.'';
+                $file_name = 'Product_'.$product->id.'_'.$i.'.png';
                 $url = self::upploadFile($picture,$path,$file_name);
                 $product->update([ 
                     $keyPicture => $url,
@@ -320,16 +320,18 @@ class ProductService
     }
     function upploadFile($files,$path,$file_name){
         // $files->storePubliclyAs($path, $file_name, "public");
-        $url = $path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
-        $name = 'storage/'.$path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
-        // $img = Image::make('storage/'.$url);
-        $img = Image::make($files);
-        if($files->getClientOriginalExtension() != 'png'){
-            $img->rotate(90)->save($name,40);
-        }else{
+        // $url = $path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
+        // $name = 'storage/'.$path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
+        // // $img = Image::make('storage/'.$url);
+        // $img = Image::make($files);
+        // if($files->getClientOriginalExtension() != 'png'){
+        //     $img->rotate(90)->save($name,40);
+        // }else{
             
-            $img->save($name,40);
-        }
+        //     $img->save($name,40);
+        // }
+        $files->storePubliclyAs($path, $file_name, "public");
+        $url = $path.'/'. $file_name;
         return $url;
     }
 }

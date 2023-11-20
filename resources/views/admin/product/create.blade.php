@@ -145,6 +145,12 @@
                                                     $(document).ready(() => {
                                                         $("#picture_default").change(function () {
                                                             const file = this.files[0];
+                                                            if(this.files[0].size > 5097152){
+                                                                alert("Ukuran gambar max 5MB!");
+                                                                this.value = "";
+                                                                return;
+                                                            }
+
                                                             if (file) {
                                                                 let reader = new FileReader();
                                                                 reader.onload = function (event) {
@@ -172,6 +178,11 @@
                                                 $(document).ready(() => {
                                                     $("#imgUpload1").change(function () {
                                                         const file = this.files[0];
+                                                        if(this.files[0].size > 5097152){
+                                                                alert("Ukuran gambar max 5MB!");
+                                                                this.value = "";
+                                                                return;
+                                                            }
                                                         if (file) {
                                                             let reader = new FileReader();
                                                             reader.onload = function (event) {
@@ -198,6 +209,11 @@
                                                 $(document).ready(() => {
                                                     $("#imgUpload2").change(function () {
                                                         const file = this.files[0];
+                                                        if(this.files[0].size > 5097152){
+                                                                alert("Ukuran gambar max 5MB!");
+                                                                this.value = "";
+                                                                return;
+                                                            }
                                                         if (file) {
                                                             let reader = new FileReader();
                                                             reader.onload = function (event) {
@@ -224,6 +240,11 @@
                                                 $(document).ready(() => {
                                                     $("#imgUpload3").change(function () {
                                                         const file = this.files[0];
+                                                        if(this.files[0].size > 5097152){
+                                                                alert("Ukuran gambar max 5MB!");
+                                                                this.value = "";
+                                                                return;
+                                                            }
                                                         if (file) {
                                                             let reader = new FileReader();
                                                             reader.onload = function (event) {
@@ -250,6 +271,11 @@
                                                 $(document).ready(() => {
                                                     $("#imgUpload4").change(function () {
                                                         const file = this.files[0];
+                                                        if(this.files[0].size > 5097152){
+                                                                alert("Ukuran gambar max 5MB!");
+                                                                this.value = "";
+                                                                return;
+                                                            }
                                                         if (file) {
                                                             let reader = new FileReader();
                                                             reader.onload = function (event) {
