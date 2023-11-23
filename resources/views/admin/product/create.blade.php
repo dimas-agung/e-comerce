@@ -150,7 +150,6 @@
                                                                 this.value = "";
                                                                 return;
                                                             }
-
                                                             if (file) {
                                                                 let reader = new FileReader();
                                                                 reader.onload = function (event) {
@@ -172,7 +171,7 @@
                                         <div class="card card-body" style="width: 150px; height: 150px;">
                                             <div class="form-group">
                                                 <input type="file" id="imgUpload1"  name="picture_1" style="display: none;" />
-                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_1" style="width: 120px; height: 120px;">
+                                                <img class="img" src="assets/img/img_logo.jpg" id="picture_1" style="width: 120px; height: 120px;" max-size="1048">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
