@@ -27,6 +27,14 @@ class Product extends Model
         // return  env('APP_URL') . 
         Storage::url($this->picture_default);
     }
+    public function minPrice()
+    {
+        return $this->product_varian()->min('price');
+    }
+    public function maxPrice()
+    {
+        return $this->product_varian()->min('price');
+    }
 
     function activated() {
         $this->update(['is_active'=>1]);
