@@ -12,7 +12,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-        $productCategory = ProductCategory::latest()->get();
+        $productCategory = ProductCategory::withCount('product')->latest()->get();
         return $productCategory;
     }
 }
