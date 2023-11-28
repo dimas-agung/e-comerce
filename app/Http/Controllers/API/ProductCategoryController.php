@@ -12,7 +12,7 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-        $productCategory = ProductCategory::latest()->paginate(10);
+        $productCategory = ProductCategory::latest();
         return $productCategory;
     }
 }
