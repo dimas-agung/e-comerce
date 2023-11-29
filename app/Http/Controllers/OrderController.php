@@ -23,18 +23,19 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $order = Order::latest()->paginate(10);
-        $product_varian = ProductVarian::with(['product','varian_detail1','varian_detail2'])->find(1);
-        OrderStatusHistory::create([
-            'order_id' => 1,
-            'order_status_id' => 2
-        ]);
-        $order_hystorys = OrderStatusHistory::all();
-        return $order_hystorys;
-        // return $order;
-        // return response()->view('admin.productCategory.index', [
-        //     'productCategory' => $order
+        // $order = Order::latest()->paginate(10);
+        // $product_varian = ProductVarian::with(['product','varian_detail1','varian_detail2'])->find(1);
+        // OrderStatusHistory::create([
+        //     'order_id' => 1,
+        //     'order_status_id' => 2
         // ]);
+        // $order_hystorys = OrderStatusHistory::all();
+        // return $order_hystorys;
+        // return $order;
+        // return response()->view('admin.order.index', [
+        //     'order' => $order
+        // ]);
+        return view('admin.order.index');
     }
 
     /**
@@ -46,6 +47,7 @@ class OrderController extends Controller
     {
         //
         // return response()->view('admin.productCategory.create');
+        return view('admin.order.create');
     }
 
     /**
