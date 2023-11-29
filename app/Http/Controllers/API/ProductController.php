@@ -23,6 +23,10 @@ class ProductController extends Controller
         }elseif ($products_id) {
             # code...
             $product= Product::with(['category','varians.detail','product_varian'])->where('id',$products_id)->latest()->first();
+           
+                $product->min_price = $product->product_varian->min('price');
+                $product->max_price = $product->product_varian->max('price');
+            
         }else{
             $product= Product::with(['category','varians.detail','product_varian'])->latest()->get();
             foreach($product as $key=> $value){
@@ -37,6 +41,7 @@ class ProductController extends Controller
     function search(Request $request){
 
         $search = $request->input('search');
+
         if($search){
             $product= Product::with(['category','varians.detail','product_varian'])->where('name','LIKE',"%{$search}%")->latest()->get();
             foreach($product as $key=> $value){
