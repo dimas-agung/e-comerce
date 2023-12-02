@@ -8,6 +8,7 @@ use App\Models\Varian;
 use App\Models\VarianDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 class ProductService
 {
@@ -318,7 +319,7 @@ class ProductService
         }
         return 0;
     }
-    function upploadFile($files,$path,$file_name){
+    function upploadFile($file,$path,$file_name){
         // $files->storePubliclyAs($path, $file_name, "public");
         // $url = $path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
         // $name = 'storage/'.$path.'/'. $file_name.'.'.$files->getClientOriginalExtension();
@@ -330,7 +331,16 @@ class ProductService
             
         //     $img->save($name,40);
         // }
-        $files->storePubliclyAs($path, $file_name, "public");
+    
+        $image = Image::make($file->getRealPath());
+        $image->encode('jpg', 90); 
+        // $image->resize(320, 240); 
+        $file_compressed = $image;
+
+        $fullPath = "{$path}/{$file_name}";
+        // $img = Image::make('public/foo.jpg')->resize(320, 240)->insert('public/{$path}/{$file_name}');
+        Storage::disk('public')->put($fullPath, $file_compressed);
+        // $files->storePubliclyAs($path, $file_name, "public");
         $url = $path.'/'. $file_name;
         return $url;
     }
