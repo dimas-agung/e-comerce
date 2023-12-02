@@ -57,7 +57,7 @@
                                         <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
                                             <div class="content">
                                                 <div class="card me-2" style="width: 80px;float: left;">
-                                                    <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2" style="width: 80px; height:80px;">
+                                                    <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2" style="width: 80px; height:auto;">
                                                 </div>
                                                 <div class="content ms-4 mb-4">
                                                     <span class="text text-secondary fw-bold">{{$product->name}}</span>

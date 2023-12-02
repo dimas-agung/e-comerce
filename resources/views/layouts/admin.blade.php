@@ -30,8 +30,13 @@
         https://cdn.jsdelivr.net/npm/suggestags@1.27.0/js/jquery.amsify.suggestags.min.js
         "></script>
         <link href="
-        https://cdn.jsdelivr.net/npm/suggestags@1.27.0/css/amsify.suggestags.min.css
+        https://cdn.jsdelivr.net/npm/suggestags@1.27.0/css/amsify.suggestags.min.css        
         " rel="stylesheet"> --}}
+
+        <!--searchbox customer order-->
+
+        <script src="{{ asset('js/jquery-customselect.js') }}"></script>
+        <link href="{{ asset('css/jquery-customselect.css') }}" rel='stylesheet' />
 
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

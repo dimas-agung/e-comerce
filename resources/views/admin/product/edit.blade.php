@@ -179,22 +179,22 @@
                                 <span class="title fw-bold ">Foto Produk</span>
                                 <p class="text text-secondary text-responsive me-2">
                                     Foto produk disarankan dengan resolusi yang sesuai
-                                    dengan ukuran 1:1 atau persegi dengan max 700px x 700px
+                                    dengan ukuran 9:16 atau persegi dengan max 1200px x 1800px
                                 </p>
                             </div>
                             <div class="col m-2">
                                 <div class="row">
                                     <div class="col px-2 ps-2 mt-2">
-                                        <div class="card card-body" style="width: 150px; height: 150px;">
+                                        <div class="card card-body" style="width: 150px; height: 210px;">
                                             <div class="form-group">
                                                 <input type="file" id="picture_default" name="picture_default" style="display: none;" />
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_default) }}" id="imgPreview" style="width: 120px; height: 120px;">
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_default) }}" id="imgPreview" style="width: 120px;">
                                                 <script>
                                                     $(document).ready(() => {
                                                         $("#picture_default").change(function () {
                                                             const file = this.files[0];
                                                             if(this.files[0].size > 5097152){
-                                                                alert("Ukuran gambar max 5MB!");
+                                                                $('#modalNotifPict').modal('show');
                                                                 this.value = "";
                                                                 return;
                                                             }
@@ -216,17 +216,17 @@
                                         </div>
                                     </div>
                                     <div class="col px-2 ps-2 mt-2">
-                                        <div class="card card-body" style="width: 150px; height: 150px;">
+                                        <div class="card card-body" style="width: 150px; height: 210px;">
                                             <div class="form-group">
                                                 <input type="file" id="imgUpload1" style="display: none;" name="picture_1"/>
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_1) }}" id="picture_1"  style="width: 120px; height: 120px;">
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_1) }}" id="picture_1"  style="width: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
                                                     $("#imgUpload1").change(function () {
                                                         const file = this.files[0];
                                                         if(this.files[0].size > 5097152){
-                                                                alert("Ukuran gambar max 5MB!");
+                                                                $('#modalNotifPict').modal('show');
                                                                 this.value = "";
                                                                 return;
                                                             }
@@ -247,17 +247,17 @@
                                         </div>
                                     </div>
                                     <div class="col px-2 ps-2 mt-2">
-                                        <div class="card card-body" style="width: 150px; height: 150px;">
+                                        <div class="card card-body" style="width: 150px; height: 210px;">
                                             <div class="form-group">
                                                 <input type="file" id="imgUpload2" style="display: none;" name="picture_2" />
-                                                <img class="img" for="imgUpload2" src="{{ asset('storage/'.$product->picture_2) }}" id="picture_2"  style="width: 120px; height: 120px;">
+                                                <img class="img" for="imgUpload2" src="{{ asset('storage/'.$product->picture_2) }}" id="picture_2"  style="width: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
                                                     $("#imgUpload2").change(function () {
                                                         const file = this.files[0];
                                                         if(this.files[0].size > 5097152){
-                                                                alert("Ukuran gambar max 5MB!");
+                                                                $('#modalNotifPict').modal('show');
                                                                 this.value = "";
                                                                 return;
                                                             }
@@ -278,17 +278,17 @@
                                         </div>
                                     </div>
                                     <div class="col px-2 ps-2 mt-2">
-                                        <div class="card card-body" style="width: 150px; height: 150px;">
+                                        <div class="card card-body" style="width: 150px; height: 210px;">
                                             <div class="form-group">
                                                 <input type="file" id="imgUpload3" style="display: none;" name="picture_3"/>
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_3) }}" id="picture_3"  style="width: 120px; height: 120px;">
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_3) }}" id="picture_3"  style="width: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
                                                     $("#imgUpload3").change(function () {
                                                         const file = this.files[0];
                                                         if(this.files[0].size > 5097152){
-                                                                alert("Ukuran gambar max 5MB!");
+                                                                $('#modalNotifPict').modal('show');
                                                                 this.value = "";
                                                                 return;
                                                             }
@@ -309,17 +309,17 @@
                                         </div>
                                     </div>
                                     <div class="col px-2 ps-2 mt-2">
-                                        <div class="card card-body" style="width: 150px; height: 150px;">
+                                        <div class="card card-body" style="width: 150px; height: 210px;">
                                             <div class="form-group">
                                                 <input type="file" id="imgUpload4" style="display: none;" name="picture_4"/>
-                                                <img class="img" src="{{ asset('storage/'.$product->picture_4) }}" id="picture_4"  style="width: 120px; height: 120px;">
+                                                <img class="img" src="{{ asset('storage/'.$product->picture_4) }}" id="picture_4"  style="width: 120px;">
                                             </div>
                                             <script>
                                                 $(document).ready(() => {
                                                     $("#imgUpload4").change(function () {
                                                         const file = this.files[0];
                                                         if(this.files[0].size > 5097152){
-                                                                alert("Ukuran gambar max 5MB!");
+                                                                $('#modalNotifPict').modal('show');
                                                                 this.value = "";
                                                                 return;
                                                             }
@@ -548,7 +548,7 @@
 <div class="modal fade" id="modalAddCatProduct" tabindex="-1" role="dialog" aria-labelledby="modalAddCatProduct" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-light">
+        <div class="modal-header bg-danger text-light">
           <h5 class="modal-title" id="modalAddCatProduct">Tambah Kategori Produk</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
@@ -573,5 +573,33 @@
       </div>
     </div>
 </div>
+
+ <!-- Modal Notif size Picture -->
+ <div class="modal" id="modalNotifPict">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        
+        <!--modal header-->
+        <div class="modal-header bg-primary text-light">
+            <h5 class="modal-title" id="modalNotifPict">Peringatan..!!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h6>Ukuran gambar max 5MB</h6>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Ok</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
 
 @endsection
