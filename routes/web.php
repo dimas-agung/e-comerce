@@ -105,3 +105,15 @@ Route::controller(App\Http\Controllers\OrderController::class)->group(function (
     Route::post('/order/{order}/activated', 'activated')->name('order.activated');
     Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
 });
+
+Route::controller(App\Http\Controllers\CarouselController::class)->group(function () {
+    Route::get('/carousel', 'index')->name('carousel.index');
+    Route::get('/carousel/create', 'create')->name('carousel.create');
+    Route::post('/carousel', 'store')->name('carousel.store');
+    Route::get('/carousel/{carousel}', 'show')->name('carousel.show');
+    Route::get('/carousel/{carousel}/edit', 'edit')->name('carousel.edit');
+    Route::put('/carousel/{carousel}', 'update')->name('carousel.update');
+    Route::delete('/carousel/{carousel}', 'destroy')->name('carousel.destroy');
+    Route::post('/carousel/{carousel}/activated', 'activated')->name('carousel.activated');
+    Route::post('/carousel/{carousel}/nonactive', 'nonactive')->name('carousel.nonactive');
+});
