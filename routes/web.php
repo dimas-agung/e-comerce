@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::controller(App\Http\Controllers\UserController::class)->group(function () {
     Route::get('/user', 'index')->name('user.index');
     Route::get('/user/create', 'create')->name('user.create');
@@ -116,4 +117,8 @@ Route::controller(App\Http\Controllers\CarouselController::class)->group(functio
     Route::delete('/carousel/{carousel}', 'destroy')->name('carousel.destroy');
     Route::post('/carousel/{carousel}/activated', 'activated')->name('carousel.activated');
     Route::post('/carousel/{carousel}/nonactive', 'nonactive')->name('carousel.nonactive');
+});
+
+Route::controller(App\Http\Controllers\LandingPageController::class)->group(function () {
+    Route::get('/landing_page', 'index')->name('landing_page.index');
 });

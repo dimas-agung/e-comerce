@@ -126,8 +126,8 @@
                             </a>
                             <div class="collapse" id="collapseLayoutsKonten" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{ url('/carousel') }}">Carousel</a>
-                                    <a class="nav-link" href="video-konten.html">Video Konten</a>
+                                    <a class="nav-link" href="{{ url('/landing_page') }}">Landing Page</a>
+                                    <a class="nav-link" href="#">Video Konten</a>
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Pesanan</div>
