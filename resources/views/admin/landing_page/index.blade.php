@@ -1,10 +1,5 @@
-@extends('layouts.admin')
 
+@include('admin.carousel.index')
 
-
-<!--Caraousel-->
-<div class="container-fluid px-4">
-    @include('carousel')
-</div>
 
 

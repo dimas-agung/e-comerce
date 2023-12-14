@@ -1,6 +1,6 @@
-@extends('landing_page')
+@extends('layouts.admin')
 
-@section('carousel')
+@section('content')
 
 <div class="container-fluid px-4">
     <div class="row">
