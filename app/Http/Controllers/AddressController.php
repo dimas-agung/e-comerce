@@ -13,14 +13,9 @@ class AddressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $address = Address::latest()->paginate(10);
-
-        // return response()->view('admin.Address.index', [
-        //     'Address' => $address
-        // ]);
+        return $request->input('users_id') ? Address::where('users_id',$request->input('users_id'))->get() : Address::get();
     }
 
     /**
