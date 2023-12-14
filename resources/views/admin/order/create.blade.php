@@ -214,6 +214,7 @@
             },
             success: function (data) {
                 console.log(data);
+                $('#product_varian_'+index).empty().append('<option selected="selected" value="">Pilih Varian</option>')
                 data.forEach(val => {
                     console.log(val);
                     let nama_varian = val.varian_detail1.name
