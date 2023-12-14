@@ -38,19 +38,14 @@
                                         </div>
                                         <label for="CustOrder" class="col-sm-3 col-form-label">Customer</label>
                                         <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <select id="selectCust" name="selectCust" class="custom-select">
-                                                    <option value="" selected>-- Pilih Customer --</option>
-                                                    <option value="1">Dimas Mahakarya</option>
-                                                    <option value="2">Dimas Agung</option>
-                                                    <option value="3">Ki Gusti Ngurah Rai</option>
-                                                </select>
-                                            </div>
-                                            <script>
-                                                $(function() {
-                                                  $("#selectCust").customselect();
-                                                });
-                                            </script>
+                                            <input class="form-control" list="datalistCustomer" id="exampleDataList" placeholder="Pilih Customer">
+                                            <datalist id="datalistCustomer">
+                                                <option value="Customer 1">
+                                                <option value="Customer 2">
+                                                <option value="Customer 3">
+                                                <option value="Customer 4">
+                                                <option value="Customer 5">
+                                            </datalist>
                                         </div>
                                     </div>
                                 </div>
@@ -142,19 +137,20 @@
         html += '</div>';
         html += '</td>';
         html += '<td class="col col-4" style="min-width: 200px;">';
-        html += '<select id="selectProduct" name="selectProduct" class="form-select">';
-        html += '<option value="" selected>-- Pilih Produk --</option>';
-        html += '<option value="">GAMIS AURORA MAXMARA LUX ARMANY SILK MOTIF KEKINIAN TERBARU 2023</option>';
-        html += '<option value="">GAMIS AURORA MAXMARA LUX ARMANY SILK MOTIF</option>';
-        html += '<option value="">GAMIS AURORA MAXMARA LUX ARMANY SILK MOTIF</option>';
-        html += '<option value="">GAMIS AURORA MAXMARA LUX ARMANY SILK MOTIF</option>';
-        html += '</select>';
+        html += '<input class="form-control" list="datalistProduct" id="exampleDataList2" placeholder="Pilih Produk">';
+        html += '<datalist id="datalistProduct">';
+        html += '<option value="Produk 1">';
+        html += '<option value="Produk 2">';
+        html += '<option value="Produk 3">';
+        html += '<option value="Produk 4">';
+        html += '</datalist';
         html += '</td>';
         html += '<td class="col col-2">';
-        html += '<select class="form-select" id="OrderVariant">';
-        html += '<option value=""><span class="text text-secondary fw-bold">XL, MERAH</span></option>';
-        html += '<option value=""><span class="text text-secondary fw-bold">L, BIRU </span></option>';
-        html += '</select>';
+        html += '<input class="form-control" list="datalistVariant" id="exampleDataList3" placeholder="Pilih Varian">';
+        html += '<datalist id="datalistVariant">';
+        html += '<option value="Variant 1">';
+        html += '<option value="Variant 2">';
+        html += '</datalist>';
         html += '</td>';
         html += '<td class="col col-1 text-center" style="min-width: 70px;">';
         html += '<input type="number" min="0" class="form-control" id="OrderQty"/>';
