@@ -173,6 +173,7 @@
         html += '</td>';
         html += '</tr>';
         $('#myTable tbody').append(html);
+        renderSelect2();
     }
     // remove row
     function removeData(){

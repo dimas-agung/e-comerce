@@ -185,6 +185,9 @@
                 rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
                 return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
+            function renderSelect2() {
+                $('.select2').select2();
+            }
             
             // $('input[name="variant"]')..tagsInput();;
         </script>
