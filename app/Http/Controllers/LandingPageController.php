@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Carousel;
+use App\Models\ProductBestSeller;
 use App\Models\Product;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class LandingPageController extends Controller
 
     public function index()
     {
-        return response()->view('admin.landing_page.index');
+        return response()->view('admin.landing_page.index');       
     }
 
     /**

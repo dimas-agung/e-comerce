@@ -122,3 +122,7 @@ Route::controller(App\Http\Controllers\CarouselController::class)->group(functio
 Route::controller(App\Http\Controllers\LandingPageController::class)->group(function () {
     Route::get('/landing_page', 'index')->name('landing_page.index');
 });
+
+Route::controller(App\Http\Controllers\ProductBestSellerController::class)->group(function () {
+    Route::get('/product_best_seller', 'index')->name('product_best_seller.index');
+});
