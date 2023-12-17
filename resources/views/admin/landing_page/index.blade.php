@@ -16,12 +16,13 @@
 
         <div>
             <!--Carousel-->
-            @include('admin.carousel.index')
+            @include('admin.carousel.index',['carousel'=>$carousel,'products'=>$products])
         </div>
         
         <div>
              <!--Best Seller-->
-            @include('admin.product_best_seller.index')
+
+            @include('admin.product_best_seller.index',['product_best_seller' =>$product_best_seller,'products'=>$products])
         </div>
        
         

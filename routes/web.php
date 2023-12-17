@@ -113,7 +113,7 @@ Route::controller(App\Http\Controllers\CarouselController::class)->group(functio
     Route::post('/carousel', 'store')->name('carousel.store');
     Route::get('/carousel/{carousel}', 'show')->name('carousel.show');
     Route::get('/carousel/{carousel}/edit', 'edit')->name('carousel.edit');
-    Route::put('/carousel/{carousel}', 'update')->name('carousel.update');
+    Route::put('/carousel', 'update')->name('carousel.update');
     Route::delete('/carousel/{carousel}', 'destroy')->name('carousel.destroy');
     Route::post('/carousel/{carousel}/activated', 'activated')->name('carousel.activated');
     Route::post('/carousel/{carousel}/nonactive', 'nonactive')->name('carousel.nonactive');
@@ -125,4 +125,5 @@ Route::controller(App\Http\Controllers\LandingPageController::class)->group(func
 
 Route::controller(App\Http\Controllers\ProductBestSellerController::class)->group(function () {
     Route::get('/product_best_seller', 'index')->name('product_best_seller.index');
+    Route::put('/product_best_seller', 'update')->name('product_best_seller.update');
 });

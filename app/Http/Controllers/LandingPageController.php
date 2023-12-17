@@ -20,7 +20,15 @@ class LandingPageController extends Controller
 
     public function index()
     {
-        return response()->view('admin.landing_page.index');       
+        $carousels = Carousel::latest()->get();
+        $products = Product::latest()->get();
+       
+        $productBestSeller = ProductBestSeller::latest()->get();
+        return response()->view('admin.landing_page.index',[
+            'product_best_seller' => $productBestSeller,
+            'products' => $products,
+            'carousel' => $carousels,
+        ]);       
     }
 
     /**
