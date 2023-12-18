@@ -4,13 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Carousel;
+use App\Models\ProductBestSeller;
 use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
 {
     //
     function productBestSeller()  {
-        
+       
+            return ProductBestSeller::get();
+       
     }
     function carousel(Request $request)  {
         if($request->input('carousel_id')){
