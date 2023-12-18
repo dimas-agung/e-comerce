@@ -87,14 +87,21 @@ class ProductBestSellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductBestSeller $productBestSeller)
+    public function update(Request $request, ProductBestSeller $p)
     {
         //
         $validated = $request->validate([
-            'product_id' => ['required'],
+            'product_id.*' => ['required'],
         ]);
-        $productBestSeller->update($validated);
-        return redirect('product_best_seller')->with('success', 'Data Product Best Seller has been updated!');
+        $productIds = $request->input('product_id');
+        $no = 1;
+
+        foreach ($productIds as $key => $value) {
+          ProductBestSeller::where(['id'=>$no])->update(['product_id'=>$value]);
+            $no++;
+        }
+      
+        return redirect('landing_page')->with('success', 'Data Product Best Seller has been updated!');
     }
 
     /**

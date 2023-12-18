@@ -42,6 +42,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> 
         <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0-rc.4/dist/js/tom-select.complete.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -126,8 +129,8 @@
                             </a>
                             <div class="collapse" id="collapseLayoutsKonten" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{ url('/carousel') }}">Carousel</a>
-                                    <a class="nav-link" href="video-konten.html">Video Konten</a>
+                                    <a class="nav-link" href="{{ url('/landing_page') }}">Landing Page</a>
+                                    <a class="nav-link" href="#">Video Konten</a>
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Pesanan</div>
@@ -163,6 +166,29 @@
         <script src="{{asset('js/multi-input.js')}}"></script>
         <script type="text/javascript">
             $('.tagInput').amsifySuggestags();
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+            function formatRupiah(angka, prefix = 'Rp. '){
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split(','),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+    
+                // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                if(ribuan){
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+    
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+            function renderSelect2() {
+                $('.select2').select2();
+            }
+            
             // $('input[name="variant"]')..tagsInput();;
         </script>
         

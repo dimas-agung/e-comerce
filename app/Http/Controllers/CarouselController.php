@@ -71,16 +71,16 @@ class CarouselController extends Controller
             'products' => $products,
         ]);
     }
-    public function update(Request $request,Carousel $carousel)
+    public function update(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required'],
-            'picture' => ['required'],
-            'product_id'  => ['sometimes', 'nullable'],
-            'description'  => ['sometimes', 'nullable'],
-        ]);
+        // $validated = $request->validate([
+        //     'title' => ['required'],
+        //     'picture' => ['required'],
+        //     'description'  => ['sometimes', 'nullable'],
+        //     'product_id'  => ['sometimes', 'nullable'],
+        // ]);
         DB::beginTransaction();
-        
+        $carousel= Carousel::find($request->input('carousel_id'));
         $carousel->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -99,7 +99,8 @@ class CarouselController extends Controller
             ]);
         }
         DB::commit();
-        return redirect('carousel')->with('success', 'Data Carousel has been updated!');
+        // return 123;
+        return redirect('landing_page')->with('success', 'Data Carousel has been updated!');
     }
 
     public function activated(Carousel $carousel)

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
+use App\Models\Product;
 use App\Models\ProductVarian;
+use App\Models\User;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 
@@ -46,8 +48,14 @@ class OrderController extends Controller
     public function create()
     {
         //
-        // return response()->view('admin.productCategory.create');
-        return view('admin.order.create');
+        $customers = User::with('address')->get();
+        $products = Product::get();
+        // return $customers;
+        return response()->view('admin.order.create',[
+            'customers' => $customers,
+            'products' => $products
+        ]);
+       
     }
 
     /**
