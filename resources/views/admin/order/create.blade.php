@@ -34,7 +34,7 @@
                                         </div>
                                         <label for="OrderDate" class="col-sm-3 col-form-label">Tanggal</label>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control" id="OrderDate" value="2023-11-28">
+                                            <input type="date" class="form-control" data-date-format="DD-MMM-YYYY" id="OrderDate" >
                                         </div>
                                         <label for="CustOrder" class="col-sm-3 col-form-label">Customer</label>
                                         <div class="col-sm-9">
@@ -85,30 +85,81 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                        <div class="card bg-light">
+                        </div>
+
+                        <div class="card p-2">
                             <div class="row mt-2 mb-2">
                                 <div class="col-lg-6 mb-2">
-                                    <div class="row">
-                                        <div class="col text-center mt-2">
+                                    <div class="row px-2">
+                                        <div class="col text-end ">
                                             <span class="text text-center">Total Pembelian</span>
                                         </div>
-                                        <div class="col text-end mt-2 me-2">
-                                            <span class="text fw-bold" id="span-total-pembelian">Rp 0</span>
+                                        <div class="col text-end me-2">
+                                            <span class="text fw-bold">Rp. 258.000</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col text-center mt-2">
-                                            <span class="text text-center">Total Bayar</span>
+                                    <div class="row px-2">
+                                        <div class="col text-end">
+                                            <span class="text text-center">Diskon</span>
                                         </div>
                                         <div class="col text-end me-2">
-                                            <input type="number" id="Payment" min="0" class="form-control">
+                                            <span class="text fw-bold">Rp. 58.000</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="card bg-light p-2">
+                            <!--Sub Total-->
+                            <div class="row mb-2 px-2">
+                                <div class="col-6 text-end">
+                                    <span class="text text-center me-2">Sub Total</span>
+                                    <span class="text text-center fw-bold">RP</span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="text fw-bold" id="span-total-pembelian">0</span>
+                                </div>
+                            </div>
+
+                             <!--Ongkos Kirim-->
+                            <div class="row mb-2 mt-2 px-2">
+                                <div class="col-6 text-end mt-1">
+                                    <span class="text text-center me-2">Ongkos Kirim</span>
+                                    <span class="text text-center fw-bold">RP</span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <input type="text" min="0" class="form-control form-control-sm text-end bg-light border-0 fw-bold" id="OngkosKirim">
+                                    <div class="border-bottom border-danger border-2 mt-2"> </div>
+                                </div>
+                            </div>
+
+                            
+                            <!--Grand Total-->
+                            <div class="row px-2">
+                                <div class="col-6 text-end">
+                                    <span class="text text-center me-2">Grand Total</span>
+                                    <span class="text text-center fw-bold">RP</span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="text fw-bold" id="span-total-pembelian">0</span>
+                                </div>
+                            </div>
+
+                             <!--Pembayaran-->
+                             <div class="row mb-2 mt-2 px-2">
+                                <div class="col-6 text-end mt-1">
+                                    <span class="text text-center me-2">Pembayaran</span>
+                                    <span class="text text-center fw-bold">RP</span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <input type="text" min="0" class="form-control form-control-sm text-end bg-light border-0 fw-bold" id="Payment">
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="card-header mt-2">
                             <div class="row text-end">
@@ -286,7 +337,21 @@
     // $(function() {
     //     $("#selectProduct").customselect();
     // });
-                                                   
+    
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+
+
+    document.getElementById('OrderDate').value = today;
+
     </script>
 
 @endsection
