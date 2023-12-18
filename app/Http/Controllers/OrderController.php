@@ -24,20 +24,20 @@ class OrderController extends Controller
 
     public function index()
     {
-        //
-        // $order = Order::latest()->paginate(10);
-        // $product_varian = ProductVarian::with(['product','varian_detail1','varian_detail2'])->find(1);
-        // OrderStatusHistory::create([
-        //     'order_id' => 1,
-        //     'order_status_id' => 2
-        // ]);
-        // $order_hystorys = OrderStatusHistory::all();
-        // return $order_hystorys;
-        // return $order;
-        // return response()->view('admin.order.index', [
-        //     'order' => $order
-        // ]);
-        return view('admin.order.index');
+        $new_orders = Order::where('order_status_id',Order::WAITING_PAYMENT_STATUS)->latest()->get();
+        $orders_processed = Order::where('order_status_id',Order::READY_PAYMENT_STATUS)->latest()->get();
+        $orders_ready_shipping = Order::where('order_status_id',Order::READY_SHIPPING_STATUS)->latest()->get();
+        $orders_shipping = Order::where('order_status_id',Order::SHIPPING_STATUS)->latest()->get();
+        $orders_success = Order::where('order_status_id',Order::SUCCESS_STATUS)->latest()->get();
+        $orders_calcelled = Order::where('order_status_id',Order::CANCEL_STATUS)->latest()->get();
+        return response()->view('admin.order.index',[
+            'new_orders' => $new_orders,
+            'orders_processed' => $orders_processed,
+            'orders_ready_shipping' => $orders_ready_shipping,
+            'orders_shipping' => $orders_shipping,
+            'orders_success' => $orders_success,
+            'orders_calcelled' => $orders_calcelled,
+        ]);
     }
 
     /**

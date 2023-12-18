@@ -164,6 +164,7 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{asset('js/multi-input.js')}}"></script>
+        @yield('script')
         <script type="text/javascript">
             $('.tagInput').amsifySuggestags();
             $(document).ready(function() {
@@ -188,6 +189,7 @@
             function renderSelect2() {
                 $('.select2').select2();
             }
+            
             
             // $('input[name="variant"]')..tagsInput();;
         </script>
