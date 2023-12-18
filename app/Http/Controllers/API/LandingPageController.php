@@ -12,7 +12,7 @@ class LandingPageController extends Controller
     //
     function productBestSeller()  {
        
-            return ProductBestSeller::get();
+            return ProductBestSeller::with('product')->get();
        
     }
     function carousel(Request $request)  {
