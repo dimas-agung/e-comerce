@@ -9,6 +9,7 @@ use App\Models\ProductVarian;
 use App\Models\User;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class OrderController extends Controller
 {
@@ -24,8 +25,8 @@ class OrderController extends Controller
 
     public function index()
     {
-        $new_orders = Order::where('order_status_id',Order::WAITING_PAYMENT_STATUS)->latest()->get();
-        $orders_processed = Order::where('order_status_id',Order::READY_PAYMENT_STATUS)->latest()->get();
+        $new_orders = Order::where('order_status_id',Order::WAITING_DP_STATUS)->latest()->get();
+        $orders_processed = Order::where('order_status_id',Order::READY_DP_STATUS)->latest()->get();
         $orders_ready_shipping = Order::where('order_status_id',Order::READY_SHIPPING_STATUS)->latest()->get();
         $orders_shipping = Order::where('order_status_id',Order::SHIPPING_STATUS)->latest()->get();
         $orders_success = Order::where('order_status_id',Order::SUCCESS_STATUS)->latest()->get();
@@ -168,5 +169,12 @@ class OrderController extends Controller
             'order_status_id' => 6
         ]);
         return redirect('order')->with('success', 'Data Order has been canceled!');
+    }
+    public function pushStatus(Request $request, Order $order)
+    {
+        $OrderStatusId = $request->input('status');
+        $order->update(['order_status_id' => $OrderStatusId]);
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
     }
 }

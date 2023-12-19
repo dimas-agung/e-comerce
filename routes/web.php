@@ -103,6 +103,7 @@ Route::controller(App\Http\Controllers\OrderController::class)->group(function (
     Route::get('/order/{address}/edit', 'edit')->name('order.edit');
     Route::put('/order/{order}', 'update')->name('order.update');
     Route::post('/order/{order}/cancel', 'cancel')->name('order.cancel');
+    Route::post('/order/{order}/push_status', 'pushStatus')->name('order.push_status');
     Route::post('/order/{order}/activated', 'activated')->name('order.activated');
     Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
 });
