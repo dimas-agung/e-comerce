@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
         $data = [
             [
                 'product_categories_id' => 1,
+                'product_code' => 1,
                 'name' => 'Sepatu Adidas',
                 'length' => 1,
                 'width' => 1,

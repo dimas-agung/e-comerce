@@ -120,7 +120,7 @@ class CarouselController extends Controller
     function upploadFile($file,$path,$file_name){
   
         $image = Image::make($file->getRealPath());
-        $image->encode('jpg', 90); 
+        $image->encode('jpg', 70); 
         // $image->resize(320, 240); 
         $file_compressed = $image;
 

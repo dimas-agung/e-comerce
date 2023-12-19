@@ -28,6 +28,12 @@ class OrderStatusSeeder extends Seeder
                 'name' => 'Ready Payment',
             ],
             [
+                'name' => 'Ready Shipping',
+            ],
+            [
+                'name' => 'Shipping',
+            ],
+            [
                 'name' => 'Success',
             ],
             [
