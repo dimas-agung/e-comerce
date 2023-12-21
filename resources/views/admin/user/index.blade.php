@@ -182,23 +182,17 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
-                            <label for="inputDestrict" >Kecamatan</label>
-                            <select id="inputDestrict" class="form-select" name="districts_id" required>
-                                <option selected>--Pilih Kecamatan--</option>
-                                <option value="1">Kecamatan Waru</option>
-                                <option value="2">Kecamatan Krian</option>
-                                <option value="3">Kecamatan Mojosari</option>
+                            <label for="inputDistrict" >Kecamatan</label>
+                            <select id="inputDistrict" class="form-control" placeholder="Pilih Kecamatan" name="districts_id" required>
+                                <option value="" disabled selected>Pilih Kecamatan</option>
+                                @foreach ($district as $districts)
+                                    <option value="{{$districts->id}}">{{$districts->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <select id="inputVill" name="villages_id" class="form-select" required>
-                                <option selected>--Pilih Kelurahan--</option>
-                                <option value="1">Tropodo</option>
-                                <option value="2">Sedati</option>
-                                <option value="3">Damarsi</option>
-                                <option value="4">Tunggal Pager</option>
-                            </select>
+                            <input type="text" class="form-control" id="inputVill" placeholder="Kelurahan" name="villages_id" required>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
