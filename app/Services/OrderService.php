@@ -97,10 +97,8 @@ class OrderService
         $expedition_id,
         $order_type,
         $note,
-        $img_transfer,
-        Array $product_varian_id,
-        Array $qty_order,
-        Array $discounts,
+        array $orderItems,  
+
      ) 
      {
         DB::beginTransaction();
@@ -120,8 +118,9 @@ class OrderService
         'note' => $note,
         'users_id' => 1
        ]);
-       foreach ($product_varian_id as $key => $value) {
-            $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find($value);
+       foreach ($orderItems as $key => $value) {
+            $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find(8);
+            // $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find($value['product_varian_id']);
             $productvarian1 = $product_varian->varian_detail1->varians_name.' '.$product_varian->varian_detail1->name;
             $productvarian2 = '';
             if ($product_varian->varian_detail2) {
@@ -131,7 +130,7 @@ class OrderService
             else{
                 $product_varian_name = $productvarian1;
             }
-            $qty = $qty_order[$key];
+            $qty = $value['qty'];
             $discount = 0;
             $price_product = $product_varian->price;
             $price_after_discount = $price_product - ($price_product * $discount/100);
@@ -148,18 +147,7 @@ class OrderService
             
             
        }
-        $path = 'payment';
-        $picture = $img_transfer;
-        $file_name = 'DP_'.$order_no.'.png';
-        $url = self::upploadFile($picture,$path,$file_name);
-        // PAYMENY
-        Payment::create([
-            'orders_id' => $order->id,
-            'users_id' => 1,
-            'status_payment' => 'DP',
-            'nominal' => $total_payment,
-            'img' => $url,
-        ]);
+        
         
         DB::commit();
         return $order;

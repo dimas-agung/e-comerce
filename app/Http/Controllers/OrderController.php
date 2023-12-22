@@ -25,6 +25,7 @@ class OrderController extends Controller
 
     public function index()
     {
+        // $new_orders = Order::where('order_status_id',Order::WAITING_DP_STATUS)->latest()->get();
         $new_orders = Order::where('order_status_id',Order::WAITING_DP_STATUS)->latest()->get();
         $orders_processed = Order::where('order_status_id',Order::READY_DP_STATUS)->latest()->get();
         $orders_ready_shipping = Order::where('order_status_id',Order::READY_SHIPPING_STATUS)->latest()->get();

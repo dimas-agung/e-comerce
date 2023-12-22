@@ -23,3 +23,5 @@ Route::get('/landing_page/carousel', [App\Http\Controllers\API\LandingPageContro
 Route::get('/product/search', [App\Http\Controllers\API\ProductController::class, 'search']);
 Route::get('/product_category', [App\Http\Controllers\API\ProductCategoryController::class, 'index']);
 Route::get('/product_varian', [App\Http\Controllers\API\ProductVarianController::class, 'index'])->name('api.product_varian');
+Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
+Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');

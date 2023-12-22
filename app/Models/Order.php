@@ -31,6 +31,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class, 'orders_id', 'id');
     }
+    public function payment()
+    {
+        return $this->hasMany(Payment::class, 'orders_id', 'id');
+    }
     public function status()
     {
         return $this->belongsTo(OrderStatus::class, 'id', 'order_status_id');
