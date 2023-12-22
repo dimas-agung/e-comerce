@@ -119,8 +119,8 @@ class OrderService
         'users_id' => 1
        ]);
        foreach ($orderItems as $key => $value) {
-            $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find(8);
-            // $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find($value['product_varian_id']);
+            // $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find(8);
+            $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find($value['product_varian_id']);
             $productvarian1 = $product_varian->varian_detail1->varians_name.' '.$product_varian->varian_detail1->name;
             $productvarian2 = '';
             if ($product_varian->varian_detail2) {
@@ -136,7 +136,7 @@ class OrderService
             $price_after_discount = $price_product - ($price_product * $discount/100);
             $orderDetail = OrderDetail::create([
                 'orders_id' => $order->id,
-                'products_id' => 1,
+                'products_id' => $product_varian->products_id,
                 'product_varian_name' => $product_varian_name,
                 // 'shipping_price' => $shipping_price,
                 'qty' => $qty,
