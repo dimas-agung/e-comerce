@@ -200,7 +200,7 @@
                                         <a href="" data-toggle="modal" data-target="#modalReject"   onclick="cancelOrder('{{$order->id}}','{{$order->order_no}}')" class="btn btn-danger col col-sm-2">
                                             <span class="text">Tolak</span>
                                         </a>
-                                        <a href="" data-toggle="modal" data-target="#modalOrderConfirm" onclick="confirmOrder('{{$order->id}}','{{$order->order_no}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
+                                        <a href="" data-toggle="modal" data-target="#modalOrderConfirm" onclick="confirmOrder('{{$order->id}}','{{$order->order_no}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-success col col-sm-2">
                                             <span class="text">Terima</span>
                                         </a>
                                     </div>
@@ -1129,7 +1129,7 @@
                                     <div class="row">
                                         <div class="col-sm justify-content-center">
                                             <div class="container mt-3">
-                                                <img src="assets/img/transfer/buktiTrf.jpg" alt="bukti transfer" class="img-fluid rounded-2" width="250px">
+                                                <img src="assets/img/transfer/buktiTrf.jpg" id="img_bukti_transfer1" alt="bukti transfer" class="img-fluid rounded-2 " height="1000px">
                                             </div> 
                                         </div>
                                         <div class="col-sm-6 mt-2">
@@ -1317,7 +1317,7 @@
 
             $('.span_total_minimal_bayar').html(formatRupiah(String(min_bayar),'Rp'))
         }
-        function confirmOrder(id,no_order,total_pembelian) {
+        function confirmOrder(id,no_order,total_pembelian,img) {
             $('#id_order_confirm').val(id)
             $('#no_order_confirm').html(no_order)
             // $('#modalOrderConfirm').modal('show')
@@ -1326,6 +1326,10 @@
 
             $('#min_bayar_confirm').html(formatRupiah(String(min_bayar),'Rp'))
             $('#min_bayar_confirm_data').val(min_bayar)
+
+            var src1 = 'storage/'+img;
+            // console.log(src1);
+            $("#img_bukti_transfer1").attr("src", src1);
         }
         
         function checkMinimumlPayment() {
@@ -1370,7 +1374,7 @@
             $('#id_order_reject').val(id)
             $('#no_order_reject').html(no_order)
         }
-        function confirmOrderSave() {
+        function cancelOrderSave() {
             let id = $('#id_order_cancel').val();
             let reason_cancel = $('#inputReasonReject').val();
            
