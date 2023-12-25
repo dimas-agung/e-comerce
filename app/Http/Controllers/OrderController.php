@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\ProductVarian;
 use App\Models\User;
@@ -170,6 +171,15 @@ class OrderController extends Controller
             'order_status_id' => 6
         ]);
         return redirect('order')->with('success', 'Data Order has been canceled!');
+    }
+    public function updatePayment(Request $request, Order $order)
+    {
+        $nominal_transfer = $request->input('nominal_transfer');
+        $order->update(['nominal_transfer' => $nominal_transfer]);
+        $payment = Payment::where(['orders_id'=>$order->id])->latest()->first();
+        $payment->update(['nominal' => $nominal_transfer]);
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
     }
     public function pushStatus(Request $request, Order $order)
     {

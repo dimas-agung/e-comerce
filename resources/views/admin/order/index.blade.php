@@ -194,13 +194,13 @@
                                 <div class="row">
                                     <div class="col text-end me-2">
                                         
-                                        <a href=""  data-toggle="modal" data-target="#modalEvidenceTrf" onclick="modalTransfer('{{$order->id}}','{{$order->order_no}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-outline-primary col col-sm-auto">
+                                        <a href=""  data-toggle="modal" data-target="#modalEvidenceTrf" onclick="modalTransfer('{{$order->id}}','{{$order->order_no}}','{{$order->price_total}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-outline-primary col col-sm-auto">
                                             <span class="text">Bukti Transfer</span>
                                         </a>
                                         <a href="" data-toggle="modal" data-target="#modalReject"   onclick="cancelOrder('{{$order->id}}','{{$order->order_no}}')" class="btn btn-danger col col-sm-2">
                                             <span class="text">Tolak</span>
                                         </a>
-                                        <a href="" data-toggle="modal" data-target="#modalOrderConfirm" onclick="confirmOrder('{{$order->id}}','{{$order->order_no}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-success col col-sm-2">
+                                        <a href="" data-toggle="modal" data-target="#modalOrderConfirm" onclick="confirmOrder('{{$order->id}}','{{$order->order_no}}','{{$order->price_total}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-success col col-sm-2">
                                             <span class="text">Terima</span>
                                         </a>
                                     </div>
@@ -333,7 +333,7 @@
                                             <a  href="" data-toggle="modal" data-target="#modalReject" class="btn btn-danger col col-sm-2">
                                                 <span class="text">Batal</span>
                                             </a>
-                                            <a href="" data-toggle="modal" data-target="#Konfirm" class="btn btn-success col col-sm-2">
+                                            <a href="#" onclick="confirmOrderReadyShipping('{{$order->id}}')" class="btn btn-success col col-sm-2">
                                                 <span class="text">Siap Dikirim</span>
                                             </a>
                                         </div>
@@ -1304,11 +1304,12 @@
             }
             previous=s;
         });
-        function modalTransfer(id,no_order,total_pembelian,img) {
+        function modalTransfer(id,no_order,total_pembelian,total_payment,img) {
             // $('#id_order_confirm').val(id)
             $('.span_order_no').html(no_order)
             // $('#modalOrderConfirm').modal('show')
             $('.span_total_pembelian').html(formatRupiah(total_pembelian))
+            $('.span_total_minimal_bayar').html(formatRupiah(total_payment))
             let min_bayar = parseInt(total_pembelian)*50/100;
             var src1 = 'storage/'+img;
             console.log(src1);
@@ -1317,15 +1318,15 @@
 
             $('.span_total_minimal_bayar').html(formatRupiah(String(min_bayar),'Rp'))
         }
-        function confirmOrder(id,no_order,total_pembelian,img) {
+        function confirmOrder(id,no_order,total_pembelian,$total_payment,img) {
             $('#id_order_confirm').val(id)
             $('#no_order_confirm').html(no_order)
             // $('#modalOrderConfirm').modal('show')
             $('#total_pembelian').html(formatRupiah(total_pembelian))
             let min_bayar = parseInt(total_pembelian)*50/100;
 
-            $('#min_bayar_confirm').html(formatRupiah(String(min_bayar),'Rp'))
-            $('#min_bayar_confirm_data').val(min_bayar)
+            $('#min_bayar_confirm').html(formatRupiah(String(total_payment),'Rp'))
+            $('#min_bayar_confirm_data').val(total_payment)
 
             var src1 = 'storage/'+img;
             // console.log(src1);
@@ -1345,12 +1346,38 @@
         }
         function confirmOrderSave() {
             let id = $('#id_order_confirm').val();
-           
+            let nominal_bayar = $('#inputPaymentConfirm1').val()
             $.ajax({
              url: `/order/${id}/push_status`,
             method: "POST",
             data : {
                 status : 2
+            },
+            success: function (data) {
+                // Swal.fire(
+                // 'Good Success!',
+                // 'Order has ben updated!!',
+                // 'success'
+                // )
+                swal({
+                    title: "Success!",
+                    text: "Order has ben updated!",
+                    icon: "success",
+                });
+                setTimeout(() => {
+                    
+                    window.location.href = "/order";
+                }, 2000);
+            },
+        });
+        }
+        function confirmOrderReadyShipping(id) {
+           
+            $.ajax({
+             url: `/order/${id}/push_status`,
+            method: "POST",
+            data : {
+                status : 5
             },
             success: function (data) {
                 // Swal.fire(
@@ -1379,28 +1406,49 @@
             let reason_cancel = $('#inputReasonReject').val();
            
             $.ajax({
-             url: `/order/${id}/cancel`,
-            method: "POST",
-            data : {
-                reason_cancel : reason_cancel
-            },
-            success: function (data) {
-                // Swal.fire(
-                // 'Good Success!',
-                // 'Order has ben updated!!',
-                // 'success'
-                // )
-                swal({
-                    title: "Success!",
-                    text: "Order has ben cancel!",
-                    icon: "success",
-                });
-                setTimeout(() => {
-                    
-                    window.location.href = "/order";
-                }, 2000);
-            },
-        });
+                url: `/order/${id}/cancel`,
+                method: "POST",
+                data : {
+                    reason_cancel : reason_cancel
+                },
+                success: function (data) {
+                    // Swal.fire(
+                    // 'Good Success!',
+                    // 'Order has ben updated!!',
+                    // 'success'
+                    // )
+                    swal({
+                        title: "Success!",
+                        text: "Order has ben cancel!",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
+        }
+        function updateTotalPayment(order_id,total_payment) {
+            $.ajax({
+                url: `/order/${id}/update_payment`,
+                method: "POST",
+                data : {
+                    total_payment : total_payment
+                },
+                success: function (data) {
+                  
+                    // swal({
+                    //     title: "Success!",
+                    //     text: "Order has ben cancel!",
+                    //     icon: "success",
+                    // });
+                    // setTimeout(() => {
+                        
+                    //     window.location.href = "/order";
+                    // }, 2000);
+                },
+            });
         }
         
     </script>
