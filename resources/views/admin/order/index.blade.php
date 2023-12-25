@@ -201,7 +201,7 @@
                                             <span class="text">Tolak</span>
                                         </a>
                                         <a href="" data-toggle="modal" data-target="#modalOrderConfirm" onclick="confirmOrder('{{$order->id}}','{{$order->order_no}}','{{$order->price_total}}','{{$order->total_payment}}','{{$order->payment[0]->img}}')" class="btn btn-success col col-sm-2">
-                                            <span class="text">Terima</span>
+                                            <span class="text">Terima </span>
                                         </a>
                                     </div>
                                 </div>
@@ -1129,7 +1129,7 @@
                                     <div class="row">
                                         <div class="col-sm justify-content-center">
                                             <div class="container mt-3">
-                                                <img src="assets/img/transfer/buktiTrf.jpg" id="img_bukti_transfer1" alt="bukti transfer" class="img-fluid rounded-2 " height="1000px">
+                                                <img src="#" id="img_bukti_transfer1" alt="bukti transfer" class="img-fluid rounded-2 " height="1000px">
                                             </div> 
                                         </div>
                                         <div class="col-sm-6 mt-2">
@@ -1318,9 +1318,11 @@
 
             $('.span_total_minimal_bayar').html(formatRupiah(String(min_bayar),'Rp'))
         }
-        function confirmOrder(id,no_order,total_pembelian,$total_payment,img) {
+        function confirmOrder(id,no_order,total_pembelian,total_payment,img) {
             $('#id_order_confirm').val(id)
             $('#no_order_confirm').html(no_order)
+            console.log(img);
+            console.log(total_payment);
             // $('#modalOrderConfirm').modal('show')
             $('#total_pembelian').html(formatRupiah(total_pembelian))
             let min_bayar = parseInt(total_pembelian)*50/100;
@@ -1359,6 +1361,7 @@
                 // 'Order has ben updated!!',
                 // 'success'
                 // )
+                updateTotalPayment(id,nominal_bayar)
                 swal({
                     title: "Success!",
                     text: "Order has ben updated!",
