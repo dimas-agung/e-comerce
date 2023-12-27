@@ -355,8 +355,8 @@
                                     </div>
                                     
                                     <div class="collapse" id="MoreItemNewOrder{{$key}}">
-                                        @foreach ($order->detail as $key=>$item)
-                                            @if ($key==0)
+                                        @foreach ($order->detail as $key1=>$item)
+                                            @if ($key1==0)
                                                 @php
                                                     continue;
                                                 @endphp
@@ -366,7 +366,7 @@
                                                     <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
                                                 </div>
                                                 <div class="content ms-4 mb-4">
-                                                    <span class="text text-secondary">{{$item->product->name}}</span>
+                                                    <span class="text text-secondary">{{$item->product->name}} </span>
                                                     <span class="text-secondary ms-2 me-2">-</span>
                                                     <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span></br>
                                                     <span class="text mb-2">{{$item->qty}} x 
@@ -925,7 +925,7 @@
                                     
                                     <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
                                         @foreach ($order->detail as $key2=>$item)
-                                            @if ($key==0)
+                                            @if ($key2==0)
                                                 @php
                                                     continue;
                                                 @endphp
