@@ -17,6 +17,7 @@ class OrderController extends Controller
     private OrderService $orderService;
     public function __construct() {
         $this->orderService =  new OrderService();
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
