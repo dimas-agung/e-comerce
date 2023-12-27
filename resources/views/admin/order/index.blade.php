@@ -92,31 +92,91 @@
 
                                         <div class="d-flex">
                                             <div class="flex-shrink-0">
-                                                <div class="align-self-start me-2" style="width: 92px;">
-                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" >
+                                                <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
                                                 </div>
                                             </div>
+    
                                             <div class="flex-grow-1">
-                                                
                                                 <div class="content ms-2 mb-4">
-                                                    @foreach ($order->detail as $key=>$item)
-                                                        <div class="mb-2">
-                                                            <span class="text text-secondary">{{$item->product->name}}</span>
-                                                            <span class="text-secondary ms-2 me-2">-</span>
-                                                            <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
-                                                            <span class="mx-2">x</span>
-                                                            <span class="text mb-2">{{$item->qty}} <br> 
-                                                            @if ($item->discount>0)
-                                                                    
-                                                            <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                            @endif
-                                                            <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
-                                                        </div>
-                                                        
-                                                    @endforeach
+                                                    <div class="mb-2">
+                                                        <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
+                                                        <span class="text-secondary ms-2 me-2">-</span>
+                                                        <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span>
+                                                        <span class="mx-2">x</span>
+                                                        <span class="text mb-2">{{$order->detail[0]->qty}} <br>  
+                                                        @if ($order->detail[0]->discount>0)
+                                                                
+                                                        <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
+                                                        @endif
+                                                        <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
+    
                                         </div>
+
+                                        <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
+                                            @foreach ($order->detail as $key2=>$item)
+                                                @if ($key2==0)
+                                                    @php
+                                                        continue;
+                                                    @endphp
+                                                @endif
+    
+                                                <div class="d-flex mb-1">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                            <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="content ms-2 mb-4">
+                                                            <div class="mb-2">
+                                                                <span class="text text-secondary">{{$item->product->name}}</span>
+                                                                <span class="text-secondary ms-2 me-2">-</span>
+                                                                <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
+                                                                <span class="mx-2">x</span>
+                                                                <span class="text mb-2">{{$item->qty}}<br> 
+                                                                @if ($item->discount>0)
+                                                                    
+                                                                        <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                        <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                    @else
+                                                                        <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <div class="content text-center rounded-4 mt-2 ms-2 me-2">
+                                            @if (count($order->detail)> 1)
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            @endif
+                                        </div>
+                                        
+                                        <!--Replace text button-->
+                                        <script>
+
+                                            const btn = document.getElementById('btn-ch');
+
+                                            // ✅ Toggle button text on click
+                                            btn.addEventListener('click', function handleClick() {
+                                            const initialText = '{{count($order->detail)-1}} Produk lainnya';
+
+                                            if (btn.textContent.toLowerCase().includes(initialText.toLowerCase())) {
+                                                btn.textContent = 'Sembunyikan';
+                                            } else {
+                                                btn.textContent = initialText;
+                                            }
+                                            });
+
+                                        </script>
+    
                                     </div>
 
                                     <div class="col-4" style="min-width: 438px ;">
@@ -127,7 +187,7 @@
                                                 {{$order->address}}
                                             </span>
                                         </div>
-                                        <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between mb-2">
                                             <div class="col">
                                                 <span class="text-secondary fw-bold">Status</span><br>
                                                 <span class="content bg-secondary text-light ms-2 me-2">{{$order->detail[0]->product->order_type}} {{$order->detail[0]->product->order_period}} Hari</span>
@@ -218,31 +278,72 @@
 
                                         <div class="d-flex">
                                             <div class="flex-shrink-0">
-                                                <div class="align-self-start me-2" style="width: 92px;">
-                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" >
+                                                <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
                                                 </div>
                                             </div>
+    
                                             <div class="flex-grow-1">
-                                                
                                                 <div class="content ms-2 mb-4">
-                                                    @foreach ($order->detail as $key=>$item)
-                                                        <div class="mb-2">
-                                                            <span class="text text-secondary">{{$item->product->name}}</span>
-                                                            <span class="text-secondary ms-2 me-2">-</span>
-                                                            <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
-                                                            <span class="mx-2">x</span>
-                                                            <span class="text mb-2">{{$item->qty}} <br> 
-                                                            @if ($item->discount>0)
-                                                                    
-                                                            <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                            @endif
-                                                            <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
-                                                        </div>
-                                                        
-                                                    @endforeach
+                                                    <div class="mb-2">
+                                                        <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
+                                                        <span class="text-secondary ms-2 me-2">-</span>
+                                                        <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span>
+                                                        <span class="mx-2">x</span>
+                                                        <span class="text mb-2">{{$order->detail[0]->qty}} <br>  
+                                                        @if ($order->detail[0]->discount>0)
+                                                                
+                                                        <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
+                                                        @endif
+                                                        <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
+                                            @foreach ($order->detail as $key2=>$item)
+                                                @if ($key2==0)
+                                                    @php
+                                                        continue;
+                                                    @endphp
+                                                @endif
+    
+                                                <div class="d-flex mb-1">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                            <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="content ms-2 mb-4">
+                                                            <div class="mb-2">
+                                                                <span class="text text-secondary">{{$item->product->name}}</span>
+                                                                <span class="text-secondary ms-2 me-2">-</span>
+                                                                <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
+                                                                <span class="mx-2">x</span>
+                                                                <span class="text mb-2">{{$item->qty}}<br> 
+                                                                @if ($item->discount>0)
+                                                                    
+                                                                        <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                        <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                    @else
+                                                                        <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <div class="content text-center rounded-4 mt-2 ms-2 me-2">
+                                            @if (count($order->detail)> 1)
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            @endif
+                                        </div>
+
                                     </div>
 
                                     <div class="col-4" style="min-width: 438px ;">
@@ -253,7 +354,7 @@
                                                 {{$order->address}}
                                             </span>
                                         </div>
-                                        <div class="d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between mb-2">
                                             <div class="col">
                                                 <span class="text-secondary fw-bold">Status</span><br>
                                                 <span class="content bg-secondary text-light ms-2 me-2">{{$order->detail[0]->product->order_type}} {{$order->detail[0]->product->order_period}} Hari</span>
@@ -931,7 +1032,7 @@
                                                 @endphp
                                             @endif
 
-                                            <div class="d-flex">
+                                            <div class="d-flex mb-1">
                                                 <div class="flex-shrink-0">
                                                     <div class="align-self-start me-2" style="width: 76px; height: 76px;">
                                                         <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
@@ -946,10 +1047,11 @@
                                                             <span class="mx-2">x</span>
                                                             <span class="text mb-2">{{$item->qty}}<br> 
                                                             @if ($item->discount>0)
-                                                                    
-                                                            <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                            @else
-                                                            <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
+                                                                
+                                                                    <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                    <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                @else
+                                                                    <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -961,7 +1063,7 @@
                                     
                                     <div class="content text-center rounded-4 mt-2 ms-2 me-2">
                                         @if (count($order->detail)> 1)
-                                        <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
                                         @endif
                                     </div>
                                 </div>
@@ -969,7 +1071,7 @@
                                 <div class="col-4" style="min-width: 438px ;">
                                     <div class="text mb-2">
                                         <P class="text-secondary fw-bold">Alamat</P>
-                                        <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
+                                        <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span><br>
                                         <span>
                                             {{$order->address}}
                                         </span>
@@ -1260,6 +1362,31 @@
                       </div>
                     <!--End Modal Laporan Penjualan-->
 
+                    <!--Modal Warning Min Payment-->
+                    <div class="modal" id="modalNotMinPay">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            
+                            <!--modal header-->
+                            <div class="modal-header bg-danger text-light">
+                                <h5 class="modal-title" id="modalNotifPict">Peringatan..!!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                            <h6>Nominal Minimal Pembayaran</h6>
+                            <h6>Kurang dari Minimum Pembayaran</h6>
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Ok</button>
+                            </div>
+                            
+                        </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
@@ -1322,6 +1449,7 @@
             let min_bayar = $('#min_bayar_confirm_data').val()
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             if (parseInt(nominal_bayar) < parseInt(min_bayar)) {
+                // $('#modalNotMinPay').modal('show');
                 alert('Nominal Bayar kurang dari minimum bayar')
                 $('#inputPaymentConfirm1').val(null)
                 return;
@@ -1414,7 +1542,7 @@
                 },
             });
         }
-        function updateTotalPayment(order_id,total_payment) {
+        function updateTotalPayment(id,total_payment) {
             $.ajax({
                 url: `/order/${id}/update_payment`,
                 method: "POST",
@@ -1423,18 +1551,19 @@
                 },
                 success: function (data) {
                   
-                    // swal({
-                    //     title: "Success!",
-                    //     text: "Order has ben cancel!",
-                    //     icon: "success",
-                    // });
-                    // setTimeout(() => {
+                    swal({
+                        title: "Success!",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
                         
-                    //     window.location.href = "/order";
-                    // }, 2000);
+                        window.location.href = "/order";
+                    }, 2000);
                 },
             });
         }
+
         
     </script>
 </main>
