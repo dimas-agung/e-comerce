@@ -1479,7 +1479,7 @@
                 // });
                 // setTimeout(() => {
                     
-                //     window.location.href = "/order";
+                //     window.location.href = "/public/order";
                 // }, 2000);
             },
         });
@@ -1505,7 +1505,7 @@
                 });
                 setTimeout(() => {
                     
-                    window.location.href = "/order";
+                    window.location.href = "/public/order";
                 }, 2000);
             },
         });
@@ -1537,7 +1537,7 @@
                     });
                     setTimeout(() => {
                         
-                        window.location.href = "/order";
+                        window.location.href = "/public/order";
                     }, 2000);
                 },
             });
@@ -1558,7 +1558,7 @@
                     });
                     setTimeout(() => {
                         
-                        window.location.href = "/order";
+                        window.location.href = "/public/order";
                     }, 2000);
                 },
             });
