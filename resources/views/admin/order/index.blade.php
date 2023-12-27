@@ -1460,7 +1460,7 @@
             let id = $('#id_order_confirm').val();
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             $.ajax({
-            url:`public/order/${id}/push_status`,
+             url: `/order/${id}/push_status`,
             method: "POST",
             data : {
                 status : 2
@@ -1487,7 +1487,7 @@
         function confirmOrderReadyShipping(id) {
            
             $.ajax({
-            url:`public/order/${id}/push_status`,
+             url: `/order/${id}/push_status`,
             method: "POST",
             data : {
                 status : 5
@@ -1519,7 +1519,7 @@
             let reason_cancel = $('#inputReasonReject').val();
            
             $.ajax({
-               url:`public/order/${id}/cancel`,
+                url: `/order/${id}/cancel`,
                 method: "POST",
                 data : {
                     reason_cancel : reason_cancel
@@ -1544,7 +1544,7 @@
         }
         function updateTotalPayment(id,total_payment) {
             $.ajax({
-               url:`public/order/${id}/update_payment`,
+                url: `/order/${id}/update_payment`,
                 method: "POST",
                 data : {
                     total_payment : total_payment
