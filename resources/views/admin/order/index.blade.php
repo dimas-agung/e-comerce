@@ -1472,15 +1472,15 @@
                 // 'success'
                 // )
                 updateTotalPayment(id,nominal_bayar)
-                swal({
-                    title: "Success!",
-                    text: "Order has ben updated!",
-                    icon: "success",
-                });
-                setTimeout(() => {
+                // swal({
+                //     title: "Success!",
+                //     text: "Order has ben updated!",
+                //     icon: "success",
+                // });
+                // setTimeout(() => {
                     
-                    window.location.href = "/order";
-                }, 2000);
+                //     window.location.href = "/order";
+                // }, 2000);
             },
         });
         }

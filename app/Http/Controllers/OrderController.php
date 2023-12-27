@@ -174,8 +174,8 @@ class OrderController extends Controller
     }
     public function updatePayment(Request $request, Order $order)
     {
-        $nominal_transfer = $request->input('nominal_transfer');
-        $order->update(['nominal_transfer' => $nominal_transfer]);
+        $nominal_transfer = $request->input('total_payment');
+        $order->update(['total_payment' => $nominal_transfer]);
         $payment = Payment::where(['orders_id'=>$order->id])->latest()->first();
         $payment->update(['nominal' => $nominal_transfer]);
         return redirect('order')->with('success', 'Data Order has been updated!');
