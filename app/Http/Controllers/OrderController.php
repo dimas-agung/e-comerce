@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Expedition;
 use App\Models\ProductVarian;
 use App\Models\User;
 use App\Services\OrderService;

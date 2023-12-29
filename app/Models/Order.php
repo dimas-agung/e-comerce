@@ -21,7 +21,7 @@ class Order extends Model
 
     public function expedition()
     {
-        return $this->belongsTo(Expedition::class, 'id', 'expedition_id');
+        return $this->belongsTo(Expedition::class, 'id');
     }
     public function user()
     {
