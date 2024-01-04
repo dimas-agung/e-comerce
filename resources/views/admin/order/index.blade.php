@@ -469,6 +469,9 @@
                                                         continue;
                                                     @endphp
                                                 @endif
+                                                @php
+                                                    $kurang_bayar = $order->price_total + $order->shipping_price - $order->total_payment;
+                                                @endphp
     
                                                 <div class="d-flex mb-1">
                                                     <div class="flex-shrink-0">
@@ -529,6 +532,7 @@
                                 </div>
 
                                 <!--Amount Recap-->
+                                
                                 <div class="content bg-light rounded-2 ms-4 me-4">
                                     <div class="row py-1 mx-2">
                                         <div class="col-lg-4 col-sm-6">
@@ -541,7 +545,9 @@
                                         </div>
                                         <div class="col-lg-4 col-sm-6">
                                             <span class="text text-secondary fs.6 me-2">Kurang Bayar</span>
-                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah(($order->price_total + $order->shipping_price) - $order->total_payment )}}</h6>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah(($order->price_total + $order->shipping_price) - $order->total_payment )}} 
+                                                <label for="status_pelunasan">{{($kurang_bayar <= 0 ? 'LUNAS' :'BELUM LUNAS') }}</label>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -554,9 +560,15 @@
                                                 <a  href="https://api.whatsapp.com/send/?phone={{$order->phone}}&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-outline-info col col-sm-2">
                                                     <span class="text">Hubungi Pembeli</span>
                                                 </a>
-                                                <a href="#" data-toggle="modal" data-target="#modalToShipping" onclick="modalOrderToShip('{{$order->id}}','{{$order->order_no}}','{{$order->price_total}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
-                                                    <span class="text">Dikirim</span>
-                                                </a>
+                                                {{-- @if ($kurang_bayar <= 0)  
+                                                    <a href="#" onclick="confirmOrderToShip('{{$order->id}}','{{$order->order_no}}','{{$order->price_total  + $order->shipping_price}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
+                                                        <span class="text">Dikirim</span>
+                                                    </a>
+                                                @else --}}
+                                                    <a href="#" data-toggle="modal" data-target="#modalToShipping" onclick="modalPreOrderToShip('{{$order->id}}','{{$order->order_no}}','{{$order->price_total  + $order->shipping_price}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
+                                                        <span class="text">Dikirim</span>
+                                                    </a>
+                                                {{-- @endif --}}
                                             </div>
                                         </div>
                                     </div>
@@ -727,7 +739,7 @@
 
                                                 @if (empty($order->no_resi))
                                                 
-                                                    <a href="#" data-toggle="modal" data-target="#modalUpdateResi" onclick="modalOrderUpdateResi('{{$order->id}}','{{$order->order_no}}')" class="btn btn-success col col-sm-2">
+                                                    <a href="#" data-toggle="modal" data-target="#modalUpdateResi" onclick="modalUpdateResi('{{$order->id}}','{{$order->order_no}}','{{$order->no_resi}}')" class="btn btn-success col col-sm-2">
                                                         <span class="text">Update Resi</span>
                                                     </a>                                                     
                                                      
@@ -1352,7 +1364,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                           <div class="modal-content">
                             <div class="modal-header bg-primary text-light">
-                              <h5 class="modal-title" id="modalToShipping">No Order <span id="span_order_no"></span></h5>
+                                <input type="hidden" id="id_order_to_ship" name="id_order_to_ship">
+                              <h5 class="modal-title" id="modalToShipping">No Order <span class="span_order_no"></span></h5>
                               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                             </div>
                             <!-- Modal Body-->
@@ -1371,13 +1384,13 @@
                                             </div>
                                             <div class="span">
                                                 <span class="text">Pembayaran Sebelumnya</span>
-                                                <h5 class="headingOne text-secondary"><span class="span_total_minimal_bayar"></span></h5>
+                                                <h5 class="headingOne text-secondary"><span class="span_total_bayar_sebelumnya"></span></h5>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="inputPayment">Input Pembayaran</label>
                                                 <div class="input-group mt-1">
                                                     <span class="input-group-text">Rp</span>
-                                                    <input type="number" class="form-control" id="inputPayment" placeholder="Input Pembayaran">
+                                                    <input type="number" class="form-control" id="inputPayment2" placeholder="Input Pembayaran">
                                                 </div>
                                             </div>
                                             <div class="text mt-4">
@@ -1395,7 +1408,8 @@
                             <!--Modal Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                                <button type="button" class="btn btn-danger">Simpan</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmToShipping()">Simpan</button>
+                                {{-- <button type="button" class="btn btn-danger">Simpan</button> --}}
                             </div>
                           </div>
                         </div>
@@ -1407,7 +1421,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                           <div class="modal-content">
                             <div class="modal-header bg-primary text-light">
-                              <h5 class="modal-title" id="modalUpdateResi">No Order <span id="span_order_no"></span></h5>
+                              <h5 class="modal-title" id="modalUpdateResi">No Order  <span class="span_order_no"></span></h5>
+                              <input type="hidden" id="id_order_update_resi" name="id_order_update_resi">
                               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                             </div>
                             <!-- Modal Body-->
@@ -1416,7 +1431,7 @@
                                     <div class="row">
                                         <div class="col mt-2">
                                             <div class="form-group mt-2">
-                                                <select name="expeditions_id" id="expeditions" class="form-control col-12" placeholder='Pilih Kurir'>
+                                                <select name="expeditions_id" id="input_expedition_id" class="form-control col-12" placeholder='Pilih Kurir'>
                                                     <option value="" disabled selected>Pilih Kurir</option>
                                                     <option value="1">JNT</option>
                                                     <option value="2">JNE</option>
@@ -1435,7 +1450,7 @@
                             <!--Modal Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                                <button type="button" class="btn btn-danger">Simpan</button>
+                                <button type="button" class="btn btn-danger" onclick="saveUpdateResi()">Simpan</button>
                             </div>
                           </div>
                         </div>
@@ -1561,20 +1576,102 @@
             // console.log(src1);
             $("#img_bukti_transfer1").attr("src", src1);
         }
+        function confirmOrderReadyShipping(id) {
+           
+           $.ajax({
+               url:`/order/${id}/push_status`,
+               method: "POST",
+               data : {
+                   status : 5
+               },
+               success: function (data) {
+                   // Swal.fire(
+                   // 'Good Success!',
+                   // 'Order has ben updated!!',
+                   // 'success'
+                   // )
+                   swal({
+                       title: "Success!",
+                       text: "Order has ben updated!",
+                       icon: "success",
+                   });
+                   setTimeout(() => {
+                       
+                       window.location.href = "/order";
+                   }, 2000);
+               },
+           });
+        }
 
-        function modalOrderToShip(id,no_order,total_pembelian,total_payment,img) {
-            // $('#id_order_confirm').val(id)
+        function confirmOrderToShip(id) {
+            if (confirm('Apakah anda akan mengirim order ini?')) {
+                
+                $.ajax({
+                   url:`/order/${id}/push_status`,
+                   method: "POST",
+                   data : {
+                       status : 6
+                   },
+                   success: function (data) {
+                       swal({
+                           title: "Success!",
+                           text: "Order has ben updated!",
+                           icon: "success",
+                       });
+                       setTimeout(() => {
+                           
+                           window.location.href = "/order";
+                       }, 2000);
+                   },
+               });
+            }
+           
+        }
+        function modalPreOrderToShip(id,no_order,total_pembelian,total_payment,img) {
+            $('#id_order_to_ship').val(id)
             $('.span_order_no').html(no_order)
+            // console.log(total_payment);
             // $('#modalOrderConfirm').modal('show')
             $('.span_total_pembelian').html(formatRupiah(total_pembelian))
-            $('.span_total_minimal_bayar').html(formatRupiah(total_payment))
+            // $('.span_total_minimal_bayar').html(formatRupiah(total_payment))
             let min_bayar = parseInt(total_pembelian)*50/100;
             var src1 = 'storage/'+img;
-            console.log(src1);
+            // console.log(src1);
             $("#img_bukti_transfer").attr("src", src1);
             
 
-            $('.span_total_minimal_bayar').html(formatRupiah(String(min_bayar),'Rp'))
+            $('.span_total_bayar_sebelumnya').html(formatRupiah(String(total_payment),'Rp'))
+        }
+        function modalUpdateResi(id,no_order,resi) {
+            $('#id_order_update_resi').val(id)
+            $('.span_order_no').html(no_order)
+            $('#inputResi').val(resi)
+        }
+        function saveUpdateResi() {
+                let id = $('#id_order_update_resi').val()
+                let no_resi = $('#inputResi').val()
+                let expedition_id = $('#input_expedition_id').val()
+                $.ajax({
+                   url:`/order/${id}/update_resi`,
+                   method: "POST",
+                   data : {
+                    no_resi : no_resi,
+                    expedition_id : expedition_id,
+                   },
+                   success: function (data) {
+                       swal({
+                           title: "Success!",
+                           text: "Order has ben updated!",
+                           icon: "success",
+                       });
+                       setTimeout(() => {
+                           
+                           window.location.href = "/order";
+                       }, 2000);
+                   },
+               });
+            
+           
         }
         
         function checkMinimumlPayment() {
@@ -1593,56 +1690,59 @@
             let id = $('#id_order_confirm').val();
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             $.ajax({
-            url:`/order/${id}/push_status`,
-            method: "POST",
-            data : {
-                status : 2
-            },
-            success: function (data) {
-                // Swal.fire(
-                // 'Good Success!',
-                // 'Order has ben updated!!',
-                // 'success'
-                // )
-                updateTotalPayment(id,nominal_bayar)
-                // swal({
-                //     title: "Success!",
-                //     text: "Order has ben updated!",
-                //     icon: "success",
-                // });
-                // setTimeout(() => {
-                    
-                //     window.location.href = "/order";
-                // }, 2000);
-            },
-        });
+                url:`/order/${id}/push_status`,
+                method: "POST",
+                data : {
+                    status : 2
+                },
+                success: function (data) {
+                    // Swal.fire(
+                    // 'Good Success!',
+                    // 'Order has ben updated!!',
+                    // 'success'
+                    // )
+                    updateTotalPayment(id,nominal_bayar)
+                    swal({
+                        title: "Success!",
+                        text: "Order has ben updated!",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
         }
-        function confirmOrderReadyShipping(id) {
-           
+        function confirmToShipping() {
+            let id = $('#id_order_to_ship').val();
+            let nominal_bayar = $('#inputPayment2').val()
             $.ajax({
-            url:`/order/${id}/push_status`,
-            method: "POST",
-            data : {
-                status : 5
-            },
-            success: function (data) {
-                // Swal.fire(
-                // 'Good Success!',
-                // 'Order has ben updated!!',
-                // 'success'
-                // )
-                swal({
-                    title: "Success!",
-                    text: "Order has ben updated!",
-                    icon: "success",
-                });
-                setTimeout(() => {
-                    
-                    window.location.href = "/order";
-                }, 2000);
-            },
-        });
+                url:`/order/${id}/push_status`,
+                method: "POST",
+                data : {
+                    status : 6
+                },
+                success: function (data) {
+                    // Swal.fire(
+                    // 'Good Success!',
+                    // 'Order has ben updated!!',
+                    // 'success'
+                    // )
+                    updateTotalPayment(id,nominal_bayar)
+                    swal({
+                        title: "Success!",
+                        text: "Order has ben updated!",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
         }
+        
         function id_order_cancel(id,no_order) {
             $('#id_order_reject').val(id)
             $('#no_order_reject').html(no_order)
@@ -1678,6 +1778,27 @@
         function updateTotalPayment(id,total_payment) {
             $.ajax({
                url:`/order/${id}/update_payment`,
+                method: "POST",
+                data : {
+                    total_payment : total_payment
+                },
+                success: function (data) {
+                  
+                    swal({
+                        title: "Success!",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
+        }
+        function updateTotalPayment2(id,total_payment) {
+            $.ajax({
+               url:`/order/${id}/update_payment2`,
                 method: "POST",
                 data : {
                     total_payment : total_payment

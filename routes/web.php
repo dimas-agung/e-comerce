@@ -104,7 +104,9 @@ Route::controller(App\Http\Controllers\OrderController::class)->group(function (
     Route::put('/order/{order}', 'update')->name('order.update');
     Route::post('/order/{order}/cancel', 'cancel')->name('order.cancel');
     Route::post('/order/{order}/push_status', 'pushStatus')->name('order.push_status');
+    Route::post('/order/{order}/update_resi', 'updateResi')->name('order.update_resi');
     Route::post('/order/{order}/update_payment', 'updatePayment')->name('order.update_payment');
+    Route::post('/order/{order}/update_payment2', 'updatePayment2')->name('order.update_payment2');
     Route::post('/order/{order}/activated', 'activated')->name('order.activated');
     Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
 });
