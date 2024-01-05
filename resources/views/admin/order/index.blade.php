@@ -408,6 +408,9 @@
                     <!--Panel Order Siap Dikirim-->
                     <div id="ReadyToShip" class="card tab-pane fade" role="tabpanel">
                         @foreach ($orders_ready_shipping as $key=>$order)
+                            @php
+                                 $kurang_bayar = $order->price_total + $order->shipping_price - $order->total_payment;
+                            @endphp
                             <div class="border border-top-0 rounded-2 mb-2 pb-2">
                                 
                                 <!--Detail Order-->
@@ -469,9 +472,7 @@
                                                         continue;
                                                     @endphp
                                                 @endif
-                                                @php
-                                                    $kurang_bayar = $order->price_total + $order->shipping_price - $order->total_payment;
-                                                @endphp
+                                                
     
                                                 <div class="d-flex mb-1">
                                                     <div class="flex-shrink-0">
