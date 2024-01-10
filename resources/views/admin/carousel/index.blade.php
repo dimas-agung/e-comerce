@@ -48,7 +48,7 @@
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
           <h5 class="modal-title">Edit Carousel</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
         </div>
 
         <!-- Modal Body-->
@@ -104,7 +104,7 @@
 
             <!--Modal Footer-->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Keluar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Keluar</button>
                 <button type="submit"  class="btn btn-danger">Simpan</button>
             </div>
         </form>

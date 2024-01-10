@@ -22,9 +22,9 @@
         <div class="row"> 
             @foreach ($product_best_seller as $item)
                 
-                <div class="col-sm-2 mb-4">
+                <div class="col-3 order-9 mb-3">
                     <div class="bg-white rounded shadow-sm">
-                        <a href="#editCarousel" class="link" data-toggle="modal" data-bs-target="#editCarousel" role="dialog" aria-expanded="false" >
+                        <a href="#editBestSeller" class="link" data-toggle="modal" data-bs-target="#editCarousel" role="dialog" aria-expanded="false" >
                             <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="" class="img-fluid card-img-top col-sm-2">
                         </a>
                     </div>
@@ -58,7 +58,7 @@
                     <div class="col">
                         
                         <div class="card mb-2 p-3">
-                            @for ($i = 0; $i < 6; $i++)
+                            @for ($i = 0; $i < 4; $i++)
                                 
                             <div class="row mb-3">
                                 <label for="exampleDataList" class="col-sm-3 col-form-label">Produk {{$i+1}}</label>

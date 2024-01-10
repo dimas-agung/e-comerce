@@ -24,6 +24,12 @@
 
             @include('admin.product_best_seller.index',['product_best_seller' =>$product_best_seller,'products'=>$products])
         </div>
+
+        <div>
+            <!--Promo Series / Kategory-->
+            @include('admin.series.index')
+           
+       </div>
        
         
     </div>

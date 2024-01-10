@@ -131,3 +131,8 @@ Route::controller(App\Http\Controllers\ProductBestSellerController::class)->grou
     Route::get('/product_best_seller', 'index')->name('product_best_seller.index');
     Route::put('/product_best_seller', 'update')->name('product_best_seller.update');
 });
+
+Route::controller(App\Http\Controllers\SeriesController::class)->group(function () {
+    Route::get('/series', 'index')->name('series.index');
+    Route::put('/series', 'update')->name('series.update');
+});
