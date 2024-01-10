@@ -52,7 +52,7 @@
         </div>
 
         <!-- Modal Body-->
-        <form method="POST" action="{{route('carousel.update')}}">
+        <form method="POST" action="{{route('carousel.update')}}" enctype='multipart/form-data'>
             @csrf
             @method('PUT')
             <div class="modal-body">
@@ -71,6 +71,22 @@
                                 <label class="button text-center" for="picture">Ganti Foto</label>
                             </div>
                         </div>
+                        <script>
+                              $(document).ready(() => {
+                                                        $("#picture").change(function () {
+                                                            const file = this.files[0];
+                                                           
+                                                            if (file) {
+                                                                let reader = new FileReader();
+                                                                reader.onload = function (event) {
+                                                                    $("#imgPreview")
+                                                                      .attr("src", event.target.result);
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        });
+                                                    });
+                        </script>
                         <div class="card mb-2 p-3">
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-2 col-form-label">Judul</label>

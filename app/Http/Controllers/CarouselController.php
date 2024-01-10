@@ -88,16 +88,19 @@ class CarouselController extends Controller
             
         ]);
         $path = 'carousel';
-        $picture_default = $request->input('picture');
+        $picture_default = $request->file('picture');
+        // return $picture_default;
         if (!empty($picture_default)) {
             # code...
             // $file_name = $dataProduct['product_code'].'_default';
             $file_name = 'Carousel_'.$carousel->id.'.png';
             $url = self::upploadFile($picture_default,$path,$file_name);
+            // return $url;
             $carousel->update([ 
-                        'picture' => $url,
+                'picture' => $url,
             ]);
         }
+        // return $picture_default;
         DB::commit();
         // return 123;
         return redirect('landing_page')->with('success', 'Data Carousel has been updated!');

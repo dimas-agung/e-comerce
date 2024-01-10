@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductVarian;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,7 @@ class ProductVarianController extends Controller
         $ids = $request->input('id');
         $stocks = $request->input('stock');
         $price = $request->input('price');
+        $count_is_not_active = 0;
         $is_actives = $request->input('is_active');
         foreach ($ids as $key => $id) {
             $product_varian = ProductVarian::where('id',$id)->update([
@@ -51,6 +53,24 @@ class ProductVarianController extends Controller
                 'price' => $price[$key],
                 'is_active' => $is_actives[$key],
             ]);
+            $product_varian_id =$id;
+            $count_is_not_active += $is_actives[$key] == 0 ? 1 : 0;
+
+        }
+        $product_varian = ProductVarian::where('id',$product_varian_id)->first();
+        // return $product_varian;
+        if (count($ids) == $count_is_not_active) {
+            # code...
+            $product = Product::where('id',$product_varian->products_id)->update([
+             
+                'is_active' => 0,
+            ]);
+        }else{
+            $product = Product::where('id',$product_varian->products_id)->update([
+             
+                'is_active' => 1,
+            ]);
+
         }
         return redirect('product')->with('success', 'Data Varian has been updated!');
 

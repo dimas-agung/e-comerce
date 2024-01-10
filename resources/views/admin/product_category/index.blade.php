@@ -92,7 +92,7 @@
             <!--Modal Footer-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                <button type="button" class="btn btn-danger">Simpan</button>
+                <button type="submit" class="btn btn-danger" >Simpan</button>
             </div>
         </form>
     </div>
