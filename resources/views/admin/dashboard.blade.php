@@ -5,36 +5,36 @@
     <div class="row">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Pesanan Baru<h2 class="fw-bold"><span>0</span></h2></div>
+                <div class="card-body">Pesanan Baru<h2 class="fw-bold"><span>{{$new_orders->count()}}</span></h2></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Detail</a>
+                    <a class="small text-white stretched-link" href="{{route('order.index')}}">Detail</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Pesanan Dalam Proses<h2 class="fw-bold"><span>0</span></h2></div>
+                <div class="card-body">Pesanan Dalam Proses<h2 class="fw-bold"><span>{{$orders_processed->count()}}</span></h2></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Detail</a>
+                    <a class="small text-white stretched-link" href="{{route('order.index')}}">Detail</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
-                <div class="card-body">Pesanan Sukses<h2 class="fw-bold"><span>0</span></h2></div>
+                <div class="card-body">Pesanan Sukses<h2 class="fw-bold"><span>{{$orders_success->count()}}</span></h2></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Detail</a>
+                    <a class="small text-white stretched-link" href="{{route('order.index')}}">Detail</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Pesanan Batal<h2 class="fw-bold"><span>0</span></h2></div>
+                <div class="card-body">Pesanan Batal<h2 class="fw-bold"><span>{{$orders_calcelled->count()}}</span></h2></div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">Detail</a>
+                    <a class="small text-white stretched-link" href="{{route('order.index')}}">Detail</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
