@@ -29,16 +29,16 @@
                                 <a class="nav-link" data-bs-toggle="pill" href="#OrderProcess">Pesanan Diproses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-bs-toggle="pill" href="#ReadyToShip">Siap Dikirim</a>
+                                <a class="nav-link" data-bs-toggle="pill" href="#ReadyToShip">Siap Dikirim</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-bs-toggle="pill" href="#OrderShipping">Dikirim</a>
+                                <a class="nav-link" data-bs-toggle="pill" href="#OrderShipping">Dikirim</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-bs-toggle="pill" href="#OrderFinish">Selesai</a>
+                                <a class="nav-link" data-bs-toggle="pill" href="#OrderFinish">Selesai</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" data-bs-toggle="pill" href="#OrderCancel">Pesanan Batal</a>
+                                <a class="nav-link" data-bs-toggle="pill" href="#OrderCancel">Pesanan Batal</a>
                             </li>
                             <li class="nav-item">
                                 <a  class="nav-link"  data-bs-toggle="pill" href="#OrderNotPaid">Pesanan Belum dibayar</a>
@@ -155,7 +155,7 @@
 
                                         <div class="content text-center rounded-4 mt-2 ms-2 me-2">
                                             @if (count($order->detail)> 1)
-                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch1" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
                                             @endif
                                         </div>
                                         
@@ -407,139 +407,174 @@
 
                     <!--Panel Order Siap Dikirim-->
                     <div id="ReadyToShip" class="card tab-pane fade" role="tabpanel">
-                        @foreach ($new_orders as $key=>$order)
-                        @if (count($order->payment) === 0)
+                        @foreach ($orders_ready_shipping as $key=>$order)
                             @php
-                                continue;
+                                 $kurang_bayar = $order->price_total + $order->shipping_price - $order->total_payment;
                             @endphp
-                        @endif
-                        <div class="card">
-                            <div class="card mb-2 bg-light">
-                                <div class="row">
-                                    <div class="col-sm m-1">
-                                        <span class="text text-secondary fw-bold me-2">Pesanan Siap Kirim</span>
-                                        <span class="text text-secondary me-1">No. Order :</span>
-                                            <a href="" class="text-decoration-none me-2">
-                                                <span class="text-success">{{$order->order_no}}</span> 
+                            <div class="border border-top-0 rounded-2 mb-2 pb-2">
+                                
+                                <!--Detail Order-->
+                                <div class="card mb-2 bg-light">
+                                    <div class="row">
+                                        <div class="col-sm m-1">
+                                            <span class="text text-secondary fw-bold me-2">Siap Dikirim </span>
+                                            <span class="text text-secondary me-1">No. Order :</span>
+                                                <a href="" class="text-decoration-none me-2">
+                                                    <span class="text-success">{{$order->order_no}}</span> 
+                                                </a>
+                                            <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                        </div>
+                                        <div class="col-sm-2 mt-1 me-2 text-end">
+                                            <a href="" class="text-decoration-none text-secondary link-disable">
+                                                {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
                                             </a>
-                                        <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                        <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('Y-M-d')}}</span>
-                                    </div>
-                                    <div class="col-sm-2 mt-1 me-2 text-end">
-                                        <a href="" class="text-decoration-none text-secondary">
-                                            {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
-                                <div class="col" style="min-width: 500px;">
-                                    <div class="text">
-                                        <P class="text-secondary fw-bold">Item Pesanan</P>
-                                    </div>
-                                   
-                                    <div class="content">
-                                        <div class="card me-2" style="width: 80px;float: left;">
-                                            <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                        </div>
-                                        <div class="content ms-4 mb-4">
-                                            <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
-                                            <span class="text-secondary ms-2 me-2">-</span>
-                                            <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span></br>
-                                            <span class="text mb-2">{{$order->detail[0]->qty}} x 
-                                            @if ($order->detail[0]->discount>0)
-                                                    
-                                            <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
-                                            @endif
-                                            <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
                                         </div>
                                     </div>
-                                    
-                                    <div class="collapse" id="MoreItemNewOrder{{$key}}">
-                                        @foreach ($order->detail as $key1=>$item)
-                                            @if ($key1==0)
-                                                @php
-                                                    continue;
-                                                @endphp
-                                            @endif
-                                            <div class="content">
-                                                <div class="card me-2" style="width: 80px;float: left;">
-                                                    <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                                </div>
-                                                <div class="content ms-4 mb-4">
-                                                    <span class="text text-secondary">{{$item->product->name}} </span>
-                                                    <span class="text-secondary ms-2 me-2">-</span>
-                                                    <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span></br>
-                                                    <span class="text mb-2">{{$item->qty}} x 
-                                                    @if ($item->discount>0)
-                                                            
-                                                    <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                    @endif
-                                                    <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="content text-center rounded-4 mt-2 ms-2 me-2">
-                                        @if (count($order->detail)> 1)
-                                        <a href="#MoreItemNewOrder{{$key}}" class="text-decoration-none" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)}} Produk lainnya</a>
-                                        @endif
-                                    </div>
                                 </div>
-                                <div class="col" style="min-width: 300px ;">
-                                    <div class="text mb-2">
-                                        <P class="text-secondary fw-bold">Alamat</P>
-                                        <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
-                                        <span>
-                                            {{$order->address}}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span class="text-secondary fw-bold">Status</span>
-                                        <span class="content bg-secondary text-light ms-2 me-2">Pre Order - 10 Hari</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="content rounded-2 ms-4 me-4" style="background-color: rgb(206, 201, 250);">
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm text-end">
-                                                <span class="text text-secondary fs.6 me-2">Total </span>
+                                <!--Detail item Order-->
+                                <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
+                                    <div class="col-6 border-end" style="min-width: 544px;">
+                                        <div class="text">
+                                            <P class="text-secondary fw-bold">Item Pesanan</P>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                </div>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total)}}</h5>
+    
+                                            <div class="flex-grow-1">
+                                                <div class="content ms-2 mb-4">
+                                                    <div class="mb-2">
+                                                        <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
+                                                        <span class="text-secondary ms-2 me-2">-</span>
+                                                        <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span>
+                                                        <span class="mx-2">x</span>
+                                                        <span class="text mb-2">{{$order->detail[0]->qty}} <br>  
+                                                        @if ($order->detail[0]->discount>0)
+                                                                
+                                                        <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
+                                                        @endif
+                                                        <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
+                                            @foreach ($order->detail as $key2=>$item)
+                                                @if ($key2==0)
+                                                    @php
+                                                        continue;
+                                                    @endphp
+                                                @endif
+                                                
+    
+                                                <div class="d-flex mb-1">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                            <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="content ms-2 mb-4">
+                                                            <div class="mb-2">
+                                                                <span class="text text-secondary">{{$item->product->name}}</span>
+                                                                <span class="text-secondary ms-2 me-2">-</span>
+                                                                <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
+                                                                <span class="mx-2">x</span>
+                                                                <span class="text mb-2">{{$item->qty}}<br> 
+                                                                @if ($item->discount>0)
+                                                                    
+                                                                        <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                        <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                    @else
+                                                                        <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <div class="content text-center rounded-4 mt-2 ms-2 me-2">
+                                            @if (count($order->detail)> 1)
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            @endif
+                                        </div>
+
                                     </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm ms-3 text-end">
-                                                <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+
+                                    <div class="col-4" style="min-width: 438px ;">
+                                        <div class="text mb-2">
+                                            <P class="text-secondary fw-bold">Alamat</P>
+                                            <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
+                                            <span>
+                                                {{$order->address}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="col">
+                                                <span class="text-secondary fw-bold">Status</span><br>
+                                                <span class="content bg-secondary text-light ms-2 me-2">{{$order->detail[0]->product->order_type}} {{$order->detail[0]->product->order_period}} Hari</span>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h5>
+                                            <div class="col mt-1">
+                                                <span class="text-secondary"><strong>Catatan</strong></span>
+                                                <p class="fst-italic">{{$order->note}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="content bg-light mt-2 me-3">
-                                <div class="row">
-                                    <div class="col text-end me-2">
+
+                                <!--Amount Recap-->
+                                
+                                <div class="content bg-light rounded-2 ms-4 me-4">
+                                    <div class="row py-1 mx-2">
+                                        <div class="col-lg-4 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Total</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total + $order->shipping_price)}}</h6>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h6>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Kurang Bayar</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah(($order->price_total + $order->shipping_price) - $order->total_payment )}} 
+                                                <label for="status_pelunasan">{{($kurang_bayar <= 0 ? 'LUNAS' :'BELUM LUNAS') }}</label>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--Button-->
+                                <div class="content mt-2 me-3">
+                                    <div class="row">
                                         <div class="col text-end me-2">
-                                            <a  href="" data-toggle="modal" data-target="#modalReject" class="btn btn-danger col col-sm-2">
-                                                <span class="text">Batal</span>
-                                            </a>
-                                            <a href="" data-toggle="modal" data-target="#modalToShipping" class="btn btn-success col col-sm-2">
-                                                <span class="text">Dikirim</span>
-                                            </a>
+                                            <div class="col text-end me-2">
+                                                <a  href="https://api.whatsapp.com/send/?phone={{$order->phone}}&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-outline-info col col-sm-2">
+                                                    <span class="text">Hubungi Pembeli</span>
+                                                </a>
+                                                {{-- @if ($kurang_bayar <= 0)  
+                                                    <a href="#" onclick="confirmOrderToShip('{{$order->id}}','{{$order->order_no}}','{{$order->price_total  + $order->shipping_price}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
+                                                        <span class="text">Dikirim</span>
+                                                    </a>
+                                                @else --}}
+                                                    <a href="#" data-toggle="modal" data-target="#modalToShipping" onclick="modalPreOrderToShip('{{$order->id}}','{{$order->order_no}}','{{$order->price_total  + $order->shipping_price}}','{{$order->total_payment}}')" class="btn btn-success col col-sm-2">
+                                                        <span class="text">Dikirim</span>
+                                                    </a>
+                                                {{-- @endif --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                         
                     </div>
@@ -547,274 +582,345 @@
 
                     <!--Panel Order dalam pengiriman-->
                     <div id="OrderShipping" class="card tab-pane fade" role="tabpanel">
-                        @foreach ($new_orders as $key=>$order)
-                        @if (count($order->payment) === 0)
-                            @php
-                                continue;
-                            @endphp
-                        @endif
-                        <div class="card">
-                            <div class="card mb-2 bg-light">
-                                <div class="row">
-                                    <div class="col-sm m-1">
-                                        <span class="text text-secondary fw-bold me-2">Pesanan Dalam Pengiriman</span>
-                                        <span class="text text-secondary me-1">No. Order :</span>
-                                            <a href="" class="text-decoration-none me-2">
-                                                <span class="text-success">{{$order->order_no}}</span> 
+                        @foreach ($orders_shipping as $key=>$order)
+                            <div class="border border-top-0 rounded-2 mb-2 pb-2">
+                                
+                                <!--Detail Order-->
+                                <div class="card mb-2 bg-light">
+                                    <div class="row">
+                                        <div class="col-sm m-1">
+                                            <span class="text text-secondary fw-bold me-2">Dalam Pengiriman</span>
+                                            <span class="text text-secondary me-1">No. Order :</span>
+                                                <a href="" class="text-decoration-none me-2">
+                                                    <span class="text-success">{{$order->order_no}}</span> 
+                                                </a>
+                                            <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                        </div>
+                                        <div class="col-sm-2 mt-1 me-2 text-end">
+                                            <a href="" class="text-decoration-none text-secondary link-disable">
+                                                {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
                                             </a>
-                                        <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                        <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('Y-M-d')}}</span>
-                                    </div>
-                                    <div class="col-sm-2 mt-1 me-2 text-end">
-                                        <a href="" class="text-decoration-none text-secondary">
-                                            {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
-                                <div class="col" style="min-width: 500px;">
-                                    <div class="text">
-                                        <P class="text-secondary fw-bold">Item Pesanan</P>
-                                    </div>
-                                   
-                                    <div class="content">
-                                        <div class="card me-2" style="width: 80px;float: left;">
-                                            <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                        </div>
-                                        <div class="content ms-4 mb-4">
-                                            <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
-                                            <span class="text-secondary ms-2 me-2">-</span>
-                                            <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span></br>
-                                            <span class="text mb-2">{{$order->detail[0]->qty}} x 
-                                            @if ($order->detail[0]->discount>0)
-                                                    
-                                            <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
-                                            @endif
-                                            <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
                                         </div>
                                     </div>
-                                    
-                                    <div class="collapse" id="MoreItemNewOrder{{$key}}">
-                                        @foreach ($order->detail as $key=>$item)
-                                            @if ($key==0)
-                                                @php
-                                                    continue;
-                                                @endphp
-                                            @endif
-                                            <div class="content">
-                                                <div class="card me-2" style="width: 80px;float: left;">
-                                                    <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                                </div>
-                                                <div class="content ms-4 mb-4">
-                                                    <span class="text text-secondary">{{$item->product->name}}</span>
-                                                    <span class="text-secondary ms-2 me-2">-</span>
-                                                    <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span></br>
-                                                    <span class="text mb-2">{{$item->qty}} x 
-                                                    @if ($item->discount>0)
-                                                            
-                                                    <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                    @endif
-                                                    <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="content text-center rounded-4 mt-2 ms-2 me-2">
-                                        @if (count($order->detail)> 1)
-                                        <a href="#MoreItemNewOrder{{$key}}" class="text-decoration-none" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)}} Produk lainnya</a>
-                                        @endif
-                                    </div>
                                 </div>
-                                <div class="col" style="min-width: 300px ;">
-                                    <div class="text mb-2">
-                                        <P class="text-secondary fw-bold">Alamat</P>
-                                        <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
-                                        <span>
-                                            {{$order->address}}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span class="text-secondary fw-bold">Status</span>
-                                        <span class="content bg-secondary text-light ms-2 me-2">Pre Order - 10 Hari</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="content rounded-2 ms-4 me-4" style="background-color: rgb(206, 201, 250);">
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm text-end">
-                                                <span class="text text-secondary fs.6 me-2">Total </span>
+                                <!--Detail item Order-->
+                                <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
+                                    <div class="col-6 border-end" style="min-width: 544px;">
+                                        <div class="text">
+                                            <P class="text-secondary fw-bold">Item Pesanan</P>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                </div>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total)}}</h5>
+    
+                                            <div class="flex-grow-1">
+                                                <div class="content ms-2 mb-4">
+                                                    <div class="mb-2">
+                                                        <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
+                                                        <span class="text-secondary ms-2 me-2">-</span>
+                                                        <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span>
+                                                        <span class="mx-2">x</span>
+                                                        <span class="text mb-2">{{$order->detail[0]->qty}} <br>  
+                                                        @if ($order->detail[0]->discount>0)
+                                                                
+                                                        <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
+                                                        @endif
+                                                        <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
+                                            @foreach ($order->detail as $key2=>$item)
+                                                @if ($key2==0)
+                                                    @php
+                                                        continue;
+                                                    @endphp
+                                                @endif
+    
+                                                <div class="d-flex mb-1">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                            <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="content ms-2 mb-4">
+                                                            <div class="mb-2">
+                                                                <span class="text text-secondary">{{$item->product->name}}</span>
+                                                                <span class="text-secondary ms-2 me-2">-</span>
+                                                                <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
+                                                                <span class="mx-2">x</span>
+                                                                <span class="text mb-2">{{$item->qty}}<br> 
+                                                                @if ($item->discount>0)
+                                                                    
+                                                                        <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                        <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                    @else
+                                                                        <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <div class="content text-center rounded-4 mt-2 ms-2 me-2">
+                                            @if (count($order->detail)> 1)
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            @endif
+                                        </div>
+
                                     </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm ms-3 text-end">
-                                                <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+
+                                    <div class="col-4" style="min-width: 438px ;">
+                                        <div class="text mb-2">
+                                            <P class="text-secondary fw-bold">Alamat</P>
+                                            <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
+                                            <span>
+                                                {{$order->address}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="col">
+                                                <span class="text-secondary fw-bold">Status</span><br>
+                                                <span class="content bg-secondary text-light ms-2 me-2">{{$order->detail[0]->product->order_type}} {{$order->detail[0]->product->order_period}} Hari</span>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h5>
+                                            <div class="col mt-1">
+                                                <span class="text-secondary"><strong>Catatan</strong></span>
+                                                <p class="fst-italic">{{$order->note}}</p>
                                             </div>
+                                        </div>
+
+                                        @if (!empty($order->no_resi))
+                                                
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <div class="col mt-1">
+                                                    <span class="text-secondary"><strong>No Resi</strong></span><br>
+                                                    <span class="text me-2">{{$order->expedition->name}}</span>
+                                                    <span class="text fw-bold">{{$order->no_resi}}</span>
+                                                </div>
+                                            </div>     
+                                        @endif  
+
+                                    </div>
+                                </div>
+
+                                <!--Amount Recap-->
+                                <div class="content bg-light rounded-2 ms-4 me-4">
+                                    <div class="row py-1 mx-2">
+                                        <div class="col-lg-6 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Total</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total + $order->shipping_price)}}</h6>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h6>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="content bg-light mt-2 me-3">
-                                <div class="row">
-                                    <div class="col text-end me-2">
+                                
+                                <!--Button-->
+                                <div class="content mt-2 me-3">
+                                    <div class="row">
                                         <div class="col text-end me-2">
-                                            <a href="" class="btn btn-danger col col-sm-2">
-                                                <span class="text">Selesai</span>
-                                            </a>
+                                            <div class="col text-end me-2">
+                                                <a  href="https://api.whatsapp.com/send/?phone={{$order->phone}}&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-outline-info col col-sm-2">
+                                                    <span class="text">Hubungi Pembeli</span>
+                                                </a>
+
+                                                @if (empty($order->no_resi))
+                                                
+                                                    <a href="#" data-toggle="modal" data-target="#modalUpdateResi" onclick="modalUpdateResi('{{$order->id}}','{{$order->order_no}}','{{$order->no_resi}}')" class="btn btn-success col col-sm-2">
+                                                        <span class="text">Update Resi</span>
+                                                    </a>                                                     
+                                                     
+                                                @endif                                                        
+                                                    
+                                                    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <!--End Panel Order dalam Pengiriman-->
 
                     <!--Panel Pesanan Selesai-->
                     <div id="OrderFinish" class="card tab-pane fade" role="tabpanel">
-                        @foreach ($new_orders as $key=>$order)
-                        @if (count($order->payment) === 0)
-                            @php
-                                continue;
-                            @endphp
-                        @endif
-                        <div class="card">
-                            <div class="card mb-2 bg-light">
-                                <div class="row">
-                                    <div class="col-sm m-1">
-                                        <span class="text text-secondary fw-bold me-2">Pesanan Selesai</span>
-                                        <span class="text text-secondary me-1">No. Order :</span>
-                                            <a href="" class="text-decoration-none me-2">
-                                                <span class="text-success">{{$order->order_no}}</span> 
+                        @foreach ($orders_success as $key=>$order)
+                            <div class="border border-top-0 rounded-2 mb-2 pb-2">
+                                
+                                <!--Detail Order-->
+                                <div class="card mb-2 bg-light">
+                                    <div class="row">
+                                        <div class="col-sm m-1">
+                                            <span class="text text-secondary fw-bold me-2">Dalam Pengiriman</span>
+                                            <span class="text text-secondary me-1">No. Order :</span>
+                                                <a href="" class="text-decoration-none me-2">
+                                                    <span class="text-success">{{$order->order_no}}</span> 
+                                                </a>
+                                            <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                        </div>
+                                        <div class="col-sm-2 mt-1 me-2 text-end">
+                                            <a href="" class="text-decoration-none text-secondary link-disable">
+                                                {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
                                             </a>
-                                        <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                        <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('Y-M-d')}}</span>
-                                    </div>
-                                    <div class="col-sm-2 mt-1 me-2 text-end">
-                                        <a href="" class="text-decoration-none text-secondary">
-                                            {{-- <i class="fas fa-print me-1"></i><span class="text me-2">Cetak</span> --}}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
-                                <div class="col" style="min-width: 500px;">
-                                    <div class="text">
-                                        <P class="text-secondary fw-bold">Item Pesanan</P>
-                                    </div>
-                                   
-                                    <div class="content">
-                                        <div class="card me-2" style="width: 80px;float: left;">
-                                            <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                        </div>
-                                        <div class="content ms-4 mb-4">
-                                            <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
-                                            <span class="text-secondary ms-2 me-2">-</span>
-                                            <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span></br>
-                                            <span class="text mb-2">{{$order->detail[0]->qty}} x 
-                                            @if ($order->detail[0]->discount>0)
-                                                    
-                                            <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
-                                            @endif
-                                            <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
                                         </div>
                                     </div>
-                                    
-                                    <div class="collapse" id="MoreItemNewOrder{{$key}}">
-                                        @foreach ($order->detail as $key=>$item)
-                                            @if ($key==0)
-                                                @php
-                                                    continue;
-                                                @endphp
-                                            @endif
-                                            <div class="content">
-                                                <div class="card me-2" style="width: 80px;float: left;">
-                                                    <img src="assets/img/produk/gamis_1.jpg" alt="Cinque Terre" class="img-thumbnail rounded-2" >
-                                                </div>
-                                                <div class="content ms-4 mb-4">
-                                                    <span class="text text-secondary">{{$item->product->name}}</span>
-                                                    <span class="text-secondary ms-2 me-2">-</span>
-                                                    <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span></br>
-                                                    <span class="text mb-2">{{$item->qty}} x 
-                                                    @if ($item->discount>0)
-                                                            
-                                                    <span class="text-decoration-line-through">{{Rupiah($item->price)}}</span></span>
-                                                    @endif
-                                                    <span class="text text-secondary">{{Rupiah($item->price-$item->discount)}}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="content text-center rounded-4 mt-2 ms-2 me-2">
-                                        @if (count($order->detail)> 1)
-                                        <a href="#MoreItemNewOrder{{$key}}" class="text-decoration-none" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)}} Produk lainnya</a>
-                                        @endif
-                                    </div>
                                 </div>
-                                <div class="col" style="min-width: 300px ;">
-                                    <div class="text mb-2">
-                                        <P class="text-secondary fw-bold">Alamat</P>
-                                        <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
-                                        <span>
-                                            {{$order->address}}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span class="text-secondary fw-bold">Status</span>
-                                        <span class="content bg-secondary text-light ms-2 me-2">Pre Order - 10 Hari</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="content rounded-2 ms-4 me-4" style="background-color: rgb(206, 201, 250);">
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm text-end">
-                                                <span class="text text-secondary fs.6 me-2">Total </span>
+                                <!--Detail item Order-->
+                                <div class="row flex-nowrap overflow-auto mb-2 ms-1 me-1">
+                                    <div class="col-6 border-end" style="min-width: 544px;">
+                                        <div class="text">
+                                            <P class="text-secondary fw-bold">Item Pesanan</P>
+                                        </div>
+
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                    <img src="{{ asset('storage/'.$order->detail[0]->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                </div>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total)}}</h5>
+    
+                                            <div class="flex-grow-1">
+                                                <div class="content ms-2 mb-4">
+                                                    <div class="mb-2">
+                                                        <span class="text text-secondary">{{$order->detail[0]->product->name}}</span>
+                                                        <span class="text-secondary ms-2 me-2">-</span>
+                                                        <span class="text text-secondary fw-bold">{{$order->detail[0]->product_varian_name}}</span>
+                                                        <span class="mx-2">x</span>
+                                                        <span class="text mb-2">{{$order->detail[0]->qty}} <br>  
+                                                        @if ($order->detail[0]->discount>0)
+                                                                
+                                                        <span class="text-decoration-line-through">{{Rupiah($order->detail[0]->price)}}</span></span>
+                                                        @endif
+                                                        <span class="text text-secondary">{{Rupiah($order->detail[0]->price-$order->detail[0]->discount)}}</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="collapse" id="MoreItemNewOrder_0{{$key}}">
+                                            @foreach ($order->detail as $key2=>$item)
+                                                @if ($key2==0)
+                                                    @php
+                                                        continue;
+                                                    @endphp
+                                                @endif
+    
+                                                <div class="d-flex mb-1">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="align-self-start me-2" style="width: 76px; height: 76px;">
+                                                            <img src="{{ asset('storage/'.$item->product->picture_default) }}" alt="Foto Produk" class="img-thumbnail rounded-2" style="width: 76px; height: 76px;" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="content ms-2 mb-4">
+                                                            <div class="mb-2">
+                                                                <span class="text text-secondary">{{$item->product->name}}</span>
+                                                                <span class="text-secondary ms-2 me-2">-</span>
+                                                                <span class="text text-secondary fw-bold">{{$item->product_varian_name}}</span>
+                                                                <span class="mx-2">x</span>
+                                                                <span class="text mb-2">{{$item->qty}}<br> 
+                                                                @if ($item->discount>0)
+                                                                    
+                                                                        <span class="text-decoration-line-through text-secondary me-2">{{Rupiah($item->price)}}</span></span>
+                                                                        <span class="text text-secondary">{{Rupiah($item->price_after_discount)}}</span>
+                                                                    @else
+                                                                        <span class="text text-secondary">{{Rupiah($item->price)}}</span></span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+    
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <div class="content text-center rounded-4 mt-2 ms-2 me-2">
+                                            @if (count($order->detail)> 1)
+                                                <a href="#MoreItemNewOrder_0{{$key}}" class="text-decoration-none" id="btn-ch" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">{{count($order->detail)-1}} Produk lainnya </a>
+                                            @endif
+                                        </div>
+
                                     </div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col col-sm ms-3 text-end">
-                                                <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+
+                                    <div class="col-4" style="min-width: 438px ;">
+                                        <div class="text mb-2">
+                                            <P class="text-secondary fw-bold">Alamat</P>
+                                            <span>{{$order->name}} ( <a href="" class="text-decoration-none fw-bold">{{$order->phone}}</a> )</span></br>
+                                            <span>
+                                                {{$order->address}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="col">
+                                                <span class="text-secondary fw-bold">Status</span><br>
+                                                <span class="content bg-secondary text-light ms-2 me-2">{{$order->detail[0]->product->order_type}} {{$order->detail[0]->product->order_period}} Hari</span>
                                             </div>
-                                            <div class="col me-2 text-end">
-                                                <h5 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h5>
+                                            <div class="col mt-1">
+                                                <span class="text-secondary"><strong>Catatan</strong></span>
+                                                <p class="fst-italic">{{$order->note}}</p>
                                             </div>
+                                        </div>
+
+                                        @if (!empty($order->no_resi))
+                                                
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <div class="col mt-1">
+                                                    <span class="text-secondary"><strong>No Resi</strong></span><br>
+                                                    <span class="text me-2">{{$order->expedition->name}}</span>
+                                                    <span class="text fw-bold">{{$order->no_resi}}</span>
+                                                </div>
+                                            </div>     
+                                        @endif  
+
+                                    </div>
+                                </div>
+
+                                <!--Amount Recap-->
+                                <div class="content bg-light rounded-2 ms-4 me-4">
+                                    <div class="row py-1 mx-2">
+                                        <div class="col-lg-6 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Total</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total + $order->shipping_price)}}</h6>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6">
+                                            <span class="text text-secondary fs.6 me-2">Pembayaran</span>
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h6>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="content bg-light mt-2 me-3">
-                                <div class="row">
-                                    <div class="col text-end me-2">
+                                
+                                <!--Button-->
+                                <div class="content mt-2 me-3">
+                                    <div class="row">
                                         <div class="col text-end me-2">
-                                            <a href="" class="btn btn-outline-danger col col-sm-2">
-                                                <span class="text">Lihat Riwayat</span>
-                                            </a>
+                                            <div class="col text-end me-2">
+                                                
+                                                <a href="#" data-toggle="modal" data-target="#modalFinishHistory" onclick="modalOrderFinishHis('{{$order->id}}','{{$order->order_no}}')" class="btn btn-outline-success col col-sm-2">
+                                                    <span class="text">Lihat Riwayat</span>
+                                                </a>                                                     
+                                                        
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
-
                     </div>
                     <!--End Panel Pesanan Selesai-->
 
@@ -1259,7 +1365,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                           <div class="modal-content">
                             <div class="modal-header bg-primary text-light">
-                              <h5 class="modal-title" id="modalUser">No Order 20231000012</h5>
+                                <input type="hidden" id="id_order_to_ship" name="id_order_to_ship">
+                              <h5 class="modal-title" id="modalToShipping">No Order <span class="span_order_no"></span></h5>
                               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                             </div>
                             <!-- Modal Body-->
@@ -1274,17 +1381,17 @@
                                         <div class="col-sm-6 mt-2">
                                             <div class="span">
                                                 <span class="text">Total Pembelian</span>
-                                                <h5 class="headingOne text-secondary">Rp 1.250.000</h5>
+                                                <h5 class="headingOne text-secondary"><span class="span_total_pembelian"></span></h5>
                                             </div>
                                             <div class="span">
                                                 <span class="text">Pembayaran Sebelumnya</span>
-                                                <h5 class="headingOne text-secondary">Rp 700.000</h5>
+                                                <h5 class="headingOne text-secondary"><span class="span_total_bayar_sebelumnya"></span></h5>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="inputPayment">Input Pembayaran</label>
                                                 <div class="input-group mt-1">
                                                     <span class="input-group-text">Rp</span>
-                                                    <input type="number" class="form-control" id="inputPayment" placeholder="Input Pembayaran">
+                                                    <input type="number" class="form-control" id="inputPayment2" placeholder="Input Pembayaran">
                                                 </div>
                                             </div>
                                             <div class="text mt-4">
@@ -1295,20 +1402,46 @@
                                                     </p>
                                                 </span>
                                             </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--Modal Footer-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmToShipping()">Simpan</button>
+                                {{-- <button type="button" class="btn btn-danger">Simpan</button> --}}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <!--End Modal Dikirim-->
+
+                    <!--Modal Update Resi-->
+                    <div class="modal fade" id="modalUpdateResi" tabindex="-1" role="dialog" aria-labelledby="modalUpdateResi" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header bg-primary text-light">
+                              <h5 class="modal-title" id="modalUpdateResi">No Order  <span class="span_order_no"></span></h5>
+                              <input type="hidden" id="id_order_update_resi" name="id_order_update_resi">
+                              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                            </div>
+                            <!-- Modal Body-->
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col mt-2">
                                             <div class="form-group mt-2">
-                                                <label for="inputDelService">Jasa Pengiriman</label>
-                                                <div class="input-group mt-1">
-                                                    <select type="select" class="form-select" id="inputDelService">
-                                                        <option value="JNE">JNE</option>
-                                                        <option value="JNT">JNT</option>
-                                                        <option value="SI CEPAT">SI Cepat</option>
-                                                    </select>
-                                                </div>
+                                                <select name="expeditions_id" id="input_expedition_id" class="form-control col-12" placeholder='Pilih Kurir'>
+                                                    <option value="" disabled selected>Pilih Kurir</option>
+                                                    <option value="1">JNT</option>
+                                                    <option value="2">JNE</option>
+                                                </select>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="inputResi">No Resi</label>
-                                                <div class="input-group mt-1">
-                                                    <input type="text" class="form-control" id="inputResi" placeholder="No Resi">
+                                                <div class="mb-3">
+                                                    <label for="inputResi" class="form-label">Nomor Resi</label>
+                                                    <input type="text" class="form-control col-12" id="inputResi" placeholder="Nomor Resi">
                                                 </div>
                                             </div>
                                         </div>
@@ -1318,12 +1451,13 @@
                             <!--Modal Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                                <button type="button" class="btn btn-danger">Simpan</button>
+                                <button type="button" class="btn btn-danger" onclick="saveUpdateResi()">Simpan</button>
                             </div>
                           </div>
                         </div>
                     </div>
-                    <!--End Modal Dikirim-->
+                    <!--End Modal Update Resi-->
+
 
                     <!--Modal Laporan Penjualan-->
                     <div class="modal fade" id="modalReportSales" tabindex="-1" role="dialog" aria-labelledby="modalReportSales" aria-hidden="true">
@@ -1443,14 +1577,111 @@
             // console.log(src1);
             $("#img_bukti_transfer1").attr("src", src1);
         }
+        function confirmOrderReadyShipping(id) {
+           
+           $.ajax({
+               url:`/order/${id}/push_status`,
+               method: "POST",
+               data : {
+                   status : 5
+               },
+               success: function (data) {
+                   // Swal.fire(
+                   // 'Good Success!',
+                   // 'Order has ben updated!!',
+                   // 'success'
+                   // )
+                   swal({
+                       title: "Success!",
+                       text: "Order has ben updated!",
+                       icon: "success",
+                   });
+                   setTimeout(() => {
+                       
+                       window.location.href = "/order";
+                   }, 2000);
+               },
+           });
+        }
+
+        function confirmOrderToShip(id) {
+            if (confirm('Apakah anda akan mengirim order ini?')) {
+                
+                $.ajax({
+                   url:`/order/${id}/push_status`,
+                   method: "POST",
+                   data : {
+                       status : 6
+                   },
+                   success: function (data) {
+                       swal({
+                           title: "Success!",
+                           text: "Order has ben updated!",
+                           icon: "success",
+                       });
+                       setTimeout(() => {
+                           
+                           window.location.href = "/order";
+                       }, 2000);
+                   },
+               });
+            }
+           
+        }
+        function modalPreOrderToShip(id,no_order,total_pembelian,total_payment,img) {
+            $('#id_order_to_ship').val(id)
+            $('.span_order_no').html(no_order)
+            // console.log(total_payment);
+            // $('#modalOrderConfirm').modal('show')
+            $('.span_total_pembelian').html(formatRupiah(total_pembelian))
+            // $('.span_total_minimal_bayar').html(formatRupiah(total_payment))
+            let min_bayar = parseInt(total_pembelian)*50/100;
+            var src1 = 'storage/'+img;
+            // console.log(src1);
+            $("#img_bukti_transfer").attr("src", src1);
+            
+
+            $('.span_total_bayar_sebelumnya').html(formatRupiah(String(total_payment),'Rp'))
+        }
+        function modalUpdateResi(id,no_order,resi) {
+            $('#id_order_update_resi').val(id)
+            $('.span_order_no').html(no_order)
+            $('#inputResi').val(resi)
+        }
+        function saveUpdateResi() {
+                let id = $('#id_order_update_resi').val()
+                let no_resi = $('#inputResi').val()
+                let expedition_id = $('#input_expedition_id').val()
+                $.ajax({
+                   url:`/order/${id}/update_resi`,
+                   method: "POST",
+                   data : {
+                    no_resi : no_resi,
+                    expedition_id : expedition_id,
+                   },
+                   success: function (data) {
+                       swal({
+                           title: "Success!",
+                           text: "Order has ben updated!",
+                           icon: "success",
+                       });
+                       setTimeout(() => {
+                           
+                           window.location.href = "/order";
+                       }, 2000);
+                   },
+               });
+            
+           
+        }
         
         function checkMinimumlPayment() {
             // alert(123)
             let min_bayar = $('#min_bayar_confirm_data').val()
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             if (parseInt(nominal_bayar) < parseInt(min_bayar)) {
-                // $('#modalNotMinPay').modal('show');
-                alert('Nominal Bayar kurang dari minimum bayar')
+                $('#modalNotMinPay').modal('show');
+                // alert('Nominal Bayar kurang dari minimum bayar')
                 $('#inputPaymentConfirm1').val(null)
                 return;
                 
@@ -1460,56 +1691,59 @@
             let id = $('#id_order_confirm').val();
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             $.ajax({
-            url:`/public/order/${id}/push_status`,
-            method: "POST",
-            data : {
-                status : 2
-            },
-            success: function (data) {
-                // Swal.fire(
-                // 'Good Success!',
-                // 'Order has ben updated!!',
-                // 'success'
-                // )
-                updateTotalPayment(id,nominal_bayar)
-                // swal({
-                //     title: "Success!",
-                //     text: "Order has ben updated!",
-                //     icon: "success",
-                // });
-                // setTimeout(() => {
-                    
-                //     window.location.href = "/public/order";
-                // }, 2000);
-            },
-        });
+                url:`/order/${id}/push_status`,
+                method: "POST",
+                data : {
+                    status : 2
+                },
+                success: function (data) {
+                    // Swal.fire(
+                    // 'Good Success!',
+                    // 'Order has ben updated!!',
+                    // 'success'
+                    // )
+                    updateTotalPayment(id,nominal_bayar)
+                    swal({
+                        title: "Success!",
+                        text: "Order has ben updated!",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
         }
-        function confirmOrderReadyShipping(id) {
-           
+        function confirmToShipping() {
+            let id = $('#id_order_to_ship').val();
+            let nominal_bayar = $('#inputPayment2').val()
             $.ajax({
-            url:`/public/order/${id}/push_status`,
-            method: "POST",
-            data : {
-                status : 5
-            },
-            success: function (data) {
-                // Swal.fire(
-                // 'Good Success!',
-                // 'Order has ben updated!!',
-                // 'success'
-                // )
-                swal({
-                    title: "Success!",
-                    text: "Order has ben updated!",
-                    icon: "success",
-                });
-                setTimeout(() => {
-                    
-                    window.location.href = "/public/order";
-                }, 2000);
-            },
-        });
+                url:`/order/${id}/push_status`,
+                method: "POST",
+                data : {
+                    status : 6
+                },
+                success: function (data) {
+                    // Swal.fire(
+                    // 'Good Success!',
+                    // 'Order has ben updated!!',
+                    // 'success'
+                    // )
+                    updateTotalPayment(id,nominal_bayar)
+                    swal({
+                        title: "Success!",
+                        text: "Order has ben updated!",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
         }
+        
         function id_order_cancel(id,no_order) {
             $('#id_order_reject').val(id)
             $('#no_order_reject').html(no_order)
@@ -1519,7 +1753,7 @@
             let reason_cancel = $('#inputReasonReject').val();
            
             $.ajax({
-               url:`/public/order/${id}/cancel`,
+               url:`/order/${id}/cancel`,
                 method: "POST",
                 data : {
                     reason_cancel : reason_cancel
@@ -1537,14 +1771,14 @@
                     });
                     setTimeout(() => {
                         
-                        window.location.href = "/public/order";
+                        window.location.href = "/order";
                     }, 2000);
                 },
             });
         }
         function updateTotalPayment(id,total_payment) {
             $.ajax({
-               url:`/public/order/${id}/update_payment`,
+               url:`/order/${id}/update_payment`,
                 method: "POST",
                 data : {
                     total_payment : total_payment
@@ -1558,7 +1792,28 @@
                     });
                     setTimeout(() => {
                         
-                        window.location.href = "/public/order";
+                        window.location.href = "/order";
+                    }, 2000);
+                },
+            });
+        }
+        function updateTotalPayment2(id,total_payment) {
+            $.ajax({
+               url:`/order/${id}/update_payment2`,
+                method: "POST",
+                data : {
+                    total_payment : total_payment
+                },
+                success: function (data) {
+                  
+                    swal({
+                        title: "Success!",
+                        text: "Data Berhasil Disimpan",
+                        icon: "success",
+                    });
+                    setTimeout(() => {
+                        
+                        window.location.href = "/order";
                     }, 2000);
                 },
             });

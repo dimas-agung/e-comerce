@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Expedition;
 use App\Models\ProductVarian;
 use App\Models\User;
 use App\Services\OrderService;
@@ -174,6 +175,23 @@ class OrderController extends Controller
         return redirect('order')->with('success', 'Data Order has been canceled!');
     }
     public function updatePayment(Request $request, Order $order)
+    {
+        $nominal_transfer = $request->input('total_payment');
+        $order->update(['total_payment' => $nominal_transfer]);
+        $payment = Payment::where(['orders_id'=>$order->id])->latest()->first();
+        $payment->update(['nominal' => $nominal_transfer]);
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
+    public function updateResi(Request $request, Order $order)
+    {
+        $no_resi = $request->input('no_resi');
+        $expedition_id = $request->input('expedition_id');
+        $order->update(['no_resi' => $no_resi,'expedition_id'=>$expedition_id]);
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
+    public function updatePayment2(Request $request, Order $order)
     {
         $nominal_transfer = $request->input('total_payment');
         $order->update(['total_payment' => $nominal_transfer]);
