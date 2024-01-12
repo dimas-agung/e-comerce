@@ -27,7 +27,7 @@
 
         <div>
             <!--Promo Series / Kategory-->
-            @include('admin.series.index')
+            @include('admin.series.index',['series'=>$series,'products'=>$products])
            
        </div>
        

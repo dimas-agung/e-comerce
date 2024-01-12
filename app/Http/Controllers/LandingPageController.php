@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Carousel;
 use App\Models\ProductBestSeller;
 use App\Models\Product;
+use App\Models\Series;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
@@ -22,12 +23,13 @@ class LandingPageController extends Controller
     {
         $carousels = Carousel::latest()->get();
         $products = Product::latest()->get();
-       
+        $series = Series::latest()->get();
         $productBestSeller = ProductBestSeller::latest()->get();
         return response()->view('admin.landing_page.index',[
             'product_best_seller' => $productBestSeller,
             'products' => $products,
             'carousel' => $carousels,
+            'series' => $series,
         ]);       
     }
 

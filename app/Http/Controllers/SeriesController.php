@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductCategory;
+use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class SeriesController extends Controller
 {
@@ -19,9 +23,11 @@ class SeriesController extends Controller
     public function index()
     {
         //
-        // $productBestSeller = ProductBestSeller::latest()->paginate(10);
+        $series = Series::latest()->get();
         // return $productBestSeller;
-        return response()->view('admin.series.index');
+        return response()->view('admin.series.index',[
+            'series'=> $series
+        ]);
     }
 
     /**
@@ -44,12 +50,15 @@ class SeriesController extends Controller
     public function store(Request $request)
     {
         //
+          // return $request->input('varian_name');
         $validated = $request->validate([
-            'product_id' => ['required'],
-
+            'title' => ['required'],
+            'picture' => ['required'],
+            'description'  => ['sometimes', 'nullable'],
         ]);
-        $productBestSeller = ProductBestSeller::create($validated);
-        return redirect('product_best_seller')->with('success', 'Data Product Best Seller has been created!');
+
+
+        return redirect('carousel')->with('success', 'Data Carousel has been created!');
     }
 
     /**
@@ -58,10 +67,15 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductBestSeller $productBestSeller)
+    public function show(Series $series)
     {
         //
-        return $productBestSeller;
+        $product_category = ProductCategory::get();
+        
+        return response()->view('admin.series.edit', [
+            'carousel' => $series,
+            'product_category' => $product_category,
+        ]);
     }
 
     /**
@@ -85,21 +99,33 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductBestSeller $p)
+    public function update(Request $request)
     {
         //
-        $validated = $request->validate([
-            'product_id.*' => ['required'],
+        DB::beginTransaction();
+        $series= Series::find($request->input('series_id'));
+        $series->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'product_category_id' => $request->input('product_category_id'),
         ]);
-        $productIds = $request->input('product_id');
-        $no = 1;
-
-        foreach ($productIds as $key => $value) {
-          ProductBestSeller::where(['id'=>$no])->update(['product_id'=>$value]);
-            $no++;
+        $path = 'carousel';
+        $picture_default = $request->file('picture');
+        // return $picture_default;
+        if (!empty($picture_default)) {
+            # code...
+            // $file_name = $dataProduct['product_code'].'_default';
+            $file_name = 'Series_'.$series->id.'.png';
+            $url = self::upploadFile($picture_default,$path,$file_name);
+            // return $url;
+            $series->update([ 
+                'picture' => $url,
+            ]);
         }
-      
-        return redirect('landing_page')->with('success', 'Data Product Best Seller has been updated!');
+        // return $picture_default;
+        DB::commit();
+        // return 123;
+        return redirect('landing_page')->with('success', 'Data Series has been updated!');
     }
 
     /**
@@ -113,5 +139,19 @@ class SeriesController extends Controller
         //
         $productBestSeller->delete();
         return redirect('product_best_seller')->with('success', 'Data Product Best Seller has been deleted!');
+    }
+    function upploadFile($file,$path,$file_name){
+  
+        $image = Image::make($file->getRealPath());
+        $image->encode('jpg', 70); 
+        // $image->resize(320, 240); 
+        $file_compressed = $image;
+
+        $fullPath = "{$path}/{$file_name}";
+        // $img = Image::make('public/foo.jpg')->resize(320, 240)->insert('public/{$path}/{$file_name}');
+        Storage::disk('public')->put($fullPath, $file_compressed);
+        // $files->storePubliclyAs($path, $file_name, "public");
+        $url = $path.'/'. $file_name;
+        return $url;
     }
 }
