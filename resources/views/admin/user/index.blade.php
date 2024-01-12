@@ -40,14 +40,6 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Lengkap</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($users as $user)
    

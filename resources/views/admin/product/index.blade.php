@@ -30,103 +30,77 @@
             </div>
             <!-- Tabel-->
             <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Cari Produk" title="Type in a name">
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="table" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th><span class="text text-center text-secondary">Info Produk</span></th>
-                                    <th class="text-center">Statistik</th>
-                                    <th class="text-center">Harga</th>
-                                    <th class="text-center">Stok</th>
-                                    <th class="text-center">Aktif</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <!--Contoh data table-->
-                                @foreach ($products as $product)
-                                    
-                                <tr>
-                                    <td class="col col-8" style="min-width: 400px;">
-                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
-                                            <div class="content">
-                                                <div class="card me-2" style="width: 80px;float: left;">
-                                                    <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2" style="width: 80px; height:auto;">
-                                                </div>
-                                                <div class="content ms-4 mb-4">
-                                                    <span class="text text-secondary fw-bold">{{$product->name}}</span>
-                                                    <p><span class="text">Lihat varian</span></p>
-                                                </div>
+                <div class="table-responsive">
+                    <table class="table" id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th><span class="text text-center text-secondary">Info Produk</span></th>
+                                <th class="text-center">Statistik</th>
+                                <th class="text-center">Harga</th>
+                                <th class="text-center">Stok</th>
+                                <th class="text-center">Aktif</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!--Contoh data table-->
+                            @foreach ($products as $product)
+                                
+                            <tr>
+                                <td class="col col-8" style="min-width: 350px;">
+                                    <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                        <div class="content">
+                                            <div class="card me-2" style="width: 50px;float: left;">
+                                                <img src="{{ asset('storage/'.$product->picture_default) }}" alt="" title=""  alt="Cinque Terre" class="img-thumbnail rounded-2" style="width: 50px; height:auto;">
                                             </div>
+                                            <div class="content ms-4 mb-4">
+                                                <span class="text text-secondary fw-bold">{{$product->name}}</span>
+                                                <p><span class="text">Lihat varian</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="col col-2 align-items-center">
+                                    <div class="text-center mt-2">
+                                        <span class="text text-secondary"><i class="fas fa-shopping-bag me-2" style="color: rgb(117, 115, 115);"></i>0</span>
+                                        <span class="text text-secondary"><i class="fas fa-cart-shopping me-2" style="color: rgb(117, 115, 115);"></i>0</span>
+                                    </div>
+                                </td>
+                                <td class="col col-4 text-center">
+                                    <div class="justify-content-center">
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                            <span class="text text-primary">{{ $product->product_varian->min('price') }} - {{$product->product_varian->max('price')}}</span>
                                         </a>
-                                    </td>
-                                    <td class="col col-1">
-                                        <div class="justify-content-center">
-                                            <p class="text text-secondary"><i class="fas fa-shopping-bag me-2" style="color: rgb(117, 115, 115);"></i>0</p>
-                                            <p class="text text-secondary"><i class="fas fa-cart-shopping me-2" style="color: rgb(117, 115, 115);"></i>0</p>
-                                        </div>
-                                    </td>
-                                    <td class="col col-4 text-center">
-                                        <div class="justify-content-center">
-                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
-                                                <span class="text text-primary">{{ $product->product_varian->min('price') }} - {{$product->product_varian->max('price')}}</span>
-                                            </a>
-                                        </div>
-                                        
-                                    </td>
-                                    <td class="col col-sm-1 text-center">
-                                        <div class="justify-content-center">
-                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
-                                                <span class="text text-primary">{{$product->product_varian->sum('stock')}}</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="col col-sm-auto text-center">
-                                        <div class="justify-content-center">
-                                            <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
-                                                <span class="text"><i class="fas fa-sliders"></i></span>
-                                            </a> 
-                                        </div>                                                           
-                                    </td>
-                                    <td class="col col-sm-2 text-center">
-                                        <div class="justify-content-center">
-                                            <a href="{{route('product.edit',$product->id)}}">
-                                                <span class="text text-danger"><i class="fas fa-pencil"></i></span>
-                                            </a> 
-                                        </div>  
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    </div>
+                                    
+                                </td>
+                                <td class="col col-sm-1 text-center">
+                                    <div class="justify-content-center">
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                            <span class="text text-primary">{{$product->product_varian->sum('stock')}}</span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="col col-sm-auto text-center">
+                                    <div class="justify-content-center">
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                        </a> 
+                                    </div>                                                           
+                                </td>
+                                <td class="col col-sm-2 text-center">
+                                    <div class="justify-content-center">
+                                        <a href="{{route('product.edit',$product->id)}}">
+                                            <span class="text text-danger"><i class="fas fa-pencil"></i></span>
+                                        </a> 
+                                    </div>  
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
-                        <script>
-                            function myFunction() {
-                            var input, filter, table, tr, td, i, txtValue;
-                            input = document.getElementById("myInput");
-                            filter = input.value.toUpperCase();
-                            table = document.getElementById("myTable");
-                            tr = table.getElementsByTagName("tr");
-                            for (i = 0; i < tr.length; i++) {
-                                td = tr[i].getElementsByTagName("td")[0];
-                                if (td) {
-                                txtValue = td.textContent || td.innerText;
-                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                    tr[i].style.display = "";
-                                } else {
-                                    tr[i].style.display = "none";
-                                }
-                                }       
-                            }
-                            }
-                        </script>
-                    </div>
+                </div>
             </div>
 
             <!--Modal Lihat Variant All-->
@@ -143,8 +117,17 @@
                             <div class="col">
                                 <div class="card card-header">
                                     <input type="hidden" name="product_id">
-                                    <div class="fw-bold" style="color: rgb(104, 100, 100);">
-                                        <span class="title" id="span_product"></span>
+
+                                    <div class="d-flex" style="color: rgb(104, 100, 100);">
+                                        <div class="p-2 flex-grow-1">
+                                            <span class="title fw-bold" id="span_product"></span>
+                                        </div>
+                                        <div class="p-2">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                                <label class="form-check-label" for="flexSwitchCheckChecked">Aktif</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 

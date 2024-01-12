@@ -34,24 +34,17 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th class="">Nama Kategori Produk</th>
+                            <th class="">Kategory</th>
                             <th>Keterangan</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Kategori Produk</th>
-                            <th>Keterangan</th>
-                            <th>Edit</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         @foreach ($productCategory as $value)
    
                         <tr>
                             <td>{{$value->name}}</td>
-                            <td><span></span></td>
+                            <td><span>{{$value->name}}</span></td>
                             <td class="text-end">
                                 <a href="#" class="btn" data-toggle="modal" onclick="modalEdit('{{$value->id}}','{{$value->name}}')">
                                     <i class="fa fa-edit" aria-hidden="true"></i>

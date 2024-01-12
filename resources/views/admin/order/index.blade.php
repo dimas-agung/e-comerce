@@ -21,29 +21,42 @@
                 <div class="row">
                 <!-- Nav pills -->
                     <div class="col">
-                        <ul class="nav nav-pills" role="tablist">
+                        <ul class="nav nav-pills" role="tablist" id="myTab">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="pill" href="#NewOrder">Pesanan Baru</a>
+                                <a class="nav-link active" data-bs-toggle="tab" href="#NewOrder">Pesanan Baru</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="pill" href="#OrderProcess">Pesanan Diproses</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#OrderProcess">Pesanan Diproses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="pill" href="#ReadyToShip">Siap Dikirim</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#ReadyToShip">Siap Dikirim</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="pill" href="#OrderShipping">Dikirim</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#OrderShipping">Dikirim</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="pill" href="#OrderFinish">Selesai</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#OrderFinish">Selesai</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="pill" href="#OrderCancel">Pesanan Batal</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#OrderCancel">Pesanan Batal</a>
                             </li>
                             <li class="nav-item">
-                                <a  class="nav-link"  data-bs-toggle="pill" href="#OrderNotPaid">Pesanan Belum dibayar</a>
+                                <a  class="nav-link" data-bs-toggle="tab" href="#OrderNotPaid">Pesanan Belum dibayar</a>
                             </li>
                         </ul>
+
+                        <script>
+                          $(document).ready(function(){
+                            $('a[data-bs-toggle="tab"]').on('show.bs.tab', function(e) {
+                                localStorage.setItem('activeTab', $(e.target).attr('href'));
+                            });
+                            var activeTab = localStorage.getItem('activeTab');
+                            if(activeTab){
+                                $('#myTab a[href="' + activeTab + '"]').tab('show');
+                            }
+                        });
+                        </script>
+                        
                     </div>
                     
                 </div>
@@ -245,7 +258,7 @@
                     <!--End Panel New Order-->
 
                     <!-- Panel Order Proses-->
-                    <div id="OrderProcess" class="card tab-pane fade" role="tabpanel">
+                    <div id="OrderProcess" class="tab-pane fade" role="tabpanel">
                         @foreach ($orders_processed as $key=>$order)
                             <div class="border border-top-0 rounded-2 mb-2 pb-2">
                                 
@@ -717,14 +730,12 @@
 
                                 <!--Amount Recap-->
                                 <div class="content bg-light rounded-2 ms-4 me-4">
-                                    <div class="row py-1 mx-2">
-                                        <div class="col-lg-6 col-sm-6">
+                                    <div class="row d-sm-flex justify-content-between order-2 py-1 mx-2">
+                                        <div class="col-lg-3 col-sm-2">
                                             <span class="text text-secondary fs.6 me-2">Total</span>
-                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total + $order->shipping_price)}}</h6>
                                         </div>
-                                        <div class="col-lg-6 col-sm-6">
-                                            <span class="text text-secondary fs.6 me-2">Pembayaran</span>
-                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->total_payment)}}</h6>
+                                        <div class="col-lg-3 col-sm-3">
+                                            <h6 class="text text-secondary fs.6 fw-bold me-2">{{rupiah($order->price_total + $order->shipping_price)}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -1387,6 +1398,10 @@
                                                 <span class="text">Pembayaran Sebelumnya</span>
                                                 <h5 class="headingOne text-secondary"><span class="span_total_bayar_sebelumnya"></span></h5>
                                             </div>
+                                            <div class="span">
+                                                <span class="text">Kurang Bayar</span>
+                                                <h5 class="headingOne text-secondary"><span class="span_kurang_bayar"></span></h5>
+                                            </div>
                                             <div class="form-group mt-2">
                                                 <label for="inputPayment">Input Pembayaran</label>
                                                 <div class="input-group mt-1">
@@ -1641,7 +1656,9 @@
             $("#img_bukti_transfer").attr("src", src1);
             
 
-            $('.span_total_bayar_sebelumnya').html(formatRupiah(String(total_payment),'Rp'))
+            $('.span_total_bayar_sebelumnya').html(formatRupiah(String(total_payment),'Rp'));
+
+            $('.span_kurang_bayar').html(formatRupiah(String(total_pembelian - total_payment),'Rp'))
         }
         function modalUpdateResi(id,no_order,resi) {
             $('#id_order_update_resi').val(id)
