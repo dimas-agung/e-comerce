@@ -21,7 +21,7 @@
     <div class="card card-body">
         <div class="row"> 
             @foreach ($series as $item )
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
+            <div class="col-6 order-9 mb-3">
                 <div class="bg-white rounded shadow-sm">
                     <a  onclick="editSeries({{$item->id}})">
                         <img src="{{ asset('storage/'.$item->picture) }}" alt="" class="img-fluid card-img-top">
@@ -72,20 +72,20 @@
                             </div>
                         </div>
                         <script>
-                              $(document).ready(() => {
-                                                        $("#picture_Series").change(function () {
-                                                            const file = this.files[0];
-                                                           
-                                                            if (file) {
-                                                                let reader = new FileReader();
-                                                                reader.onload = function (event) {
-                                                                    $("#imgPreviewSeries")
-                                                                      .attr("src", event.target.result);
-                                                                };
-                                                                reader.readAsDataURL(file);
-                                                            }
-                                                        });
-                                                    });
+                            $(document).ready(() => {
+                                $("#picture_Series").change(function () {
+                                    const file = this.files[0];
+                                    
+                                    if (file) {
+                                        let reader = new FileReader();
+                                        reader.onload = function (event) {
+                                            $("#imgPreviewSeries")
+                                                .attr("src", event.target.result);
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                            });
                         </script>
                         <div class="card mb-2 p-3">
                             <div class="row mb-3">
