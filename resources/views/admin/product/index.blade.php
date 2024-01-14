@@ -68,7 +68,7 @@
                                 </td>
                                 <td class="col col-4 text-center">
                                     <div class="justify-content-center">
-                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}','{{$product->is_active}}')">
                                             <span class="text text-primary">{{ $product->product_varian->min('price') }} - {{$product->product_varian->max('price')}}</span>
                                         </a>
                                     </div>
@@ -76,15 +76,15 @@
                                 </td>
                                 <td class="col col-sm-1 text-center">
                                     <div class="justify-content-center">
-                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}','{{$product->is_active}}')">
                                             <span class="text text-primary">{{$product->product_varian->sum('stock')}}</span>
                                         </a>
                                     </div>
                                 </td>
                                 <td class="col col-sm-auto text-center">
                                     <div class="justify-content-center">
-                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}')">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                        <a href="#Variant1" class="link" style="text-decoration: none;" data-toggle="modal" data-bs-target="#Variant1" role="dialog" aria-expanded="false" onclick="lihatVarian('{{$product->id}}','{{$product->name}}','{{$product->is_active}}')">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{$product->is_active == 1 ? 'checked' : ''}}>
                                         </a> 
                                     </div>                                                           
                                 </td>
@@ -124,7 +124,7 @@
                                         </div>
                                         <div class="p-2">
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                                <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="product_is_active" checked value="1">
                                                 <label class="form-check-label" for="flexSwitchCheckChecked">Aktif</label>
                                             </div>
                                         </div>
@@ -160,10 +160,14 @@
     </div>
 </div>
 <script>
-    function lihatVarian(id,name) {
+    function lihatVarian(id,name,active) {
     // alert(name)
     $('#span_product').html(name)
     $('#product_id').val(id)
+    $('#is_active').val(id)
+    active == 1 ? $('#is_active').prop('checked', true) : $('#is_active').prop('checked', false);
+
+
     $.ajax({
         url: `{{route('product_varian.index')}}`,
         method:"GET",  

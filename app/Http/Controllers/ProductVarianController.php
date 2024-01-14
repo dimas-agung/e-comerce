@@ -47,6 +47,7 @@ class ProductVarianController extends Controller
         $price = $request->input('price');
         $count_is_not_active = 0;
         $is_actives = $request->input('is_active');
+        $product_is_active = $request->input('product_is_active');
         foreach ($ids as $key => $id) {
             $product_varian = ProductVarian::where('id',$id)->update([
                 'stock' => $stocks[$key],
@@ -66,10 +67,19 @@ class ProductVarianController extends Controller
                 'is_active' => 0,
             ]);
         }else{
-            $product = Product::where('id',$product_varian->products_id)->update([
-             
-                'is_active' => 1,
-            ]);
+            if ($product_is_active == 1) {
+                # code...
+                $product = Product::where('id',$product_varian->products_id)->update([
+                 
+                    'is_active' => 1,
+                ]);
+            }else{
+                $product = Product::where('id',$product_varian->products_id)->update([
+                 
+                    'is_active' => 0,
+                ]);
+
+            }
 
         }
         return redirect('product')->with('success', 'Data Varian has been updated!');
