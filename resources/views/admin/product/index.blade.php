@@ -164,7 +164,7 @@
     // alert(name)
     $('#span_product').html(name)
     $('#product_id').val(id)
-    $('#is_active').val(id)
+    // $('#is_active').val(id)
     active == 1 ? $('#is_active').prop('checked', true) : $('#is_active').prop('checked', false);
 
 
