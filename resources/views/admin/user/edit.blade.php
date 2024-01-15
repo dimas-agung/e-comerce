@@ -346,9 +346,10 @@
                             <label for="inputDestrict">Kecamatan</label>
                             <select id="inputDestrict" class="form-select" name="districts_id" required>
                                 <option selected>--Pilih Kecamatan--</option>
-                                <option value="1">Kecamatan Waru</option>
-                                <option value="2">Kecamatan Krian</option>
-                                <option value="3">Kecamatan Mojosari</option>
+                                @foreach ($districts as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                                
                             </select>
                         </div>
                         <div class="form-group mt-1">

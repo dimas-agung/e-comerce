@@ -184,7 +184,14 @@
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <input type="text" class="form-control" id="inputVill" placeholder="Kelurahan" name="villages_id" required>
+                            {{-- <input type="text" class="form-control" id="inputVill" placeholder="Kelurahan" name="villages_id" required> --}}
+                            <select id="inputDistrict" class="form-control" placeholder="Pilih Desa" name="villages_id" required>
+                                <option value="" disabled selected>Pilih Desa</option>
+                                @foreach ($villages as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                            
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>

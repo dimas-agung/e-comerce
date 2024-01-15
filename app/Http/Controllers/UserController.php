@@ -7,6 +7,7 @@ use App\Models\Cities;
 use App\Models\District;
 use App\Models\Provinces;
 use App\Models\User;
+use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,6 +24,7 @@ class UserController extends Controller
         $provinces = Provinces::orderBy('name')->get();
         $cities = Cities::orderBy('name')->get();
         $district = District::orderBy('name')->get();
+        $villages = Village::orderBy('name')->get();
         // $users = User::orderBy('name')->get();
         // return $product;
         // return $product[0]->varians;
@@ -31,6 +33,7 @@ class UserController extends Controller
             'provinces' => $provinces,
             'cities' => $cities,
             'district' => $district,
+            'villages' => $villages,
         ]);
     }
     public function store(Request $request)

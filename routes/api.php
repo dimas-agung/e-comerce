@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,5 @@ Route::get('/product_category', [App\Http\Controllers\API\ProductCategoryControl
 Route::get('/product_varian', [App\Http\Controllers\API\ProductVarianController::class, 'index'])->name('api.product_varian');
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
+
+Route::post('login', [AuthController::class, 'login']);
