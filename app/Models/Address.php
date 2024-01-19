@@ -12,16 +12,20 @@ class Address extends Model
     protected $fillable = [
         'fullname' ,
             'users_id' ,
+            'is_default' ,
             'phone_number' ,
             'provinces_id' ,
             'cities_id' ,
             'districts_id' ,
-            'villages_id' ,
+            'village' ,
             'address' ,
             'postal_code' ,
             'is_active',
             'label' ,
     ];
+    function district(){
+        return $this->hasOne(District::class,'id','districts_id');
+    }
 
     function activated() {
         $this->update(['is_active'=>1]);

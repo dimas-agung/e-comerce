@@ -108,9 +108,12 @@
                     <div class="card mt-2 p-2">
                         <div class="row ms-md-1">
                             <div class="col">
-                                <span class="text text-secondary fw-bold" >Rumah</span>
+                                <span class="text text-secondary fw-bold" >{{$value->label}}</span>
+                                @if ($value->is_default == 1)
                                 <span class="text text-dark m-2 fw-bold">|</span>
+                                    
                                 <span class="text text-light px-2" style="background-color: rgb(105, 105, 103);">Utama</span>
+                                @endif
                             </div>
                         </div>
                         <div class="row ms-md-1">
@@ -125,13 +128,17 @@
                         </div>
                         <div class="row ms-md-1">
                             <div class="col">
+                                <span class="text text-dark" >{{$value->district->name}}, {{$value->district->city->name}}, {{$value->district->city->province->name}}</span> 
+                            </div>
+                        <div class="row ms-md-1">
+                            <div class="col">
                                 <span class="text text-dark" >{{$value->address}}</span> 
                             </div>
                         </div>
                         <div class="row ms-md-1">
                             <form method="POST" action="{{route('address.destroy',$value->id)}}">
                             <div class="col">
-                                <a href="#" class="link-success link-underline-opacity-0" data-toggle="modal" data-target="#editAddress"><span class="text fw-bold">Ubah</span></a>
+                                <a href="#" onclick="editAddress('{{$value->id}}')" class="link-success link-underline-opacity-0" data-toggle="modal" data-target="#editAddress"><span class="text fw-bold">Ubah</span></a>
                                 <span class="text text-success m-2 fw-bold">|</span>
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
@@ -273,7 +280,7 @@
 <!--End Modal Ubah Password-->
 
 <!--Modal Tambah Alamat-->
-<div class="modal fade" id="AddAddress" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
+<div class="modal fade" id="AddAddress" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
@@ -294,7 +301,7 @@
                     <div class="col-lg p-4">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="cekboxDefaultAdd">Gunakan Sebagai Alamat Utama</label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultAdd" name="is_primary">
+                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultAdd" name="is_default" value="1">
                         </div>
                     </div>      
                 </div>
@@ -321,46 +328,22 @@
                     </div>      
                 </div>
                 <div class="row">                                              
-                    <div class="col-lg">
-                        <div class="form-group mt-1">
-                            <label for="inputState">Provinsi</label>
-                            <select id="inputState" class="form-select" name="provinces_id" required>
-                                <option selected>--Pilih Provinsi--</option>
-                                @foreach ($provinces as $province)
-                                <option value="{{$province->id}}">{{$province->name}}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group mt-1">
-                            <label for="inputCity">Kota / Kabupaten</label>
-                            <select id="inputCity" class="form-select" name="cities_id" required>
-                                <option selected>--Pilih Kota--</option>
-                                @foreach ($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    
                     <div class="col-lg">
                         <div class="form-group mt-1">
                             <label for="inputDestrict">Kecamatan</label>
-                            <select id="inputDestrict" class="form-select" name="districts_id" required>
+                            <select id="inputDestrict" class="form-select select2" name="districts_id" required>
                                 <option selected>--Pilih Kecamatan--</option>
                                 @foreach ($districts as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    <option value="{{$item->id}}">{{$item->name}}, {{$item->city->name}}, {{$item->city->province->name}}</option>
                                 @endforeach
                                 
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <select id="inputVill" name="villages_id" class="form-select" required>
-                                <option selected>--Pilih Kelurahan--</option>
-                                <option value="1">Tropodo</option>
-                                <option value="2">Sedati</option>
-                                <option value="3">Damarsi</option>
-                                <option value="4">Tunggal Pager</option>
-                            </select>
+                            <input type="text" name="village" class="form-control" value="">
+                           
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
@@ -385,7 +368,7 @@
 
 
 <!--Modal ubah alamat-->
-<div class="modal fade" id="editAddress" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
+<div class="modal fade" id="editAddress"  role="dialog" aria-labelledby="modalUser" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
@@ -399,27 +382,27 @@
                     <div class="col-lg">
                         <div class="form-group mt-1">
                             <label for="inputLabel">Label Alamat</label>
-                            <input type="text" id="inputLabel" class="form-control" value="Rumah">
+                            <input type="text" id="inputLabelEdit" class="form-control" value="">
                         </div>
                     </div>
                     <div class="col-lg p-4">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="cekboxDefaultAdd">Gunakan Sebagai Alamat Utama</label>
-                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultAdd">
+                            <input class="form-check-input" type="checkbox" role="switch" id="cekboxDefaultEdit" value="1">
                         </div>
                     </div>      
                 </div>
                 <div class="row">                                              
                     <div class="col-lg">
                         <div class="form-group">
-                            <label for="inputRecName">Nama Penerima</label>
-                            <input type="text" id="inputRecName" class="form-control" value="Paijo">
+                            <label for="inputRecNameEdit">Nama Penerima</label>
+                            <input type="text" id="inputRecNameEdit" class="form-control" value="Paijo">
                         </div>
                     </div>
                     <div class="col-lg">
                         <div class="form-group">
-                            <label for="inputRecNoTlp">No Telepon</label>
-                            <input type="text" id="inputRecNoTlp" class="form-control" value="089877665444">
+                            <label for="inputDestrictEdit">No Telepon</label>
+                            <input type="text" id="inputRecNoTlpEdit" class="form-control" value="089877665444">
                         </div>
                     </div>                                                                                                             
                 </div>
@@ -427,57 +410,36 @@
                     <div class="col">
                         <div class="form-group mt-1">
                             <label for="inputAddress">Address</label>
-                            <textarea class="form-control" id="inputAddress" rows="7" value="">Jl Raya Pahlawan RT 03 RW 04</textarea>
+                            <textarea class="form-control" id="inputAddressEdit" rows="7" value=""></textarea>
                         </div>
                     </div>      
                 </div>
                 <div class="row">                                              
+                    
                     <div class="col-lg">
                         <div class="form-group mt-1">
-                            <label for="inputState">Provinsi</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Jawa Timur</option>
-                                <option>Jawa Tengah</option>
-                                <option>Jawa Barat</option>
-                                <option>Kalimantan Timur</option>
-                            </select>
-                        </div>
-                        <div class="form-group mt-1">
-                            <label for="inputCity">Kota / Kabupaten</label>
-                            <select id="inputCity" class="form-select">
-                                <option selected>Kabupaten Sidoarjo</option>
-                                <option>Kabupaten Kepulauan Seribu</option>
-                                <option>Kepulauan Siau Tagulandang Biaro</option>
-                                <option>Kabupaten Niagara Selatan</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg">
-                        <div class="form-group mt-1">
-                            <label for="inputDestrict">Kecamatan</label>
-                            <select id="inputDestrict" class="form-select">
-                                <option selected>Kecamatan Waru--</option>
-                                <option>Kecamatan Krian</option>
-                                <option>Kecamatan Mojosari</option>
-                                <option>Kecamatan </option>
+                            <label for="inputDestrictEdit">Kecamatan</label>
+                            <select id="inputDestrictEdit" class="form-select select2Edit" name="districts_id" required>
+                                <option selected>--Pilih Kecamatan--</option>
+                                @foreach ($districts as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}, {{$item->city->name}}, {{$item->city->province->name}}</option>
+                                @endforeach
+                                
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            <select id="inputVill" class="form-select">
-                                <option selected>Tropodo</option>
-                                <option>Sedati</option>
-                                <option>Damarsi</option>
-                                <option>Tunggal Pager</option>
-                            </select>
+                            <input type="text" name="village" id="inputVillageEdit" class="form-control" value="">
+                           
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="inputPos" value="65332" disabled>
+                                <input type="text" class="form-control" id="inputPosEdit" placeholder="65332" required name="postal_code">
                             </div>
                         </div>
                     </div>                                                                                                                
+                </div>                                                                                                            
                 </div>                                                                                                        
             </div>
             <!--Modal Footer-->
@@ -510,6 +472,12 @@
 <!--End Modal Konfirmasi hapus alamat-->
 
 <script>
+      $(document).ready(function() {
+                $('.select2').select2({
+                    width :'100%',
+                    dropdownParent: $("#AddAddress")
+                });
+            });
 function modalEdit(id,name) {
     // alert(name)
     $('#name_edit').val(name)
@@ -517,6 +485,30 @@ function modalEdit(id,name) {
     
     // alert(id);
     $('#modalEditCatProduct').modal('show');
+}
+function editAddress(id) {
+    // alert(name)
+    $.ajax({
+        url: `{{route('api.address')}}`,
+        method:"GET",  
+        data:{
+            "_token": "{{ csrf_token() }}",
+            address_id : id,
+            // qty: qty
+        },                              
+        success: function( data ) {
+            // console.log(data);
+            $('#inputLabelEdit').val(data.label)
+            $('#cekboxDefaultEdit').val(data.label)
+            $('#inputRecNameEdit').val(data.fullname)
+            $('#inputRecNoTlpEdit').val(data.phone_number)
+            $('#inputAddressEdit').val(data.address)
+            $('#inputDestrictEdit').val(data.districts_id)
+            $('#inputVillageEdit').val(data.village)
+            $('#inputPosEdit').val(data.postal_code)
+            
+        }
+    });
 }
 function update() {
     // alert(name)

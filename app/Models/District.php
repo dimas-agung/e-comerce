@@ -14,4 +14,8 @@ class District extends Model
     {
         return $this->belongsTo(Village::class, 'district_id', 'id');
     }
+    public function city()
+    {
+        return $this->hasOne(Cities::class, 'id', 'cities_id');
+    }
 }

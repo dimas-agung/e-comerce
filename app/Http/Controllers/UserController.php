@@ -9,6 +9,7 @@ use App\Models\Provinces;
 use App\Models\User;
 use App\Models\Village;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,24 +22,24 @@ class UserController extends Controller
         
 
         $users = User::latest()->get();
-        $provinces = Provinces::orderBy('name')->get();
-        $cities = Cities::orderBy('name')->get();
-        $district = District::orderBy('name')->get();
-        $villages = Village::orderBy('name')->get();
+        // $provinces = Provinces::orderBy('name')->get();
+        // $cities = Cities::orderBy('name')->get();
+        $district = District::with('city.province')->orderBy('name')->get();
+        // return $district;
         // $users = User::orderBy('name')->get();
         // return $product;
         // return $product[0]->varians;
         return response()->view('admin.user.index', [
             'users' => $users,
-            'provinces' => $provinces,
-            'cities' => $cities,
+            // 'provinces' => $provinces,
+            // 'cities' => $cities,
             'district' => $district,
-            'villages' => $villages,
         ]);
     }
     public function store(Request $request)
     {
         //
+        DB::beginTransaction();
         // return $request->input('cities_id');
         $validated = $request->validate([
             'fullname' => ['required'],
@@ -53,48 +54,48 @@ class UserController extends Controller
         $user = User::create($validated);
         $password = Hash::make($request->input('password'));
         $user->update(['password'=> $password]);
+        $district = District::with('city.province')->where('id',$request->input('districts_id'))->orderBy('name')->first();
+        // return $request->input('postal_code');
         $address = Address::create([
             'fullname' => $user->fullname,
             'users_id' => $user->id,
             'phone_number' => $user->phone_number,
-            'provinces_id' => $request->input('provinces_id'),
+            'is_default' => 1,
+            'label' => 'Rumah',
             'districts_id' => $request->input('districts_id'),
-            'cities_id' => $request->input('cities_id'),
-            'villages_id' => $request->input('villages_id'),
+            'cities_id' => $district->city->id,
+            'provinces_id' => $district->city->province->id,
+            'village' => $request->input('village'),
             'address' => $request->input('address'),
             'postal_code' => $request->input('postal_code'),
         ]);
+        DB::commit();
         return redirect('user')->with('success', 'Data User has been created!');
     }
     public function show(User $user)
     {
-        $provinces = Provinces::orderBy('name')->get();
-        $cities = Cities::orderBy('name')->get();
-        $district = District::orderBy('name')->get();
+        $district = District::with('city.province')->orderBy('name')->get();
+        // return $district;
         // $users = User::orderBy('name')->get();
         // return $product;
         // return $product[0]->varians;
         return response()->view('admin.user.edit', [
             'user' => $user,
-            'provinces' => $provinces,
-            'cities' => $cities,
-            'district' => $district,
+            'districts' => $district,
         ]);
     }
     public function edit(User $user)
     {
-        $provinces = Provinces::orderBy('name')->get();
-        $cities = Cities::orderBy('name')->get();
+     
         $district = District::orderBy('name')->get();
-        $address = Address::where('users_id',$user->id)->get();
+        $address = Address::with('district.city.province')->where('users_id',$user->id)->get();
+        // return $address;
         // $users = User::orderBy('name')->get();
         // return $product;
         // return $product[0]->varians;
         return response()->view('admin.user.edit', [
             'user' => $user,
-            'provinces' => $provinces,
-            'cities' => $cities,
-            'district' => $district,
+            'districts' => $district,
             'address' => $address,
         ]);
     }

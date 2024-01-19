@@ -28,4 +28,10 @@ Route::get('/product_varian', [App\Http\Controllers\API\ProductVarianController:
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
 
+Route::get('/address', [App\Http\Controllers\API\AddressController::class, 'index'])->name('api.address');
+Route::post('/address', [App\Http\Controllers\API\AddressController::class, 'store'])->name('api.address.store');
+Route::put('/address/{address}', [App\Http\Controllers\API\AddressController::class, 'update'])->name('api.address.update');
+
+Route::get('/user', [App\Http\Controllers\API\UserController::class, 'index'])->name('api.user');
+Route::post('/user', [App\Http\Controllers\API\UserController::class, 'store'])->name('api.user.store');
 Route::post('login', [AuthController::class, 'login']);

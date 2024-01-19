@@ -14,5 +14,9 @@ class Cities extends Model
     {
         return $this->belongsTo(District::class, 'cities_id', 'id');
     }
+    public function province()
+    {
+        return $this->hasOne(Provinces::class, 'id', 'provinces_id');
+    }
     
 }

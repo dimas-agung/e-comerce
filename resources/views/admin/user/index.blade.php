@@ -29,6 +29,8 @@
                     </div>
                 </div>
             </div>
+                                                                                                            
+        </div>          
             <!-- Tabel-->
             <div class="card-body">
                 <table id="datatablesSimple">
@@ -42,7 +44,6 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-   
                         <tr>
                             <td>{{$user->fullname}}</td>
                             <td>{{$user->username}}</td>
@@ -72,7 +73,7 @@
 
 
 <!-- Modal Add User-->
-<div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
+<div class="modal fade" id="AddUser" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
@@ -152,51 +153,25 @@
                             <textarea class="form-control" id="inputAddress" rows="7" placeholder="Alamat RT/RW" name="address"></textarea>
                         </div>
                     </div>                                                    
-                    <div class="col-lg-4">
-                        <div class="form-group mt-1">
-                            <label for="inputState">Provinsi</label>
-                            <select id="inputState" class="form-select" name="provinces_id">
-                                <option selected>--Pilih Provinsi--</option>
-                                @foreach ($provinces as $province)
-                                    <option value="{{$province->id}}">{{$province->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group mt-1">
-                            <label for="inputCity">Kota / Kabupaten</label>
-                            <select id="inputCity" name="cities_id" class="form-select" required>
-                                <option selected>--Pilih Kota--</option>
-                                @foreach ($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="col-lg-4">
                         <div class="form-group mt-1">
                             <label for="inputDistrict" >Kecamatan</label>
-                            <select id="inputDistrict" class="form-control" placeholder="Pilih Kecamatan" name="districts_id" required>
+                            <select id="inputDistrict" class="form-control select2" placeholder="Pilih Kecamatan" name="districts_id" required>
                                 <option value="" disabled selected>Pilih Kecamatan</option>
                                 @foreach ($district as $districts)
-                                    <option value="{{$districts->id}}">{{$districts->name}}</option>
+                                    <option value="{{$districts->id}}">{{$districts->name}}, {{$districts->city->name}}, {{$districts->city->province->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputVill">Kelurahan/ Desa</label>
-                            {{-- <input type="text" class="form-control" id="inputVill" placeholder="Kelurahan" name="villages_id" required> --}}
-                            <select id="inputDistrict" class="form-control" placeholder="Pilih Desa" name="villages_id" required>
-                                <option value="" disabled selected>Pilih Desa</option>
-                                @foreach ($villages as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                            
+                            <input type="text" class="form-control" id="inputVill" placeholder="Kelurahan" name="village" required>
                         </div>
                         <div class="form-group mt-1">
                             <label for="inputPos">Kode Pos</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="inputPos" placeholder="" required>
+                                <input type="text" class="form-control" id="inputPos" name="postal_code" placeholder="" required>
                             </div>
                         </div>
                     </div>                                                                                                                
@@ -214,6 +189,12 @@
 <!--End Modal add User-->
 
 <script>
+    $(document).ready(function() {
+                $('.select2').select2({
+                    width :'100%',
+                    dropdownParent: $("#AddUser")
+                });
+            });
 function modalEdit(id,name) {
     // alert(name)
     $('#name_edit').val(name)
