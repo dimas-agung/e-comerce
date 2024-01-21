@@ -15,7 +15,7 @@ class Series extends Model
 
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'product_categories_id', 'id');
+        return $this->hasOne(ProductCategory::class, 'id', 'product_category_id');
     }
 
     public function product()
