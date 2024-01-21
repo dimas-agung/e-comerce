@@ -17,7 +17,7 @@ class LandingPageController extends Controller
             foreach($productBestSeller as $key=> $value){
                 $value->product->min_price = $value->product->product_varian->min('price');
                 $value->product->max_price = $value->product->product_varian->max('price');
-            }  
+            }
             return $productBestSeller;
     }
     function carousel(Request $request)  {
