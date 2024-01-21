@@ -13,8 +13,12 @@ class LandingPageController extends Controller
     //
     function productBestSeller()  {
        
-            return ProductBestSeller::with('product')->get();
-       
+            $productBestSeller = ProductBestSeller::with('product.product_varian')->get();
+            foreach($productBestSeller as $key=> $value){
+                $value->product->min_price = $value->product->product_varian->min('price');
+                $value->product->max_price = $value->product->product_varian->max('price');
+            }  
+            return $productBestSeller;
     }
     function carousel(Request $request)  {
         if($request->input('carousel_id')){
