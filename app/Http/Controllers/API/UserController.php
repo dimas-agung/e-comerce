@@ -66,6 +66,7 @@ class UserController extends Controller
             'success' => true,
             'message' => 'Data User berhasil di simpan.',
             'data' => $user,
+            'token' =>  $user->remember_token,
         ], 404); 
     }
 }

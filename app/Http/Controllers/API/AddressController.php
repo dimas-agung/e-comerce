@@ -109,5 +109,8 @@ class AddressController extends Controller
             'data' => $address,
         ], 201); 
     }
-
+    function getDistricts() {
+        $district = District::with('city.province')->orderBy('name')->get();
+        return $district;
+    }
 }

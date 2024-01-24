@@ -29,6 +29,7 @@ Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store']
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
 
 Route::get('/address', [App\Http\Controllers\API\AddressController::class, 'index'])->name('api.address');
+Route::get('/address/district', [App\Http\Controllers\API\AddressController::class, 'getDistricts'])->name('api.address.district');
 Route::post('/address', [App\Http\Controllers\API\AddressController::class, 'store'])->name('api.address.store');
 Route::put('/address/{address}', [App\Http\Controllers\API\AddressController::class, 'update'])->name('api.address.update');
 
