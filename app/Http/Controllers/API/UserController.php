@@ -16,23 +16,24 @@ class UserController extends Controller
     function index(Request $request){
         $remember_token = $request->input('token');
 
-        $user= User::with('address')->where('remember_token',$remember_token)->first(); 
+        $user= User::with('address')->where('remember_token',$remember_token)->first();
         if($user){
             return response()->json([
                 'success' => true,
                 'message' => 'Data User ditemukan.',
                 'data' => $user,
-            ], 201); 
+            ], 201);
         }
         return response()->json([
             'success' => true,
             'message' => 'Data User tidak ditemukan.',
             'data' => null,
-        ], 404); 
+        ], 404);
     }
     public function store(Request $request)
     {
         //
+        // return 123;
         DB::beginTransaction();
         // return $request->input('cities_id');
         $validated = $request->validate([
@@ -43,6 +44,7 @@ class UserController extends Controller
             'password' => ['required'],
             'birth_date' => ['sometimes', 'nullable'],
         ]);
+        // return 123;
         $user = User::create($validated);
         $password = Hash::make($request->input('password'));
         $user->update(['password'=> $password]);
@@ -67,6 +69,6 @@ class UserController extends Controller
             'message' => 'Data User berhasil di simpan.',
             'data' => $user,
             'token' =>  $user->remember_token,
-        ], 404); 
+        ], 404);
     }
 }

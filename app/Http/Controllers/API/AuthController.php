@@ -24,11 +24,13 @@ class AuthController extends Controller
 
             return response()->json([
                 'message' => 'Login Berhasil',
+                'success' => true,
                 'token' =>  $user->remember_token,
                 'data' => $user
             ],200);
         }else{
             return response()->json([
+                'success' => false,
                 'message' => 'Username atau Password Tidak Ditemukan!'
             ],401);
         }
@@ -37,19 +39,19 @@ class AuthController extends Controller
     function getUser(Request $request){
         $remember_token = $request->input('token');
 
-        $user= User::with('address')->where('remember_token',$remember_token)->first(); 
+        $user= User::with('address')->where('remember_token',$remember_token)->first();
         if($user){
             return response()->json([
                 'success' => true,
                 'message' => 'Data User ditemukan.',
                 'data' => $user,
-            ], 201); 
+            ], 201);
         }
         return response()->json([
-            'success' => true,
+            'success' => false,
             'message' => 'Data User tidak ditemukan.',
             'data' => null,
-        ], 404); 
+        ], 404);
     }
     //
     function logout(Request $request){
