@@ -11,23 +11,31 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     //
+    function index(Request $request){
+        $users_id = $request->input('user_id');
+        if ($users_id) {
+            # code...
+            return Cart::with(['detail.product_varian.varian_detail1','detail.product_varian.varian_detail2','detail.product_varian.product'])->where('users_id',$users_id)->first();
+        }
+        return Cart::with(['detail.product_varian.varian_detail1','detail.product_varian.varian_detail2','detail.product_varian.product'])->get();
+    }
     function store(Request $request)  {
         try {
-            $product_varians_id = $request->input('product_varians_id');
-            $user = Auth::user();
-            $cart = Cart::where('users_id',$user->id)->first();
+            $product_varians_id = $request->input('product_varian_id');
+            $users_id = $request->input('user_id');
+            $cart = Cart::where('users_id',$users_id)->first();
             if (empty($cart)) {
                 $cart = Cart::create([
-                    'users_id' => $user->id,
+                    'users_id' => $users_id,
                     'order_type' => 'PRE ORDER',
                 ]);
                 # code...
             }
-            $cart_item = CartDetail::where(['users_id' => $user->id,'product_varians_id' => $product_varians_id])->first();
+            $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
             if (empty($cart_items)) {
                 // jika belum ada
                 $cart_item = Cart::create([
-                    'users_id' => $user->id,
+                    'users_id' => $users_id,
                     'order_type' => 'PRE ORDER',
                 ]);
                 # code...
@@ -55,8 +63,8 @@ class CartController extends Controller
     function update(Request $request)  {
         try {
             $product_varians_id = $request->input('product_varians_id');
-            $user = Auth::user();
-            $cart_item = CartDetail::where(['users_id' => $user->id,'product_varians_id' => $product_varians_id])->first();
+            $users_id = $request->input('user_id');
+            $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
             
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->update([
@@ -82,7 +90,7 @@ class CartController extends Controller
         try {
             $product_varians_id = $request->input('product_varians_id');
             $user = Auth::user();
-            $cart_item = CartDetail::where(['users_id' => $user->id,'product_varians_id' => $product_varians_id])->first();
+            $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
             
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->delete();
