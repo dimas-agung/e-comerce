@@ -21,6 +21,7 @@ class Address extends Model
             'address' ,
             'postal_code' ,
             'is_active',
+            'is_default',
             'label' ,
     ];
     function district(){
