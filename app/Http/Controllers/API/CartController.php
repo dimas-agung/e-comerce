@@ -42,8 +42,8 @@ class CartController extends Controller
                 # code...
             }else{
                 //jika sudah ada produk sebelumnya d cart
-                $cart_item->update([
-                    'qty' => (int )$cart_item->qty+1
+                $cart_item = CartDetail::where('id', $cart_item->id)->update([
+                    'qty' => (int )$cart_item->qty+(int)$request->input('qty')
                 ]);
             }
             return response()->json([
