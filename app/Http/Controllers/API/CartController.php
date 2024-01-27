@@ -35,6 +35,7 @@ class CartController extends Controller
             if (empty($cart_items)) {
                 // jika belum ada
                 $cart_item = CartDetail::create([
+                    'carts_id' => $cart->id,
                     'product_varians_id' => $product_varians_id,
                     'qty' => $request->input('qty'),
                 ]);
