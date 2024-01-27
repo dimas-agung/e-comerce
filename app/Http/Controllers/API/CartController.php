@@ -36,7 +36,7 @@ class CartController extends Controller
                 // jika belum ada
                 $cart_item = CartDetail::create([
                     'product_varians_id' => $product_varians_id,
-                    'order_type' => 'PRE ORDER',
+                    'qty' => $request->input('qty'),
                 ]);
                 # code...
             }else{
