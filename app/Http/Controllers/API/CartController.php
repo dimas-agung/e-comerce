@@ -35,7 +35,7 @@ class CartController extends Controller
             if (empty($cart_items)) {
                 // jika belum ada
                 $cart_item = CartDetail::create([
-                    'users_id' => $users_id,
+                    'product_varians_id' => $product_varians_id,
                     'order_type' => 'PRE ORDER',
                 ]);
                 # code...
