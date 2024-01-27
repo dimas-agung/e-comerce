@@ -12,6 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         //
+        Schema::table('address', function($table) {
+            $table->integer('is_default')->after('label')->default(0);
+        });
     }
 
     /**
