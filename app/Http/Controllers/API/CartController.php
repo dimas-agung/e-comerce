@@ -34,7 +34,7 @@ class CartController extends Controller
             $cart_item = CartDetail::where(['carts_id' => $cart->id,'product_varians_id' => $product_varians_id])->first();
             if (empty($cart_items)) {
                 // jika belum ada
-                $cart_item = Cart::create([
+                $cart_item = CartDetail::create([
                     'users_id' => $users_id,
                     'order_type' => 'PRE ORDER',
                 ]);
