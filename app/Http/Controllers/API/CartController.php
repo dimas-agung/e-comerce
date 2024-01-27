@@ -32,7 +32,7 @@ class CartController extends Controller
                 # code...
             }
             $cart_item = CartDetail::where(['carts_id' => $cart->id,'product_varians_id' => $product_varians_id])->first();
-            if (empty($cart_items)) {
+            if (empty($cart_item)) {
                 // jika belum ada
                 $cart_item = CartDetail::create([
                     'carts_id' => $cart->id,
