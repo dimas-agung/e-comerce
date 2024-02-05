@@ -13,7 +13,7 @@ class AuthController extends Controller
     //
     function login(Request $request){
         // $user = Auth::user();
-        // return $user;
+        // return $request->all();
         $login = Auth::Attempt($request->all());
         // return $login;
         if ($login) {
