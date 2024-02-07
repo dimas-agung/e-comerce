@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\District;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     //
+    private UserService $userService;
+    public function __construct() {
+        $this->userService =  new UserService();
+        $this->middleware('auth');
+    }
     function index(Request $request){
         $remember_token = $request->input('token');
 
@@ -69,6 +75,24 @@ class UserController extends Controller
             'message' => 'Data User berhasil di simpan.',
             'data' => $user,
             'token' =>  $user->remember_token,
-        ], 404);
+        ], 200);
+    }
+    public function change_password(Request $request)  {
+        $email = $request->input('email');
+        $oldPassword = $request->input('old_password');
+        $newPassword = $request->input('new_password');
+        $response = $this->userService($email,$oldPassword,$newPassword);
+        if (!$response){
+            return response()->json([
+                'success' => false,
+                'message' => 'Username / Password Salah.',
+                'data' => null,
+            ], 404);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Pasword User berhasil di ubah.',
+            'data' => null,
+        ], 200);
     }
 }
