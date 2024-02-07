@@ -17,7 +17,7 @@ class UserController extends Controller
     private UserService $userService;
     public function __construct() {
         $this->userService =  new UserService();
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
     function index(Request $request){
         $remember_token = $request->input('token');
