@@ -53,6 +53,7 @@ class AddressController extends Controller
         $address = Address::create([
             'label' => $request->input('label'),
             'fullname' => $request->input('fullname'),
+            'phone_number' => $request->input('phone_number'),
             'users_id' => $request->input('users_id'),
             'is_default' => $request->input('is_default'),
             'districts_id' => $request->input('districts_id'),
