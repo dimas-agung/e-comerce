@@ -77,6 +77,36 @@ class UserController extends Controller
             'token' =>  $user->remember_token,
         ], 200);
     }
+    public function update(Request $request, User $user)
+    {
+        //
+        // return $user;
+        try {
+            //code...
+            $validated = $request->validate([
+                'fullname' => ['required'],
+                'username' => ['required'],
+                'email' => ['required'],
+                'phone_number' => ['required'],
+                'birth_date' => ['sometimes', 'nullable']
+            ]);
+            $user->update($validated);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data User berhasil di ubah.',
+                'data' => $user,
+                'token' =>  $user->remember_token,
+            ], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'success' => false,
+                'message' => 'Data User gagal di ubah.',
+                'data' => null,
+            ], 404);
+        }
+
+    }
     public function change_password(Request $request)  {
         $email = $request->input('email');
         $oldPassword = $request->input('old_password');

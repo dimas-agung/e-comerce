@@ -39,5 +39,6 @@ Route::put('/address/{address}', [App\Http\Controllers\API\AddressController::cl
 
 Route::get('/user', [App\Http\Controllers\API\UserController::class, 'index'])->name('api.user');
 Route::post('/user', [App\Http\Controllers\API\UserController::class, 'store'])->name('api.user.store');
+Route::put('/user/{user}', [App\Http\Controllers\API\UserController::class, 'update'])->name('api.user.update');
 Route::post('/user/change_password', [App\Http\Controllers\API\UserController::class, 'change_password'])->name('api.user.change_password');
 Route::post('login', [AuthController::class, 'login']);
