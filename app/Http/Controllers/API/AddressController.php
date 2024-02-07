@@ -55,7 +55,7 @@ class AddressController extends Controller
             'fullname' => $request->input('fullname'),
             'phone_number' => $request->input('phone_number'),
             'users_id' => $request->input('users_id'),
-            'is_default' => $request->input('is_default'),
+            'is_default' => $request->input('is_default') ? '1':'0',
             'districts_id' => $request->input('districts_id'),
             'cities_id' => $district->city->id,
             'provinces_id' => $district->city->province->id,
