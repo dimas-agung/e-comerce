@@ -88,7 +88,7 @@ class CartController extends Controller
             ], 422);
         }
     }
-    function delete(CartDetail $cartDetail)  {
+    function destroy(CartDetail $cartDetail)  {
         try {
 
                 //jika sudah ada produk sebelumnya d cart
