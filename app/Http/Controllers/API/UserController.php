@@ -111,7 +111,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $oldPassword = $request->input('old_password');
         $newPassword = $request->input('new_password');
-        $response = $this->userService($email,$oldPassword,$newPassword);
+        $response = $this->userService->change_password($email,$oldPassword,$newPassword);
         if (!$response){
             return response()->json([
                 'success' => false,
