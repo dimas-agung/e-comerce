@@ -36,6 +36,7 @@ Route::get('/address', [App\Http\Controllers\API\AddressController::class, 'inde
 Route::get('/address/district', [App\Http\Controllers\API\AddressController::class, 'getDistricts'])->name('api.address.district');
 Route::post('/address', [App\Http\Controllers\API\AddressController::class, 'store'])->name('api.address.store');
 Route::put('/address/{address}', [App\Http\Controllers\API\AddressController::class, 'update'])->name('api.address.update');
+Route::delete('/address/{address}', [App\Http\Controllers\API\AddressController::class, 'destroy'])->name('api.address.destroy');
 
 Route::get('/user', [App\Http\Controllers\API\UserController::class, 'index'])->name('api.user');
 Route::post('/user', [App\Http\Controllers\API\UserController::class, 'store'])->name('api.user.store');

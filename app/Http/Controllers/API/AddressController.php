@@ -114,4 +114,16 @@ class AddressController extends Controller
         $district = District::with('city.province')->orderBy('name')->get();
         return $district;
     }
+    public function destroy(Address $address)
+    {
+        //
+        $address->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Address berhasil dihapus.',
+
+        ], 201);
+        // return Redirect::back()->with('success', 'Data Address has been deleted!');
+    }
+
 }
