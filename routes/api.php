@@ -29,6 +29,7 @@ Route::get('/product_varian_by_detail', [App\Http\Controllers\API\ProductVarianC
 Route::get('/cart', [App\Http\Controllers\API\CartController::class, 'index'])->name('api.cart');
 Route::post('/cart', [App\Http\Controllers\API\CartController::class, 'store'])->name('api.cart.store');
 Route::post('/cart/update', [App\Http\Controllers\API\CartController::class, 'update'])->name('api.cart.update');
+Route::delete('/cart/{cart}', [App\Http\Controllers\API\CartController::class, 'destroy'])->name('api.cart.destroy');
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
 
