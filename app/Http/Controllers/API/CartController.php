@@ -88,14 +88,11 @@ class CartController extends Controller
             ], 422);
         }
     }
-    function delete(Request $request)  {
+    function delete(CartDetail $cartDetail)  {
         try {
-            // $product_varians_id = $request->input('product_varians_id');
-            $cart_detail_id = $request->input('cart_detail_id');
-            $cart_item = CartDetail::where(['id' => $cart_detail_id])->delete();
 
                 //jika sudah ada produk sebelumnya d cart
-                // $cart_item->delete();
+                $cartDetail->delete();
 
             return response()->json([
                 'success' => true,
