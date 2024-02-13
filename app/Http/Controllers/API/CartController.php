@@ -50,15 +50,15 @@ class CartController extends Controller
                 'success' => true,
                 'message' => 'Data Cart berhasil disimpan.',
                 'data' => $cart,
-            ], 201); 
-           
+            ], 201);
+
         } catch (\Exception $e) {
             //throw $th;
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal menyimpan data data.',
                 'error' => $e->getMessage()
-            ], 422); 
+            ], 422);
         }
     }
     function update(Request $request)  {
@@ -66,48 +66,48 @@ class CartController extends Controller
             $product_varians_id = $request->input('product_varians_id');
             $users_id = $request->input('user_id');
             $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
-            
+
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->update([
                     'qty' => (int )$cart_item->qty+1
                 ]);
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Data Cart berhasil diupdate.',
                 'data' => $cart_item,
-            ], 201); 
-           
+            ], 201);
+
         } catch (\Exception $e) {
             //throw $th;
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal menyimpan data data.',
                 'error' => $e->getMessage()
-            ], 422); 
+            ], 422);
         }
     }
     function delete(Request $request)  {
         try {
-            $product_varians_id = $request->input('product_varians_id');
-            $user = Auth::user();
-            $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
-            
+            // $product_varians_id = $request->input('product_varians_id');
+            $cart_detail_id = $request->input('cart_detail_id');
+            $cart_item = CartDetail::where(['id' => $cart_detail_id])->delete();
+
                 //jika sudah ada produk sebelumnya d cart
-                $cart_item->delete();
-            
+                // $cart_item->delete();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Data Cart berhasil dihapus.',
-            ], 201); 
-           
+            ], 201);
+
         } catch (\Exception $e) {
             //throw $th;
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal menyimpan data data.',
                 'error' => $e->getMessage()
-            ], 422); 
+            ], 422);
         }
     }
 }
