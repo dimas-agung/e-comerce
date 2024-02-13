@@ -65,11 +65,12 @@ class CartController extends Controller
         try {
             $product_varians_id = $request->input('product_varians_id');
             $users_id = $request->input('user_id');
+            $qty = $request->input('qty');
             $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
 
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->update([
-                    'qty' => (int )$cart_item->qty+1
+                    'qty' => (int )$qty+1
                 ]);
 
             return response()->json([
