@@ -63,10 +63,10 @@ class CartController extends Controller
     }
     function update(Request $request)  {
         try {
-            $product_varians_id = $request->input('product_varians_id');
-            $users_id = $request->input('user_id');
+            // $product_varians_id = $request->input('product_varians_id');
+            $cart_detail_id = $request->input('cart_detail_id');
             $qty = $request->input('qty');
-            $cart_item = CartDetail::where(['users_id' => $users_id,'product_varians_id' => $product_varians_id])->first();
+            $cart_item = CartDetail::where(['id' => $cart_detail_id])->first();
 
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->update([
