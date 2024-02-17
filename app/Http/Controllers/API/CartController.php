@@ -70,7 +70,7 @@ class CartController extends Controller
 
                 //jika sudah ada produk sebelumnya d cart
                 $cart_item->update([
-                    'qty' => (int )$qty+1
+                    'qty' => $qty
                 ]);
 
             return response()->json([
