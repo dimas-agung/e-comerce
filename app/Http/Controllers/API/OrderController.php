@@ -94,7 +94,7 @@ class OrderController extends Controller
             $province_name = $address->district->city->province->name;
             $address_detail = $address->address;
             $dataAddress = $address_detail.', '.$district_name.', '. $city_name.', '.$province_name; 
-           
+            
             $name = $address->fullname;
             $email = $user->email;
             $phone = $address->phone_number;
@@ -112,7 +112,7 @@ class OrderController extends Controller
                 $name,
                 $phone,
                 $email,
-                $address_detail,
+                $dataAddress,
                 $price,
                 $shipping_price,
                 $price_total,
