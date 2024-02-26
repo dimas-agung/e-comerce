@@ -182,7 +182,7 @@ class OrderService
         'price' => $price,
         'shipping_price' => $shipping_price,
         'price_total' => $price_total,
-        'total_payment' => 0,
+        'total_payment' => $total_payment,
         'order_status_id' => $order_status_id,
         'expedition_id' => $expedition_id,
         'order_type' => $order_type,
