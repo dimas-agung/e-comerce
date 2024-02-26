@@ -17,6 +17,25 @@ class OrderController extends Controller
     public function __construct() {
         $this->orderService =  new OrderService();
     }
+    function index(Request $request){
+        
+        $users_id = $request->input('users_id');
+        $order_id = $request->input('order_id');
+
+        if ($users_id) {
+            # code...
+            $orders= Order::with(['detail.product'])->where('users_id',$users_id)->latest()->get();
+
+        }elseif ($order_id) {
+            # code...
+            $orders= Order::with(['detail.product'])->where('id',$order_id)->latest()->first();
+
+        }else{
+            $orders= Order::with(['detail.product'])->latest()->get();
+        }
+
+        return $orders;
+    }
     function store(Request $request){
         try {
             //code...

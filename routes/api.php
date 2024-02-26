@@ -30,6 +30,7 @@ Route::get('/cart', [App\Http\Controllers\API\CartController::class, 'index'])->
 Route::post('/cart', [App\Http\Controllers\API\CartController::class, 'store'])->name('api.cart.store');
 Route::post('/cart/update', [App\Http\Controllers\API\CartController::class, 'update'])->name('api.cart.update');
 Route::delete('/cart/{cart}', [App\Http\Controllers\API\CartController::class, 'destroy'])->name('api.cart.destroy');
+Route::get('/order', [App\Http\Controllers\API\OrderController::class, 'index'])->name('api.order');
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/order/checkout', [App\Http\Controllers\API\OrderController::class, 'checkout'])->name('api.order.checkout');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
