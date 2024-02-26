@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Cart;
+use App\Models\CartDetail;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\OrderService;
@@ -35,6 +37,12 @@ class OrderController extends Controller
         }
 
         return $orders;
+    }
+    function getPendingDPOrder(Request $request)
+    {
+        $users_id = $request->input('users_id');
+        $new_orders = Order::where(['users_id'=>$users_id,'order_status_id'=>Order::WAITING_DP_STATUS])->latest()->get();
+        return $new_orders;
     }
     function store(Request $request){
         try {
@@ -143,6 +151,7 @@ class OrderController extends Controller
                 $cart_id,
             );
             $dataOrder = Order::with('detail.product')->where('order_no',$order->order_no)->first();
+            CartDetail::where('carts_id',$cart_id)->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Data Order berhasil diproses.',
