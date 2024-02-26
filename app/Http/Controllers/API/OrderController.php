@@ -158,4 +158,24 @@ class OrderController extends Controller
             ], 422); 
         }
     }
+    public function cancel(Request $request)
+    {
+        //
+        $validated = $request->validate([
+            'orders_id' => ['required'],
+            'reason_cancel' => ['required'],
+        ]);
+        $order = Order::where(['id' => $request->input('orders_id')])->first();
+
+        $order->update([
+            'reason_cancel' => $request->input('reason_cancel'),
+            'order_status_id' => 6
+        ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Order has been canceled!',
+            'data' => $order,
+        ], 201); 
+        // return redirect('order')->with('success', 'Data Order has been canceled!');
+    }
 }

@@ -33,6 +33,7 @@ Route::delete('/cart/{cart}', [App\Http\Controllers\API\CartController::class, '
 Route::get('/order', [App\Http\Controllers\API\OrderController::class, 'index'])->name('api.order');
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/order/checkout', [App\Http\Controllers\API\OrderController::class, 'checkout'])->name('api.order.checkout');
+Route::post('/order/cancel/{order}', [App\Http\Controllers\API\OrderController::class, 'cancel'])->name('api.order.cancel');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
 
 Route::get('/address', [App\Http\Controllers\API\AddressController::class, 'index'])->name('api.address');
