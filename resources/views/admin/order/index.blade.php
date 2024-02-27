@@ -1595,7 +1595,7 @@
         function confirmOrderReadyShipping(id) {
            
            $.ajax({
-               url:`/order/${id}/push_status`,
+               url:`/public/order/${id}/push_status`,
                method: "POST",
                data : {
                    status : 5
@@ -1623,7 +1623,7 @@
             if (confirm('Apakah anda akan mengirim order ini?')) {
                 
                 $.ajax({
-                   url:`/order/${id}/push_status`,
+                   url:`/public/order/${id}/push_status`,
                    method: "POST",
                    data : {
                        status : 6
@@ -1670,7 +1670,7 @@
                 let no_resi = $('#inputResi').val()
                 let expedition_id = $('#input_expedition_id').val()
                 $.ajax({
-                   url:`/order/${id}/update_resi`,
+                   url:`/public/order/${id}/update_resi`,
                    method: "POST",
                    data : {
                     no_resi : no_resi,
@@ -1708,7 +1708,7 @@
             let id = $('#id_order_confirm').val();
             let nominal_bayar = $('#inputPaymentConfirm1').val()
             $.ajax({
-                url:`/order/${id}/push_status`,
+                url:`/public/order/${id}/push_status`,
                 method: "POST",
                 data : {
                     status : 2
@@ -1736,7 +1736,7 @@
             let id = $('#id_order_to_ship').val();
             let nominal_bayar = $('#inputPayment2').val()
             $.ajax({
-                url:`/order/${id}/push_status`,
+                url:`/public/order/${id}/push_status`,
                 method: "POST",
                 data : {
                     status : 6
@@ -1770,7 +1770,7 @@
             let reason_cancel = $('#inputReasonReject').val();
            
             $.ajax({
-               url:`/order/${id}/cancel`,
+               url:`/public/order/${id}/cancel`,
                 method: "POST",
                 data : {
                     reason_cancel : reason_cancel
@@ -1795,7 +1795,7 @@
         }
         function updateTotalPayment(id,total_payment) {
             $.ajax({
-               url:`/order/${id}/update_payment`,
+               url:`/public/order/${id}/update_payment`,
                 method: "POST",
                 data : {
                     total_payment : total_payment
@@ -1816,7 +1816,7 @@
         }
         function updateTotalPayment2(id,total_payment) {
             $.ajax({
-               url:`/order/${id}/update_payment2`,
+               url:`/public/order/${id}/update_payment2`,
                 method: "POST",
                 data : {
                     total_payment : total_payment
