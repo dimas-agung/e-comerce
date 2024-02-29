@@ -31,6 +31,7 @@ Route::post('/cart', [App\Http\Controllers\API\CartController::class, 'store'])-
 Route::post('/cart/update', [App\Http\Controllers\API\CartController::class, 'update'])->name('api.cart.update');
 Route::delete('/cart/{cart}', [App\Http\Controllers\API\CartController::class, 'destroy'])->name('api.cart.destroy');
 Route::get('/order', [App\Http\Controllers\API\OrderController::class, 'index'])->name('api.order');
+Route::get('/order/getAllOrderUser', [App\Http\Controllers\API\OrderController::class, 'getAllOrderUser'])->name('api.order.getAllOrderUser');
 Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store'])->name('api.order.store');
 Route::post('/order/checkout', [App\Http\Controllers\API\OrderController::class, 'checkout'])->name('api.order.checkout');
 Route::get('/order/getPendingDPOrder', [App\Http\Controllers\API\OrderController::class, 'getPendingDPOrder'])->name('api.order.getPendingDPOrder');

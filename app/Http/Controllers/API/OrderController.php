@@ -38,6 +38,27 @@ class OrderController extends Controller
 
         return $orders;
     }
+    function getAllOrderUser(Request $request){
+        $users_id = $request->input('users_id');
+         $new_orders = Order::with(['detail.product'])->where('order_status_id',Order::WAITING_DP_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_processed = Order::with(['detail.product'])->where('order_status_id',Order::READY_DP_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_ready_shipping = Order::with(['detail.product'])->where('order_status_id',Order::READY_SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_shipping = Order::with(['detail.product'])->where('order_status_id',Order::SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_success = Order::with(['detail.product'])->where('order_status_id',Order::SUCCESS_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_calcelled = Order::with(['detail.product'])->where('order_status_id',Order::CANCEL_STATUS)->where('users_id',$users_id)->latest()->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Order berhasil diproses.',
+            'data' => [
+                'new_orders' => $new_orders,
+                'orders_processed' => $orders_processed,
+                'orders_ready_shipping' => $orders_ready_shipping,
+                'orders_shipping' => $orders_shipping,
+                'orders_success' => $orders_success,
+                'orders_calcelled' => $orders_calcelled,
+            ],
+        ], 201); 
+    }
     function getPendingDPOrder(Request $request)
     {
         $users_id = $request->input('users_id');
