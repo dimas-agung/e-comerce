@@ -126,7 +126,7 @@
 <script>
 
     function editSeries(id) {
-        // alert(id)
+        //alert(id)
         $.ajax({
             url: "{{route('api.product_category')}}",
             method: "GET",
@@ -154,7 +154,7 @@
             async:false,
             success: function (data) {
                 // console.log(data.title);
-               $('#series_id').val(data.id);
+               $('#series_id').val(id);
                $('#title_series').val(data.title);
                $('#description_series').val(data.description);
                $('#product_category_id').val(data.product_category_id);
