@@ -24,7 +24,11 @@ class OrderController extends Controller
         $users_id = $request->input('users_id');
         $order_id = $request->input('order_id');
 
-        if ($users_id) {
+        if ($order_id && $users_id) {
+            # code...
+            $orders= Order::with(['detail.product'])->where('id',$order_id)->where('users_id',$users_id)->latest()->first();
+
+        }elseif ($users_id) {
             # code...
             $orders= Order::with(['detail.product'])->where('users_id',$users_id)->latest()->get();
 
