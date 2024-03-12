@@ -28,6 +28,7 @@ class PaymentService
             'img' => $url,
             'note' => 'DP',
         ]); 
+        Order::where('order_no',$order_no)->update(['status'=>2]);
         return $payment;
     }
     function history($order_id) {
