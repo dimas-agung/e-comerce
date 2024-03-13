@@ -26,18 +26,18 @@ class OrderController extends Controller
 
         if ($order_id && $users_id) {
             # code...
-            $orders= Order::with(['detail.product','payment'])->where('id',$order_id)->where('users_id',$users_id)->latest()->first();
+            $orders= Order::with(['detail.product','payment','expedition'])->where('id',$order_id)->where('users_id',$users_id)->latest()->first();
 
         }elseif ($users_id) {
             # code...
-            $orders= Order::with(['detail.product','payment'])->where('users_id',$users_id)->latest()->get();
+            $orders= Order::with(['detail.product','payment','expedition'])->where('users_id',$users_id)->latest()->get();
 
         }elseif ($order_id) {
             # code...
-            $orders= Order::with(['detail.product','payment'])->where('id',$order_id)->latest()->first();
+            $orders= Order::with(['detail.product','payment','expedition'])->where('id',$order_id)->latest()->first();
 
         }else{
-            $orders= Order::with(['detail.product','payment'])->latest()->get();
+            $orders= Order::with(['detail.product','payment','expedition'])->latest()->get();
         }
 
         return $orders;
