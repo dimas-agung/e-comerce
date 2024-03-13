@@ -26,30 +26,30 @@ class OrderController extends Controller
 
         if ($order_id && $users_id) {
             # code...
-            $orders= Order::with(['detail.product'])->where('id',$order_id)->where('users_id',$users_id)->latest()->first();
+            $orders= Order::with(['detail.product','payment'])->where('id',$order_id)->where('users_id',$users_id)->latest()->first();
 
         }elseif ($users_id) {
             # code...
-            $orders= Order::with(['detail.product'])->where('users_id',$users_id)->latest()->get();
+            $orders= Order::with(['detail.product','payment'])->where('users_id',$users_id)->latest()->get();
 
         }elseif ($order_id) {
             # code...
-            $orders= Order::with(['detail.product'])->where('id',$order_id)->latest()->first();
+            $orders= Order::with(['detail.product','payment'])->where('id',$order_id)->latest()->first();
 
         }else{
-            $orders= Order::with(['detail.product'])->latest()->get();
+            $orders= Order::with(['detail.product','payment'])->latest()->get();
         }
 
         return $orders;
     }
     function getAllOrderUser(Request $request){
         $users_id = $request->input('users_id');
-         $new_orders = Order::with(['detail.product'])->where('order_status_id',Order::WAITING_DP_STATUS)->where('users_id',$users_id)->latest()->get();
-        $orders_processed = Order::with(['detail.product'])->where('order_status_id',Order::READY_DP_STATUS)->where('users_id',$users_id)->latest()->get();
-        $orders_ready_shipping = Order::with(['detail.product'])->where('order_status_id',Order::READY_SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
-        $orders_shipping = Order::with(['detail.product'])->where('order_status_id',Order::SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
-        $orders_success = Order::with(['detail.product'])->where('order_status_id',Order::SUCCESS_STATUS)->where('users_id',$users_id)->latest()->get();
-        $orders_calcelled = Order::with(['detail.product'])->where('order_status_id',Order::CANCEL_STATUS)->where('users_id',$users_id)->latest()->get();
+         $new_orders = Order::with(['detail.product','payment'])->where('order_status_id',Order::WAITING_DP_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_processed = Order::with(['detail.product','payment'])->where('order_status_id',Order::READY_DP_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_ready_shipping = Order::with(['detail.product','payment'])->where('order_status_id',Order::READY_SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_shipping = Order::with(['detail.product','payment'])->where('order_status_id',Order::SHIPPING_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_success = Order::with(['detail.product','payment'])->where('order_status_id',Order::SUCCESS_STATUS)->where('users_id',$users_id)->latest()->get();
+        $orders_calcelled = Order::with(['detail.product','payment'])->where('order_status_id',Order::CANCEL_STATUS)->where('users_id',$users_id)->latest()->get();
         return response()->json([
             'success' => true,
             'message' => 'Data Order berhasil diproses.',
