@@ -203,7 +203,7 @@ class OrderController extends Controller
 
         $order->update([
             'reason_cancel' => $request->input('reason_cancel'),
-            'order_status_id' => 6
+            'order_status_id' => 8
         ]);
         return response()->json([
             'success' => true,
