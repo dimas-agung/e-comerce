@@ -36,6 +36,7 @@ Route::post('/order', [App\Http\Controllers\API\OrderController::class, 'store']
 Route::post('/order/checkout', [App\Http\Controllers\API\OrderController::class, 'checkout'])->name('api.order.checkout');
 Route::get('/order/getPendingDPOrder', [App\Http\Controllers\API\OrderController::class, 'getPendingDPOrder'])->name('api.order.getPendingDPOrder');
 Route::post('/order/cancel', [App\Http\Controllers\API\OrderController::class, 'cancel'])->name('api.order.cancel');
+Route::post('/order/done', [App\Http\Controllers\API\OrderController::class, 'done'])->name('api.order.done');
 Route::post('/payment', [App\Http\Controllers\API\PaymentController::class, 'store'])->name('api.payment.store');
 
 Route::get('/address', [App\Http\Controllers\API\AddressController::class, 'index'])->name('api.address');
