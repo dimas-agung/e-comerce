@@ -133,7 +133,7 @@
             dataType: "json",
             async:false,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $('#product_category_id').empty().append('<option selected="selected" value="">Pilih Product Kategori</option>')
                 data.forEach(val => {
 
@@ -158,8 +158,9 @@
                $('#title_series').val(data.title);
                $('#description_series').val(data.description);
                $('#product_category_id').val(data.product_category_id);
-               if (data,picture) {
+               if (data.picture) {
                    let src = 'storage/'+data.picture;
+                   console.log(data);
                    $("#imgPreviewSeries").attr("src", src);
                 
                }
