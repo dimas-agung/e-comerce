@@ -184,6 +184,23 @@ class OrderController extends Controller
         return redirect('order')->with('success', 'Data Order has been updated!');
         // return $order;
     }
+    public function addPayment(Request $request, Order $order)
+    {
+        $nominal_transfer = $request->input('total_payment');
+        $last_total_payment = $order->total_payment ? 0 : $order->total_payment;
+        $nominal_transfer += $last_total_payment;
+        $order->update(['total_payment' => $nominal_transfer]);
+        $payment = Payment::create([
+            'orders_id' => $order->id,
+            'users_id' => $order->users_id,
+            'status_payment' => 'PAYMEMT',
+            'nominal' => $nominal_transfer,
+            'img' => null,
+            'note' => 'PAYMEMT',
+        ]); 
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
     public function updateResi(Request $request, Order $order)
     {
         $no_resi = $request->input('no_resi');
