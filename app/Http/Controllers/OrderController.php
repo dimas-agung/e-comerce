@@ -206,8 +206,6 @@ class OrderController extends Controller
         $no_resi = $request->input('no_resi');
         $expedition_id = $request->input('expedition_id');
         $order->update(['no_resi' => $no_resi,'expedition_id'=>$expedition_id]);
-        // ExpiredOrderShipJob::dispatch($order)->delay(now()->addDays(14));
-        ExpiredOrderShipJob::dispatch($order)->delay(now()->addMinutes(1));
         return redirect('order')->with('success', 'Data Order has been updated!');
         // return $order;
     }

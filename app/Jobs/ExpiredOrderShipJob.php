@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ExpiredOrderShipJob implements ShouldQueue
 {
@@ -16,9 +17,9 @@ class ExpiredOrderShipJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data = $data;
+        // $this->data = $data;
     }
 
     /**
@@ -27,6 +28,14 @@ class ExpiredOrderShipJob implements ShouldQueue
     public function handle(): void
     {
         //
-        $order = Order::where('id',$this->data->id)->update(['status' => Order::SUCCESS_STATUS ]);
+        //cek order expired
+        $orders = Order::where('order_status_id',Order::SHIPPING_STATUS)->get();
+        foreach ($orders as $key => $value) {
+            $diff = now()->diffInDays($value->updated_at);
+            if($diff >= 14){
+                $order = Order::where('id',$value->id)->update(['order_status_id' => Order::SUCCESS_STATUS ]);
+                Log::channel('info')->info('Order Kode :' .$order->order_no.' telah selesai otomatis');
+            }
+        }
     }
 }
