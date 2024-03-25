@@ -2,7 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\EnsureUserHasRole;
+use App\Http\Middleware\Role;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -21,6 +24,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+       EnsureUserHasRole::class,
     ];
 
     /**

@@ -95,22 +95,25 @@ Route::controller(App\Http\Controllers\AddressController::class)->group(function
     Route::post('/address/{address}/activated', 'activated')->name('address.activated');
     Route::post('/address/{address}/nonactive', 'nonactive')->name('address.nonactive');
 });
-Route::controller(App\Http\Controllers\OrderController::class)->group(function () {
-    Route::get('/order', 'index')->name('order.index');
-    Route::get('/order/create', 'create')->name('order.create');
-    Route::post('/order', 'store')->name('order.store');
-    Route::get('/order/{order}', 'show')->name('order.show');
-    Route::get('/order/{address}/edit', 'edit')->name('order.edit');
-    Route::put('/order/{order}', 'update')->name('order.update');
-    Route::post('/order/{order}/cancel', 'cancel')->name('order.cancel');
-    Route::post('/order/{order}/push_status', 'pushStatus')->name('order.push_status');
-    Route::post('/order/{order}/update_resi', 'updateResi')->name('order.update_resi');
-    Route::post('/order/{order}/update_payment', 'updatePayment')->name('order.update_payment');
-    Route::post('/order/{order}/add_payment', 'addPaymemt')->name('order.add_payment');
-    Route::post('/order/{order}/update_payment2', 'updatePayment2')->name('order.update_payment2');
-    Route::post('/order/{order}/activated', 'activated')->name('order.activated');
-    Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
-});
+// Route::middleware('role:user')->group(function () {
+    
+    Route::controller(App\Http\Controllers\OrderController::class)->group(function () {
+        Route::get('/order', 'index')->name('order.index');
+        Route::get('/order/create', 'create')->name('order.create');
+        Route::post('/order', 'store')->name('order.store');
+        Route::get('/order/{order}', 'show')->name('order.show');
+        Route::get('/order/{address}/edit', 'edit')->name('order.edit');
+        Route::put('/order/{order}', 'update')->name('order.update');
+        Route::post('/order/{order}/cancel', 'cancel')->name('order.cancel');
+        Route::post('/order/{order}/push_status', 'pushStatus')->name('order.push_status');
+        Route::post('/order/{order}/update_resi', 'updateResi')->name('order.update_resi');
+        Route::post('/order/{order}/update_payment', 'updatePayment')->name('order.update_payment');
+        Route::post('/order/{order}/add_payment', 'addPaymemt')->name('order.add_payment');
+        Route::post('/order/{order}/update_payment2', 'updatePayment2')->name('order.update_payment2');
+        Route::post('/order/{order}/activated', 'activated')->name('order.activated');
+        Route::post('/order/{order}/nonactive', 'nonactive')->name('order.nonactive');
+    })->middleware('role:user');
+// });
 
 Route::controller(App\Http\Controllers\CarouselController::class)->group(function () {
     Route::get('/carousel', 'index')->name('carousel.index');

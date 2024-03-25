@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::table('address', function($table) {
-            $table->integer('is_default')->after('label')->default(0);
+            // $table->integer('is_default')->after('label')->default(0);
         });
     }
 
