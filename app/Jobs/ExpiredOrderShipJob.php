@@ -30,11 +30,14 @@ class ExpiredOrderShipJob implements ShouldQueue
         //
         //cek order expired
         $orders = Order::where('order_status_id',Order::SHIPPING_STATUS)->get();
+        Log::channel('info')->info('test :' .$orders.' ');
         foreach ($orders as $key => $value) {
             $diff = now()->diffInDays($value->updated_at);
             if($diff >= 14){
                 $order = Order::where('id',$value->id)->update(['order_status_id' => Order::SUCCESS_STATUS ]);
-                Log::channel('info')->info('Order Kode :' .$order->order_no.' telah selesai otomatis');
+                Log::channel('info')->info('test :' .$order.' ');
+                // $order = Order::where('id',$value->id)->update(['order_status_id' => Order::SUCCESS_STATUS ]);
+                // Log::channel('info')->info('Order Kode :' .$order->order_no.' telah selesai otomatis');
             }
         }
     }
