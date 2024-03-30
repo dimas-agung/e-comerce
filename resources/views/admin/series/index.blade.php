@@ -109,6 +109,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="exampleDataList" class="col-sm-2 col-form-label">Status Aktif</label>
+                                <div class="col-sm-10">
+                                    <select name="is_active" id="is_active" class="form-control" aria-label="Default select example">
+                                        <option>Pilih Status</option>
+                                        <option value="1">Aktif</option>
+                                        <option value="0">Nonactive</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>                                                                                                      
@@ -158,6 +169,8 @@
                $('#title_series').val(data.title);
                $('#description_series').val(data.description);
                $('#product_category_id').val(data.product_category_id);
+               $("#is_active").val(data.is_active);
+              
                if (data.picture) {
                    let src = 'storage/'+data.picture;
                    console.log(data);
