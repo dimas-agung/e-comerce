@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::table('address', function($table) {
-            $table->integer('is_default')->after('label')->default(0);
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 
@@ -22,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->integer('roles_id')->default(2)->comment('my comment')->change();
+        });
     }
 };

@@ -109,6 +109,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="exampleDataList" class="col-sm-2 col-form-label">Status Aktif</label>
+                                <div class="col-sm-10">
+                                    <select name="is_active" id="is_active" class="form-control" aria-label="Default select example">
+                                        <option>Pilih Status</option>
+                                        <option value="1">Aktif</option>
+                                        <option value="0">Nonactive</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>                                                                                                      
@@ -126,14 +137,14 @@
 <script>
 
     function editSeries(id) {
-        // alert(id)
+        //alert(id)
         $.ajax({
             url: "{{route('api.product_category')}}",
             method: "GET",
             dataType: "json",
             async:false,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $('#product_category_id').empty().append('<option selected="selected" value="">Pilih Product Kategori</option>')
                 data.forEach(val => {
 
@@ -154,12 +165,15 @@
             async:false,
             success: function (data) {
                 // console.log(data.title);
-               $('#series_id').val(data.id);
+               $('#series_id').val(id);
                $('#title_series').val(data.title);
                $('#description_series').val(data.description);
                $('#product_category_id').val(data.product_category_id);
-               if (data,picture) {
+               $("#is_active").val(data.is_active);
+              
+               if (data.picture) {
                    let src = 'storage/'+data.picture;
+                   console.log(data);
                    $("#imgPreviewSeries").attr("src", src);
                 
                }

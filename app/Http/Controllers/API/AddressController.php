@@ -13,7 +13,7 @@ class AddressController extends Controller
     function index(Request $request){
         $users_id = $request->input('users_id');
         $address_id = $request->input('address_id');
-      
+
         if ($users_id) {
             # code...
             $address= Address::with(['district.city.province'])->where('users_id',$users_id)->latest()->get();
@@ -21,11 +21,11 @@ class AddressController extends Controller
         }elseif ($address_id) {
             # code...
             $address= Address::with(['district.city.province'])->where('id',$address_id)->latest()->first();
-           
+
         }else{
             $address= Address::with(['district.city.province'])->latest()->get();
         }
-        
+
         return $address;
     }
     public function store(Request $request)
@@ -46,15 +46,16 @@ class AddressController extends Controller
         $district = District::with('city.province')->where('id',$request->input('districts_id'))->orderBy('name')->first();
         // return $request->input('postal_code');
         if ( $request->input('is_default') == 1) {
-            Address::where('users_id',$request->input('users_id'))->udpate([
+            Address::where('users_id',$request->input('users_id'))->update([
                 'is_default' => 0,
             ]);
         }
         $address = Address::create([
             'label' => $request->input('label'),
             'fullname' => $request->input('fullname'),
+            'phone_number' => $request->input('phone_number'),
             'users_id' => $request->input('users_id'),
-            'is_default' => $request->input('is_default'),
+            'is_default' => $request->input('is_default') ? '1':'0',
             'districts_id' => $request->input('districts_id'),
             'cities_id' => $district->city->id,
             'provinces_id' => $district->city->province->id,
@@ -67,7 +68,7 @@ class AddressController extends Controller
             'success' => true,
             'message' => 'Data Address berhasil diproses.',
             'data' => $address,
-        ], 201); 
+        ], 201);
     }
 
     public function update(Request $request, Address $address)
@@ -107,10 +108,22 @@ class AddressController extends Controller
             'success' => true,
             'message' => 'Data Address berhasil diproses.',
             'data' => $address,
-        ], 201); 
+        ], 201);
     }
     function getDistricts() {
         $district = District::with('city.province')->orderBy('name')->get();
         return $district;
     }
+    public function destroy(Address $address)
+    {
+        //
+        $address->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Address berhasil dihapus.',
+
+        ], 201);
+        // return Redirect::back()->with('success', 'Data Address has been deleted!');
+    }
+
 }

@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         // $pictures = [UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg'),UploadedFile::fake()->create('file.jpg')];
         // //
-        
+
 
         $users = User::latest()->get();
         // $provinces = Provinces::orderBy('name')->get();
@@ -86,7 +86,7 @@ class UserController extends Controller
     }
     public function edit(User $user)
     {
-     
+
         $district = District::orderBy('name')->get();
         $address = Address::with('district.city.province')->where('users_id',$user->id)->get();
         // return $address;
@@ -122,4 +122,5 @@ class UserController extends Controller
         $user->delete();
         return redirect('user')->with('success', 'Data User has been deleted!');
     }
+
 }

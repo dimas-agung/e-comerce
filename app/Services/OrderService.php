@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\CartDetail;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Payment;
@@ -121,6 +122,77 @@ class OrderService
        foreach ($orderItems as $key => $value) {
             // $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find(8);
             $product_varian = ProductVarian::with(['varian_detail1','varian_detail2'])->find($value['product_varian_id']);
+            $productvarian1 = $product_varian->varian_detail1->varians_name.' '.$product_varian->varian_detail1->name;
+            $productvarian2 = '';
+            if ($product_varian->varian_detail2) {
+                $productvarian2 = $product_varian->varian_detail2->varians_name.' '.$product_varian->varian_detail2->name;
+                $product_varian_name = $productvarian1.' - '.$productvarian2 ;
+            }
+            else{
+                $product_varian_name = $productvarian1;
+            }
+            $qty = $value['qty'];
+            $discount = 0;
+            $price_product = $product_varian->price;
+            $price_after_discount = $price_product - ($price_product * $discount/100);
+            $orderDetail = OrderDetail::create([
+                'orders_id' => $order->id,
+                'products_id' => $product_varian->products_id,
+                'product_varian_name' => $product_varian_name,
+                // 'shipping_price' => $shipping_price,
+                'qty' => $qty,
+                'price' => $price_product,
+                'discount' => $discount,
+                'price_after_discount' => $price_after_discount,
+            ]);
+            
+            
+       }
+        
+        
+        DB::commit();
+        return $order;
+    }
+    function checkout(
+        $users_id,
+        $order_no,
+        $name,
+        $phone,
+        $email,
+        $address,
+        $price,
+        $shipping_price,
+        $price_total,
+        $total_payment,
+        $order_status_id,
+        $expedition_id,
+        $order_type,
+        $note,
+        $cart_id
+
+     ) 
+     {
+       DB::beginTransaction();
+       $order = Order::create([
+        'order_no' => $order_no,
+        'name' => $name,
+        'phone' => $phone,
+        'email' => $email,
+        'address' => $address,
+        'price' => $price,
+        'shipping_price' => $shipping_price,
+        'price_total' => $price_total,
+        'total_payment' => $total_payment,
+        'order_status_id' => $order_status_id,
+        'expedition_id' => $expedition_id,
+        'order_type' => $order_type,
+        'note' => $note,
+        'users_id' => $users_id
+       ]);
+       $OrderDetail = CartDetail::with(['product_varian.varian_detail1','product_varian.varian_detail2'])->where('carts_id',$cart_id)->get();
+       foreach ($OrderDetail as $key => $value) {
+          
+            $product_varian = $value->product_varian;
             $productvarian1 = $product_varian->varian_detail1->varians_name.' '.$product_varian->varian_detail1->name;
             $productvarian2 = '';
             if ($product_varian->varian_detail2) {

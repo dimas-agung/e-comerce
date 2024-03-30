@@ -79,6 +79,7 @@ class OrderControllerTest extends TestCase
         ])->assertRedirect("/order")
             ->assertSessionHas("success", "Data Order has been created!");
     }
+    
     public function testUpdateStatusOrder()
     {
         $user = User::find(1);

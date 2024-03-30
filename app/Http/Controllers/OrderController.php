@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ExpiredOrderShipJob;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
 use App\Models\Payment;
@@ -180,6 +181,23 @@ class OrderController extends Controller
         $order->update(['total_payment' => $nominal_transfer]);
         $payment = Payment::where(['orders_id'=>$order->id])->latest()->first();
         $payment->update(['nominal' => $nominal_transfer]);
+        return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
+    public function addPayment(Request $request, Order $order)
+    {
+        $nominal_transfer = $request->input('total_payment');
+        $last_total_payment = $order->total_payment ? 0 : $order->total_payment;
+        $nominal_transfer += $last_total_payment;
+        $order->update(['total_payment' => $nominal_transfer]);
+        $payment = Payment::create([
+            'orders_id' => $order->id,
+            'users_id' => $order->users_id,
+            'status_payment' => 'PAYMEMT',
+            'nominal' => $nominal_transfer,
+            'img' => null,
+            'note' => 'PAYMEMT',
+        ]); 
         return redirect('order')->with('success', 'Data Order has been updated!');
         // return $order;
     }

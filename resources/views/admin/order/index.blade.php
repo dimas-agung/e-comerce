@@ -1747,7 +1747,8 @@
                     // 'Order has ben updated!!',
                     // 'success'
                     // )
-                    updateTotalPayment(id,nominal_bayar)
+                    // updateTotalPayment(id,nominal_bayar)
+                    addPayment(id,nominal_bayar)
                     swal({
                         title: "Success!",
                         text: "Order has ben updated!",
@@ -1814,9 +1815,9 @@
                 },
             });
         }
-        function updateTotalPayment2(id,total_payment) {
+        function addPayment(id,total_payment) {
             $.ajax({
-               url:`/public/order/${id}/update_payment2`,
+               url:`/public/order/${id}/add_payment`,
                 method: "POST",
                 data : {
                     total_payment : total_payment
