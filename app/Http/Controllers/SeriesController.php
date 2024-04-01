@@ -150,6 +150,10 @@ class SeriesController extends Controller
         $fullPath = "{$path}/{$file_name}";
         // $img = Image::make('public/foo.jpg')->resize(320, 240)->insert('public/{$path}/{$file_name}');
         Storage::disk('public')->put($fullPath, $file_compressed);
+        $file_name2= $file_name.'-mobile';
+        $fullPath = "{$path}/{$file_name2}";
+        $img1 = Image::make($image)->resize(800, 600)->encode();
+        Storage::disk('public')->put($fullPath, $img1);
         // $files->storePubliclyAs($path, $file_name, "public");
         $url = $path.'/'. $file_name;
         return $url;
