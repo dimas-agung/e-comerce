@@ -108,6 +108,7 @@ class SeriesController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'product_category_id' => $request->input('product_category_id'),
+            'is_active' => $request->input('is_active') ?? 1,
         ]);
         $path = 'carousel';
         $picture_default = $request->file('picture');
