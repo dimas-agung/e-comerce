@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Jobs\ExpiredOrderShipJob;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -225,6 +227,14 @@ class OrderController extends Controller
         $OrderStatusId = $request->input('status');
         $order->update(['order_status_id' => $OrderStatusId]);
         return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
+    public function exportReport(Request $request)
+    {
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        return Excel::download(new OrdersExport($start_date,$end_date), 'users.xlsx');
         // return $order;
     }
 }
