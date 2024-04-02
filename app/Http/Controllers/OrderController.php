@@ -234,7 +234,7 @@ class OrderController extends Controller
         
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-        return Excel::download(new OrdersExport($start_date,$end_date), 'order.xlsx');
+        return Excel::download(new OrdersExport($start_date,$end_date), 'order '.$start_date.'-'.$end_date.'.xlsx');
         // return $order;
     }
 }

@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <h2>Data orders</h2>
+    <h2>Data orders {{$start_date}} sd {{$end_date}}</h2>
     <table>
         <thead>
             <tr>
