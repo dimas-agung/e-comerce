@@ -1506,7 +1506,7 @@
                                 <!--Modal Footer-->
                                 <div class="modal-footer">
                                     <a  class="btn btn-secondary" data-dismiss="modal">Keluar</a>
-                                    <button type="button" type="submit" class="btn btn-danger">Buat Laporan</button>
+                                    <button type="submit" class="btn btn-danger">Buat Laporan</button>
                                 </div>
                             </form>
                           </div>
