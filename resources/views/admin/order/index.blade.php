@@ -1483,8 +1483,8 @@
                               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
                             </div>
                             <!-- Modal Body-->
+                            <form method="POST" action="{{route('order.export')}}">
                             <div class="modal-body">
-                                <form method="POST" action="{{route('order.export')}}">
                                     @csrf
                                     
                                     <div class="row">
@@ -1501,13 +1501,14 @@
                                             </div>
                                         </div>
                                     </div>                                                                                                      
-                                </form>
+                               
                             </div>
                             <!--Modal Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
                                 <button type="button" type="submit" class="btn btn-danger">Buat Laporan</button>
                             </div>
+                            </form>
                           </div>
                         </div>
                       </div>
