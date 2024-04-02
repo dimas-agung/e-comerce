@@ -86,7 +86,7 @@
                                                     <span class="text-success">{{$order->order_no}}</span> 
                                                 </a>
                                             <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{$order->created_at}}</span>
                                         </div>
                                         <div class="col-sm-2 mt-1 me-2 text-end">
                                             <a href="" class="text-decoration-none text-secondary link-disable">
@@ -436,7 +436,7 @@
                                                     <span class="text-success">{{$order->order_no}}</span> 
                                                 </a>
                                             <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{$order->created_at}}</span>
                                         </div>
                                         <div class="col-sm-2 mt-1 me-2 text-end">
                                             <a href="" class="text-decoration-none text-secondary link-disable">
@@ -608,7 +608,7 @@
                                                     <span class="text-success">{{$order->order_no}}</span> 
                                                 </a>
                                             <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{$order->created_at}}</span>
                                         </div>
                                         <div class="col-sm-2 mt-1 me-2 text-end">
                                             <a href="" class="text-decoration-none text-secondary link-disable">
@@ -782,7 +782,7 @@
                                                     <span class="text-success">{{$order->order_no}}</span> 
                                                 </a>
                                             <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                            <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{$order->created_at}}</span>
                                         </div>
                                         <div class="col-sm-2 mt-1 me-2 text-end">
                                             <a href="" class="text-decoration-none text-secondary link-disable">
@@ -1098,7 +1098,7 @@
                                                 <span class="text-success">{{$order->order_no}}</span> 
                                             </a>
                                         <span class="text-secondary me-2"><i class="fas fa-user me-2"></i>{{$order->name}}</span>
-                                        <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{date('d-M-Y H:i')}}</span>
+                                        <span class="text-secondary"><i class="fas fa-clock me-2"></i>{{$order->created_at}}</span>
                                     </div>
                                     <div class="col-sm-2 mt-1 me-2 text-end">
                                         <a href="" class="text-decoration-none text-secondary">
