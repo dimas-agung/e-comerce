@@ -94,7 +94,8 @@ class CarouselController extends Controller
             # code...
             // $file_name = $dataProduct['product_code'].'_default';
             $file_name = 'Carousel_'.$carousel->id.'.png';
-            $url = self::upploadFile($picture_default,$path,$file_name);
+            $file_name2 = 'Carousel_'.$carousel->id.'-mobile.png';
+            $url = self::upploadFile($picture_default,$path,$file_name,$file_name2);
             // return $url;
             $carousel->update([ 
                 'picture' => $url,
@@ -120,7 +121,7 @@ class CarouselController extends Controller
         // return $address;
         return redirect('carousel')->with('success', 'Data Carousel has been nonactive!');
     }
-    function upploadFile($file,$path,$file_name){
+    function upploadFile($file,$path,$file_name,$file_name2){
   
         $image = Image::make($file->getRealPath());
         $image->encode('jpg', 70); 
@@ -130,6 +131,9 @@ class CarouselController extends Controller
         $fullPath = "{$path}/{$file_name}";
         // $img = Image::make('public/foo.jpg')->resize(320, 240)->insert('public/{$path}/{$file_name}');
         Storage::disk('public')->put($fullPath, $file_compressed);
+        $fullPath = "{$path}/{$file_name2}";
+        $img1 = Image::make($image)->resize(600, 700)->encode();
+        Storage::disk('public')->put($fullPath, $img1);
         // $files->storePubliclyAs($path, $file_name, "public");
         $url = $path.'/'. $file_name;
         return $url;
