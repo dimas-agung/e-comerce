@@ -90,8 +90,10 @@ class OrderController extends Controller
             // 'price_detail.*'  => ['required','min:1'],
             'discount.*'  => ['required','min:1'],
         ]);
+        $count_order_this_day = Order::whereDate('created_at', today())->count();
+            $order_no = generate_order_no($count_order_this_day);
         $this->orderService->create(
-            $request->input('order_no'),
+            $order_no,
             $request->input('address'),
             $request->input('price'),
             $request->input('shipping_price'),
