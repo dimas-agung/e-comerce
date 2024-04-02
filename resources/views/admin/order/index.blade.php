@@ -1491,13 +1491,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="inputName">Tanggal Awal</label>
-                                                <input type="date" id="start_date" name="start_date" class="form-control col-2" value="2023-11-08">
+                                                <input type="date" id="start_date" name="start_date" class="form-control col-2" value="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="inputName">Tanggal Akhir</label>
-                                                <input type="date" id="end_date" name="end_date" class="form-control col-2" value="2023-11-08">
+                                                <input type="date" id="end_date" name="end_date" class="form-control col-2" value="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                     </div>                                                                                                      
