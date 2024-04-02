@@ -1484,30 +1484,30 @@
                             </div>
                             <!-- Modal Body-->
                             <form method="POST" action="{{route('order.export')}}">
-                            <div class="modal-body">
-                                    @csrf
-                                    
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="inputName">Tanggal Awal</label>
-                                                <input type="date" id="start_date" name="start_date" class="form-control col-2" value="{{date('Y-m-d')}}">
+                                @csrf
+                                <div class="modal-body">
+                                        
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="inputName">Tanggal Awal</label>
+                                                    <input type="date" id="start_date" name="start_date" class="form-control col-2" value="{{date('Y-m-d')}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="inputName">Tanggal Akhir</label>
-                                                <input type="date" id="end_date" name="end_date" class="form-control col-2" value="{{date('Y-m-d')}}">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="inputName">Tanggal Akhir</label>
+                                                    <input type="date" id="end_date" name="end_date" class="form-control col-2" value="{{date('Y-m-d')}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>                                                                                                      
-                               
-                            </div>
-                            <!--Modal Footer-->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                                <button type="button" type="submit" class="btn btn-danger">Buat Laporan</button>
-                            </div>
+                                        </div>                                                                                                      
+                                
+                                </div>
+                                <!--Modal Footer-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                                    <button type="button" type="submit" class="btn btn-danger">Buat Laporan</button>
+                                </div>
                             </form>
                           </div>
                         </div>
