@@ -13,7 +13,7 @@ class PaymentService
     public function __construct() {
         $this->uploadService =  new UploadService();
     }
-    function create( $order_no,$img_transfer) {
+    function create($order_no,$img_transfer) {
         $order = Order::where(['order_no' => $order_no])->first();
         $path = 'payment';
         $picture = $img_transfer;

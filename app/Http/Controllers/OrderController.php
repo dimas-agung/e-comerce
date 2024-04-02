@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Jobs\ExpiredOrderShipJob;
 use App\Models\Order;
 use App\Models\OrderStatusHistory;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -90,8 +92,10 @@ class OrderController extends Controller
             // 'price_detail.*'  => ['required','min:1'],
             'discount.*'  => ['required','min:1'],
         ]);
+        $count_order_this_day = Order::whereDate('created_at', today())->count();
+            $order_no = generate_order_no($count_order_this_day);
         $this->orderService->create(
-            $request->input('order_no'),
+            $order_no,
             $request->input('address'),
             $request->input('price'),
             $request->input('shipping_price'),
@@ -223,6 +227,14 @@ class OrderController extends Controller
         $OrderStatusId = $request->input('status');
         $order->update(['order_status_id' => $OrderStatusId]);
         return redirect('order')->with('success', 'Data Order has been updated!');
+        // return $order;
+    }
+    public function exportReport(Request $request)
+    {
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        return Excel::download(new OrdersExport($start_date,$end_date), 'users.xlsx');
         // return $order;
     }
 }

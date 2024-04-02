@@ -72,8 +72,8 @@ class OrderController extends Controller
     function store(Request $request){
         try {
             //code...
-            $last_order_id = Order::latest()->first() ? Order::latest()->first()->id :0;
-            $order_no = 'ORDER'.$last_order_id+1;
+            $count_order_this_day = Order::whereDate('created_at', today())->count();
+            $order_no = generate_order_no($count_order_this_day);
             $biodata = (object)$request->input('biodata');
         
            
