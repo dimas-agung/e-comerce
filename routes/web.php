@@ -98,7 +98,7 @@ Route::controller(App\Http\Controllers\AddressController::class)->group(function
 Route::controller(App\Http\Controllers\OrderController::class)->group(function () {
     Route::get('/order', 'index')->name('order.index');
     Route::get('/order/create', 'create')->name('order.create');
-    Route::get('/order/export', 'exportReport')->name('order.export');
+    Route::post('/order/exports', 'exportReport')->name('order.export');
     Route::post('/order', 'store')->name('order.store');
     Route::get('/order/{order}', 'show')->name('order.show');
     Route::get('/order/{address}/edit', 'edit')->name('order.edit');
