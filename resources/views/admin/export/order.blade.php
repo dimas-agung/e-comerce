@@ -43,7 +43,7 @@
                 $order_status = '';
                 switch ($order->order->order_status_id) {
                 case '1':
-                    if (count($order->payment) > 0) {
+                    if (count($order->order->payment) > 0) {
                     # code...
                     $order_status = 'Menunggu Konfirmasi';
                     }else{
