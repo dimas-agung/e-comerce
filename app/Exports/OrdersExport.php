@@ -20,7 +20,9 @@ class OrdersExport implements FromView
     public function view(): View
     {
         return view('admin.export.order', [
-            'orders' => OrderDetail::with(['order','product.varians.detail'])->whereBetween('created_at', [$this->start_date, $this->end_date])->get()
+            'orders' => OrderDetail::with(['order','product.varians.detail'])
+                ->where('created_at', '>=', $this->start_date)
+            ->where('created_at', '<=', $this->end_date)->get()
         ]);
     }
 }
