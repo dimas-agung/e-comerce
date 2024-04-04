@@ -191,7 +191,9 @@ class OrderService
        ]);
        $OrderDetail = CartDetail::with(['product_varian.varian_detail1','product_varian.varian_detail2'])->where('carts_id',$cart_id)->get();
        foreach ($OrderDetail as $key => $value) {
-          
+            if ($value->product_varian->is_active == 0) {
+                continue;
+            }
             $product_varian = $value->product_varian;
             $productvarian1 = $product_varian->varian_detail1->varians_name.' '.$product_varian->varian_detail1->name;
             $productvarian2 = '';
