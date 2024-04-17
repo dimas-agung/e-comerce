@@ -8,12 +8,18 @@ use App\Models\District;
 use App\Models\Provinces;
 use App\Models\User;
 use App\Models\Village;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    private UserService $userService;
+    public function __construct() {
+        $this->userService =  new UserService();
+        // $this->middleware('auth');
+    }
     //
     public function index()
     {
@@ -121,6 +127,20 @@ class UserController extends Controller
         //
         $user->delete();
         return redirect('user')->with('success', 'Data User has been deleted!');
+    }
+    public function change_password(Request $request,User $user)  {
+        $email = $request->input('email');
+        $oldPassword = $request->input('old_password');
+        $newPassword = $request->input('new_password');
+        // return $newPassword;
+        $response = $this->userService->change_password_admin($oldPassword,$newPassword);
+        if (!$response){
+            // return 'Username / Password Salah!';
+            return redirect()->back()->with('error', 'Username / Password Salah!');
+            
+        }
+        // return 'success';
+        return redirect()->back()->with('success', 'Pasword User berhasil di ubah');
     }
 
 }

@@ -66,7 +66,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Notifikasi</a></li>
-                        <li><a class="dropdown-item" href="detail-user.html">Akun</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#UbahPasswordAuth">Ubah Password</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <form method="POST" action="{{route('logout')}}">
@@ -156,6 +156,69 @@
                 </main>
             </div>
         </div>
+        <!--Modal Ubah Password-->
+        <div class="modal fade" id="UbahPasswordAuth" tabindex="-1" role="dialog" aria-labelledby="modalUser" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                <h5 class="modal-title" id="modalUser">Ubah Password</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+                </div>
+                <form method="POST" action="{{route('user.change_password')}}">
+                    <!-- Modal Body-->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="inputPassOld">Password Lama</label>
+                                        <input type="password" id="inputPassOld" name="old_password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassNew">Password Baru</label>
+                                        <input type="password" id="inputPassNew" name="new_password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassNewRe">Input Ulang Password Baru</label>
+                                        <input type="password" id="inputPassNewRe" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                                                                                      
+                    </div>
+                    <!--Modal Footer-->
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-dismiss="modal">Keluar</a>
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        {{-- @if (session()->has('success'))
+        <script>
+            alert({{session('success')}})
+        </script>
+        @endif
+        @if (session()->has('error'))
+        <script>
+            alert({{ $error}})
+        </script>
+        @endif
+        @if (session('success'))
+            <script>
+                alert({{session('success')}})
+            </script>
+            
+        @endif
+        @if (session('error'))
+            {{12333333}}
+            <script>
+                alert({{session('error')}})
+            </script>
+            
+        @endif --}}
+        <!--End Modal Ubah Password-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('js/scripts.js')}}"></script>
@@ -163,7 +226,7 @@
         <script src="{{asset('assets/demo/chart-area-demo.js')}}"></script>
         <script src="{{asset('assets/demo/chart-bar-demo.js')}}"></script>
         {{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
         <script src="{{asset('js/multi-input.js')}}"></script>
 
@@ -171,6 +234,29 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         @yield('script')
         <script type="text/javascript">
+            @if (session('success'))
+                Swal.fire({
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    icon: 'success',
+                    // toast: true,
+                    // position: 'top-end',
+                    // showConfirmButton: false,
+                    // timer: 2000 // Durasi tampilan SweetAlert dalam milidetik
+                });
+            @endif
+            @if (session('error'))
+        
+                Swal.fire({
+                    title: 'Error!',
+                    text: '{{ session('error') }}',
+                    icon: 'error',
+                    // toast: true,
+                    // position: 'top-end',
+                    // showConfirmButton: false,
+                    // timer: 2000 // Durasi tampilan SweetAlert dalam milidetik
+                });
+            @endif
             $('.tagInput').amsifySuggestags();
             // $(document).ready(function() {
             //     $('.select2').select2();

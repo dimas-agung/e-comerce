@@ -20,4 +20,15 @@ class UserService
         }
         return false;
     }
+    public function change_password_admin($oldPassword,$newPassword){
+        
+        $user = Auth::user();
+        if (Auth::attempt(['email' => $user->email, 'password' => $oldPassword])) {
+            // Password lama benar, lanjutkan dengan mengubah password
+            $user->password = bcrypt($newPassword);
+            $user->save();
+            return true;
+        }
+        return false;
+    }
 }

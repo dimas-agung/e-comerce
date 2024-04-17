@@ -31,6 +31,7 @@ Route::controller(App\Http\Controllers\UserController::class)->group(function ()
     Route::put('/user/{user}', 'update')->name('user.update');
     Route::delete('/user/{user}', 'destroy')->name('user.destroy');
     Route::post('/user/{user}/activated', 'activated')->name('user.activated');
+    Route::post('/user/change_password','change_password')->name('user.change_password');
     Route::post('/user/{user}/nonactive', 'nonactive')->name('user.nonactive');
 });
 Route::controller(App\Http\Controllers\ProductCategoryController::class)->group(function () {
