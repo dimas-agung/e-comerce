@@ -10,7 +10,7 @@ class Series extends Model
     use HasFactory;
     protected $table = 'series';
     protected $fillable = [
-       'picture','title','description','product_cotegory_id'
+       'picture','title','description','product_category_id'
     ];
 
     public function category()
