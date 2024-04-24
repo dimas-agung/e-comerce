@@ -66,7 +66,8 @@ class OrderController extends Controller
     function getPendingDPOrder(Request $request)
     {
         $users_id = $request->input('users_id');
-        $new_orders = Order::where(['users_id'=>$users_id,'order_status_id'=>Order::WAITING_DP_STATUS])->latest()->get();
+        $new_orders = Order::with(['detail.product'])->doesntHave('payment')->where('order_status_id',Order::WAITING_DP_STATUS)->where('users_id',$users_id)->latest()->get();
+        // $new_orders = Order::where(['users_id'=>$users_id,'order_status_id'=>Order::WAITING_DP_STATUS])->latest()->get();
         return $new_orders;
     }
     function store(Request $request){
