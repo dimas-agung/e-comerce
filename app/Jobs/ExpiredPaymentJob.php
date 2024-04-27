@@ -33,7 +33,7 @@ class ExpiredPaymentJob implements ShouldQueue
         foreach ($orders as $key => $value) {
             $diff = now()->diffInMinutes($value->created_at);
             if(($diff/60) >= 24){
-                $order = Order::where('id',$value->id)->update(['order_status_id' => Order::CANCEL_STATUS ]);
+                $order = Order::where('id',$value->id)->update(['order_status_id' => Order::CANCEL_STATUS,'reason_cancel' => 'Order melebihi batas waktu pembayaran' ]);
                 Log::channel('info')->info('Order Kode :' .$value->order_no.' melebihi batas waktu pembayaran');
             }
         }
