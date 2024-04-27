@@ -14,8 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new ExpiredOrderShipJob())->hourly();
-        $schedule->job(new ExpiredPaymentJob())->hourly();
+        $schedule->job(new ExpiredOrderShipJob())->everyMinute();
+        $schedule->job(new ExpiredPaymentJob())->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 
